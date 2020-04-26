@@ -2,10 +2,13 @@ from django.db import models
 from ..utils.constants import short_name_len , path_len
 
 class Project(models.Model):
-	'''一个课题
+	'''一个项目
 	'''
-	name = models.CharField(max_length = short_name_len)
+	name = models.CharField(max_length = short_name_len , unique = True)
 	path = models.CharField(max_length = path_len)
+
+	def __str__(self):
+		return self.name
 
 class Experiment(models.Model):
 	'''一次实验
@@ -20,6 +23,7 @@ class Experiment(models.Model):
 
 class ExperimentGroup(models.Model):
 	name = models.CharField(max_length = short_name_len)
+	project = models.ForeignKey(Project , on_delete = models.CASCADE , related_name = "groups")
 
 	def __str__(self):
 		return self.name
