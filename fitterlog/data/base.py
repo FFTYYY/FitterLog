@@ -1,12 +1,5 @@
 from YTools.universe.extra_type import Struct
 
-def find_or_new(clas , **kwargs):
-	kwargs = {x : kwargs[x] for x in kwargs if kwargs[x] is not None } #去除None（不查找项）
-	obj = clas.objects.filter(**kwargs)
-	if len(obj) >= 1:
-		return obj[0]
-	return clas(**kwargs)
-
 def make_get(name):
 	def gets(self):
 		return getattr(self.stl_obj , self.name_map[name] )
@@ -26,6 +19,9 @@ class Object(Struct):
 		self.stl_obj = stl_obj
 		self.stl_obj.save()
 
+		self.set_name_map(**kwargs)
+
+	def set_name_map(self , **kwargs):
 		self.name_map = kwargs
 		for name in kwargs:
 			self._set_property(

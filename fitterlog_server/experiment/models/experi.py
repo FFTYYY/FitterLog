@@ -16,7 +16,7 @@ class Experiment(models.Model):
 	logs = models.TextField(default = "")
 	group = models.ForeignKey("ExperimentGroup" , on_delete = models.CASCADE , related_name = "experiments")
 
-	#start_date
+	start_time = models.DateField(auto_now = True)
 
 	def __str__(self):
 		return self.name
