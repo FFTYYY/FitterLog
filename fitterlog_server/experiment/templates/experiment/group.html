@@ -1,0 +1,17 @@
+<!-- 最顶层目录，显示项目组  -->
+
+<p>Group: {{group.name}}</p>
+
+<p>Experiments:</p>
+
+{% for experiment in experiments%}
+<a href = "/experiment/{{experiment.id}}">experiment_{{experiment.start_time}}</a><br/>
+{% endfor %}
+
+<p>-</p>
+
+<form action = "/{{group.id}}/new_experiment" method = "post">
+	{% csrf_token %}
+
+	<input type = "submit" value = "new experiment"/>
+</form>

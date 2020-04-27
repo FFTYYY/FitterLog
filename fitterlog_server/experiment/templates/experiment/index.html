@@ -1,1 +1,17 @@
 <!-- 最顶层目录，显示项目组  -->
+
+<p>Projects:</p>
+
+{% for project in projects%}
+<a href = "/project/{{project.id}}">{{project.name}}</a><br/>
+{% endfor %}
+
+<p>-</p>
+
+<form action = "new_project" method = "post">
+	{% csrf_token %}
+
+	name: <input type = "text" name = "name"/>
+	path: <input type = "text" name = "path"/>
+	<input type = "submit" value = "new project"/>
+</form>
