@@ -1,10 +1,14 @@
 {%load static%}
 
 <head>
-		<link rel = "stylesheet" href = {% static "/experiment/css/main.css" %} type = "text/css" />
-		<link rel = "stylesheet" href = {% static "/experiment/css/left_part.css" %} type = "text/css" />
-		<link rel = "stylesheet" href = {% static "/experiment/css/right_part.css" %} type = "text/css" />
-		<link rel = "stylesheet" href = {% static "/experiment/css/header.css" %} type = "text/css" />
+		<link rel = "stylesheet" href = {% static "/experiment/css/project/main.css" %} type = "text/css" />
+		<link rel = "stylesheet" href = {% static "/experiment/css/project/left_part.css" %} type = "text/css" />
+		<link rel = "stylesheet" href = {% static "/experiment/css/project/right_part.css" %} type = "text/css" />
+		<link rel = "stylesheet" href = {% static "/experiment/css/project/header.css" %} type = "text/css" />
+		
+		<!-- 为鼠标离开按钮的行为添加动画 -->
+		<script src = {% static "/experiment/js/project.js" %}></script>
+
 </head>
 
 <body>
@@ -65,9 +69,6 @@
 
 	</div>
 </body>
-
-<!-- 为鼠标离开按钮的行为添加动画 -->
-<script src = {% static "/experiment/js/project.js" %}></script>
 
 
 <!--

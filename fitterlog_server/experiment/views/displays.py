@@ -3,7 +3,7 @@ from django.http import HttpResponse , Http404
 from ..models import Project , ExperimentGroup , Experiment
 from ..models import Variable , VariableTrack
 from .base import get_path
-
+from .get_experiment import experiment_list_to_str_list
 
 def index(request):
 	context = {
@@ -25,9 +25,14 @@ def group(request , group_id):
 
 	group = ExperimentGroup.objects.get(id = group_id)
 
+	head , lines = experiment_list_to_str_list( group.experiments.all() )
+	ids = [str(x.id) for x in group.experiments.all()]
+	lines = [ [ids[i]] + lines[i] for i in range(len(lines))] 
+
 	context = {
 		"group": group , 
-		"experiments": group.experiments.all() , 
+		"head" : head , 
+		"lines" : lines , 
 	}
 	return render(request , get_path("group") , context)
 

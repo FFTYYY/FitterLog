@@ -1,4 +1,59 @@
+{%load static%}
 
+<head>
+		<link rel = "stylesheet" href = {% static "/layui/css/layui.css" %} type = "text/css" />
+		
+		<!-- 为鼠标离开按钮的行为添加动画 -->
+		<script src = {% static "/layui/layui.js" %}></script>
+
+</head>
+
+
+<body>
+
+<table lay-filter="main_table">
+	<thead>
+		<tr>
+			<th lay-data = "{field : 'id', fixed : 'left' , width : 100 , sort : true}">id</th>
+			{% for h in head %}
+			<th lay-data = "{field : '{{h}}' , minWidth : 50 , sort : true}">{{h}}</th>
+			{% endfor %}
+
+		</tr> 
+	</thead>
+	<tbody>
+
+		{% for line in lines%}
+		<tr>
+			{% for val in line %}
+			<td>{{val}}</td>
+			{% endfor %}
+		</tr>
+		{% endfor %}
+
+	</tbody>
+</table>
+
+	<script>
+
+		layui.use("table", function(){
+			var table = layui.table;
+			 
+			//转换静态表格
+			table.init("main_table", {
+			  limit: 10 , 
+			  page: true , 
+			  skin: "line" , 
+			}); 
+	
+		});
+
+	</script>
+
+
+</body>
+
+<!--
 <p>Group: {{group.name}}</p>
 
 <p>Experiments:</p>
@@ -19,3 +74,4 @@
 
 <a href = "/project/{{group.project.id}}">back</a>
 
+-->
