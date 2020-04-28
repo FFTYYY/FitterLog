@@ -1,0 +1,16 @@
+#right_part{	
+	position: absolute;
+	left: 20%;
+	top: 0;
+	height: 100%;
+	width: 80%;
+}
+
+.right_content{
+	position: absolute;
+	left: 0;
+	top: 0;
+	height: 100%;
+	width: 100%;
+
+}

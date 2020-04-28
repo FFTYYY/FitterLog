@@ -1,3 +1,53 @@
+{%load static%}
+
+<head>
+		<link rel = "stylesheet" href = {% static "/experiment/css/main.css" %} type = "text/css" />
+		<link rel = "stylesheet" href = {% static "/experiment/css/left_part.css" %} type = "text/css" />
+		<link rel = "stylesheet" href = {% static "/experiment/css/right_part.css" %} type = "text/css" />
+</head>
+
+<body>
+	<div id = "header"> 
+		<p id = "project_name">【项目】{{project.name}}</p>
+	</div>
+
+	<div id = "content">
+
+		<div id = "left_part">
+			<div id = "left_title">
+				<p>实验组列表</p>
+			</div>
+
+			<ul id = "group_list_container">
+			{% for group in groups %}
+				<li class = "group_list" group_id = "{{group.id}}">
+					<a class = "group_list_a" href = "/group/{{group.id}}" >
+						{{group.name}}
+					</a>
+				</li>
+			{% endfor %}
+			</ul>
+		</div>
+
+
+		<div id = "right_part">
+
+			{% for group in groups%}
+				<div class = "right_content hidden" id = "right_content_{{group.id}}">
+				<p">name: {{group.name}}</p>
+				</div>
+			{% endfor %}
+
+		</div>
+
+	</div>
+</body>
+
+<!-- 为鼠标离开按钮的行为添加动画 -->
+<script src = {% static "/experiment/js/project.js" %}></script>
+
+
+<!--
 <p>Project: {{project.name}}</p>
 
 <p>Groups:</p>
@@ -18,3 +68,5 @@
 <p>-</p>
 
 <a href = "/">back</a>
+-->
+

@@ -1,0 +1,98 @@
+#left_part{
+	position: absolute;
+	left: 0;
+	top: 0;
+	height: 100%;
+	width: 20%;
+
+	background-color: #626275;
+}
+
+#left_title{
+	position: absolute;
+	left: 0;
+	top: 0;
+	height: 5%;
+	width: 100%;
+}
+
+#left_title p{
+	position: absolute;
+	left: 0;
+	top: 0;
+	height: 100%;
+	width: 100%;
+
+	text-align: center;
+}
+
+#group_list_container{
+	position: absolute;
+	left: 0;
+	top: 5%;
+	height: 95%;
+	width: 100%;
+}
+
+@-webkit-keyframes group_list_hover
+{
+	from 
+	{
+		color : #D3D3D3FF;
+		background-color: inherit;
+	}
+	to 
+	{
+		color : #0F0F0FFF;
+		background-color: #B2B2B2FF;
+	}
+}
+
+@-webkit-keyframes group_list_unhover
+{
+	from 
+	{
+		color : #0F0F0FFF;
+		background-color: #B2B2B2FF;
+	}
+	to 
+	{
+		color : #D3D3D3FF;
+		background-color: inherit;
+	}
+}
+
+.group_list
+{
+	margin-top: 3px;
+	margin-left : 0;
+	width : 100%;
+	line-height: 20px;
+	list-style : none;
+}
+
+.group_list_unhover_anime
+{
+	-webkit-animation : group_list_unhover 0.5s;
+}
+
+.group_list:hover
+{
+	color : #0F0F0FFF;
+	background-color: #B2B2B2FF;
+	-webkit-animation : group_list_hover 1s;
+	-webkit-animation-timing-function: ease-out;
+
+}
+.group_list_a
+{
+	margin-left: 5px;
+	font-size: 16px;
+	text-decoration : none;
+	color : inherit;
+	font-family : "STXihei" ;
+	width : 100%;
+	display : block;
+
+	cursor : default;
+}

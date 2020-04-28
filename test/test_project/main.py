@@ -3,7 +3,7 @@ sys.path.append("../..")
 from fitterlog.interface import Experiment
 from config import arg_proxy
 
-E = Experiment(project_name = "hello" , group_name = "sdf")
+E = Experiment(project_name = "hello" , group_name = "sdyyyf")
 E.use_argument_proxy( arg_proxy )
 
 E.new_variable("loss" , type = int , default = 0)
