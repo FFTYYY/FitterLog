@@ -4,11 +4,34 @@
 		<link rel = "stylesheet" href = {% static "/experiment/css/main.css" %} type = "text/css" />
 		<link rel = "stylesheet" href = {% static "/experiment/css/left_part.css" %} type = "text/css" />
 		<link rel = "stylesheet" href = {% static "/experiment/css/right_part.css" %} type = "text/css" />
+		<link rel = "stylesheet" href = {% static "/experiment/css/header.css" %} type = "text/css" />
 </head>
 
 <body>
 	<div id = "header"> 
-		<p id = "project_name">【项目】{{project.name}}</p>
+
+		<div id = "left_header">
+			<p id = "project_name">【项目】{{project.name}}</p>
+		</div>
+
+		<div id = "middle_header">
+			<p id = "project_intro"> 此处应有项目介绍 </p>
+		</div>
+		
+		<div id = "right_header">
+
+			<form action = "/project/{{project.id}}/new_group" method = "post">
+				{% csrf_token %}
+
+				<p id = "new_group_text"> 【实验组名】 </p> 
+				<input type = "text" name = "name" id = "new_group_name_inp" autocomplete = "off"/>
+				<input type = "submit" value = "新建" id = "new_group_button"/>
+			</form>
+
+			<a href = "/" id = "go_back">◀返回</a>
+		
+		</div>
+
 	</div>
 
 	<div id = "content">

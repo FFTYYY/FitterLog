@@ -1,5 +1,4 @@
 body{
-	user-select: none;
 	overflow : hidden;
 }
 
@@ -7,8 +6,10 @@ body{
 	border: 0;
 	margin: 0;
 	padding: 0;
+	outline: none;
 
 	color: #D3D3D3FF;
+	cursor: default;
 }
 
 #header{
@@ -29,9 +30,15 @@ body{
 	width: 100%;
 
 	background-color: #666679;
+	
 }
 
 .hidden{
 	display: none;
+}
 
+::selection
+{
+	background : #DDDDDD; 
+	color : #383838FF;
 }
