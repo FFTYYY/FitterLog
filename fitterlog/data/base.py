@@ -19,7 +19,7 @@ def make_set(name):
 
 class Object(Struct):
 
-	def __init__(self , sql_class , from_obj , **kwargs):
+	def __init__(self , sql_class , from_obj , force_new = False , **kwargs):
 		'''
 		
 		参数：
@@ -30,8 +30,11 @@ class Object(Struct):
 		super().__init__()
 
 		self.sql_obj = from_obj
-		if from_obj is None:
-			self.sql_obj = find_or_new(sql_class , **kwargs)
+		if force_new:
+			self.sql_obj = sql_class(from_obj , **kwargs)
+		else:
+			if from_obj is None:
+				self.sql_obj = find_or_new(sql_class , **kwargs)
 
 		self.sql_obj.save()
 

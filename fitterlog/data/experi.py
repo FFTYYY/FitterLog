@@ -19,8 +19,11 @@ class Project(Object):
 			path 		= "path" ,
 			sql_groups 	= "groups" ,
 			id 			= "id" , 
-		)		
-		self.groups = make_obj_list(ExperimentGroup , self.sql_groups.all())
+		)
+
+	def find(name):
+		return SQL_Project.objects.get(name = name)
+
 
 class ExperimentGroup(Object):
 	'''一组实验
@@ -30,13 +33,14 @@ class ExperimentGroup(Object):
 		super().__init__(SQL_ExperimentGroup , from_obj , name = name , project_id = none_or_id(project))
 
 		self.set_name_map(
-			name 		= "name" , 
-			id 			= "id" , 
+			name 			= "name" , 
+			id 				= "id" , 
 			sql_experiments = "experiments" , 
+			sql_project 	= "project" , 
 		)
-		self.project = project
-		self.experiments = make_obj_list(Experiment , self.sql_experiments.all())
 
+	def find(name , project_name):
+		return SQL_ExperimentGroup.objects.get(name = name , project = Project.find(name = project_name))
 
 class Experiment(Object):
 	'''一次实验
@@ -44,14 +48,14 @@ class Experiment(Object):
 
 	def __init__(self , group = None , from_obj = None):
 
-		super().__init__(SQL_Experiment , from_obj , group_id = none_or_id(group))
+		super().__init__(SQL_Experiment , from_obj , force_new = True , group_id = none_or_id(group))
 
 		self.set_name_map(
 			logs 			= "logs" , 
-			sql_variables 	= "variables"
+			sql_variables 	= "variables" ,
+			id 				= "id" , 
 		)
-		self.group = group
-		self.variables = make_obj_list(Variable , self.sql_variables)
+
 
 
 __all__ = [

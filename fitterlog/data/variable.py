@@ -16,8 +16,6 @@ class Variable(Object):
 			sql_tracks 	= "tracks" ,
 			id 			= "id" , 
 		)
-		self.experiment = experiment
-		self.tracks = make_obj_list(VariableTrack , self.sql_tracks.all())
 
 
 class VariableTrack(Object):
@@ -32,8 +30,6 @@ class VariableTrack(Object):
 			sql_values 	= "values" ,
 			id 			= "id" , 
 		)
-		self.variable = variable
-		self.values = make_obj_list(SingleValue , self.sql_tracks.all())
 
 class SingleValue(Object):
 	'''某个变量的某条时间线上的一个值
@@ -41,14 +37,12 @@ class SingleValue(Object):
 
 	def __init__(self , value = None, timestamp = None , track = None , from_obj = None):
 
-		super().__init__(SQL_SingleValue , from_obj , value = value, time_stamp = timestamp , track = track)
+		super().__init__(SQL_SingleValue , from_obj , value = value, time_stamp = timestamp , track_id = none_or_id(track))
 		self.set_name_map(
 			value 		= "value" , 
 			timestamp 	= "time_stamp" ,
 			id 			= "id" , 
 		)
-		self.track = track
-		self.track = track
 
 
 __all__ = [
