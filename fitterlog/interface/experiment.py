@@ -25,7 +25,6 @@ class Experiment:
 		C = arg_prox.assign_from_cmd(args)
 		for arg in arg_prox.args:
 			self.new_variable(arg.name , arg.type , C.__dict__[arg.name])
-			self[arg.name].update(C.__dict__[arg.name])
 
 	def __getitem__(self , name):
 		return self.variables[name]
