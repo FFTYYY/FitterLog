@@ -1,6 +1,7 @@
 from django.shortcuts import render
 from django.http import HttpResponse , Http404
 from ..models import Project , ExperimentGroup , Experiment
+from ..models import Variable , VariableTrack
 from .base import get_path
 
 
@@ -36,5 +37,26 @@ def experiment(request , experiment_id):
 
 	context = {
 		"experiment": experiment , 
+		"variables": experiment.variables.all() , 
 	}
 	return render(request , get_path("experiment") , context)
+
+def variable(request , variable_id):
+
+	variable = Variable.objects.get(id = variable_id)
+
+	context = {
+		"variable": variable ,
+		"tracks" : variable.tracks.all() ,  
+	}
+	return render(request , get_path("variable") , context)
+
+def track(request , track_id):
+
+	track = VariableTrack.objects.get(id = track_id)
+
+	context = {
+		"track": track , 
+		"values": track.values.all() , 
+	}
+	return render(request , get_path("track") , context)

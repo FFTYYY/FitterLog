@@ -1,0 +1,22 @@
+
+<p>Track: {{track.name}}</p>
+
+<p>values:</p>
+
+{% for value in values%}
+<p>{{value.time_stamp}}: {{value.value}}</p>
+{% endfor %}
+
+<p>-</p>
+
+<form action = "/track/{{track.id}}/new_value" method = "post">
+	{% csrf_token %}
+
+	time_stamp: <input type = "text" name = "time_stamp"/>
+	value: <input type = "text" name = "value"/>
+	<input type = "submit" value = "new value"/>
+</form>
+
+<p>-</p>
+
+<a href = "/variable/{{track.variable.id}}">back</a>

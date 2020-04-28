@@ -8,9 +8,13 @@
 
 <p>-</p>
 
-<form action = "/{{project.id}}/new_group" method = "post">
+<form action = "/project/{{project.id}}/new_group" method = "post">
 	{% csrf_token %}
 
 	name: <input type = "text" name = "name"/>
 	<input type = "submit" value = "new group"/>
 </form>
+
+<p>-</p>
+
+<a href = "/">back</a>

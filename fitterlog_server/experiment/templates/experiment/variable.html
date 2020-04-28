@@ -1,0 +1,20 @@
+
+<p>Variable: {{variable.name}}</p>
+
+<p>Tracks:</p>
+
+{% for track in tracks%}
+<a href = "/track/{{track.id}}">{{track.name}}</a><br/>
+{% endfor %}
+
+<p>-</p>
+
+<form action = "/variable/{{variable.id}}/new_track" method = "post">
+	{% csrf_token %}
+
+	name: <input type = "text" name = "name"/>
+	<input type = "submit" value = "new track"/>
+</form>
+
+<p>-</p>
+<a href = "/experiment/{{variable.expe.id}}">back</a>

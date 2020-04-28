@@ -1,4 +1,3 @@
-<!-- 最顶层目录，显示项目组  -->
 
 <p>Group: {{group.name}}</p>
 
@@ -10,8 +9,13 @@
 
 <p>-</p>
 
-<form action = "/{{group.id}}/new_experiment" method = "post">
+<form action = "/group/{{group.id}}/new_experiment" method = "post">
 	{% csrf_token %}
 
 	<input type = "submit" value = "new experiment"/>
 </form>
+
+<p>-</p>
+
+<a href = "/project/{{group.project.id}}">back</a>
+
