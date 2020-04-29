@@ -18,6 +18,9 @@
 .layui-table-mend{
 	background-color: #353535 !important;
 }
+.layui-table-header{
+	background-color: #353535 !important;
+}
 
 /*表项*/
 .layui-table tbody tr{
