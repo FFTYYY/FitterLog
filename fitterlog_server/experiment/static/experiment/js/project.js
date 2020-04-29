@@ -16,13 +16,12 @@ function when_unhivor()
 
 function when_hover()
 {
-	fuck = this
-	group_id = this.getAttribute("group_id")
+	var group_id = this.getAttribute("group_id")
 
 	if (now_active != undefined)
 		now_active.classList.add("hidden")
 
-	the_right = document.getElementById("right_content_" + String(group_id))
+	var the_right = document.getElementById("right_content_" + String(group_id))
 	the_right.classList.remove("hidden")
 
 	now_active = the_right
@@ -31,9 +30,12 @@ function when_hover()
 
 function add_hover_and_unhover_action()
 {
-	lls = document.getElementsByClassName("group_list")
+	var lls = document.getElementsByClassName("group_list")
+		console.log(lls.length)
+
 	for(var i = 0;i < lls.length;i++)
 	{
+		console.log("dfd")
 		lls[i].onmouseenter = when_hover	
 		lls[i].onmouseout = when_unhivor	
 	}

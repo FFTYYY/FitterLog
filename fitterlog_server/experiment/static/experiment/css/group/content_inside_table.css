@@ -10,12 +10,14 @@
 	padding: 0;
 }
 
+/*表头*/
 .layui-table thead tr{
-	background-color: #383838FF !important;
+	background-color: #282828FF !important;
 	color: #D8D8D8FF!important;
 }
+/*表项*/
 .layui-table tbody tr{
-	background-color: #4C4C4CFF !important;
+	background-color: #282828FF !important;
 	color: #D8D8D8FF!important;
 }
 

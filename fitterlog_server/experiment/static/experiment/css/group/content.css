@@ -3,54 +3,57 @@
 	background-color: #4C4C4CFF !important;
 }
 
+/*选页按钮*/
 .layui-laypage a {
 	color: #D8D8D8FF !important;
 }
 .layui-laypage a:hover {
 	color: #4C4C4CFF !important;
-	background-color: #AAAAAAFF !important;
+	background-color: #757575FF !important;
 }
 
-
+/*下面那一坨中的文字*/
 .layui-laypage span {
 	color: inherit !important;
 }
 
+.layui-laypage span ::selection{
+	background-color: #2D2D2DFF  !important;
+	color: #757575FF !important;
+}
+
+/*跳页输入框*/
 .layui-laypage-skip input{
 	outline: none !important;
 	border: none !important;
-	background-color: #AAAAAAFF  !important;
+	background-color: #757575FF  !important;
 	color: #2D2D2DFF !important;
 }
 
-.layui-laypage span ::selection{
-	background-color: #2D2D2DFF  !important;
-	color: #AAAAAAFF !important;
-}
-
-
+/*跳页按钮*/
 .layui-laypage-skip button  {
 	outline: none !important;
 	border: none !important;
-	background-color: #AAAAAAFF  !important;
-	color: #2D2D2DFF !important;
+	background-color: #757575FF  !important;
+	color: #111111FF !important;
 }
 .layui-laypage-skip button:hover {
-	background-color: #2D2D2DFF !important;
-	color: #AAAAAAFF !important;
+	background-color: #0C0C0CFF !important;
+	color: #757575FF !important;
 }
 
+/*每页显示条目*/
 .layui-laypage-limits select {
 	outline: none !important;
 	border: none !important;
-	background-color: #AAAAAAFF  !important;
-	color: #2D2D2DFF !important;
+	background-color: #757575FF  !important;
+	color: #111111FF !important;
 }
 .layui-laypage-limits select:hover {
-	background-color: #2D2D2DFF  !important;
-	color: #AAAAAAFF !important;
+	background-color: #0C0C0CFF  !important;
+	color: #757575FF !important;
 }
-
+/*每页显示条目选项栏*/
 .layui-laypage-limits select option {
 	outline: none !important;
 	border: none !important;
@@ -59,19 +62,22 @@
 }
 
 /*TODO: 这个样式没有生效，不知道为什么*/
-.layui-laypage-limits option:hover {
+.layui-laypage-limits select option:hover {
 	background-color: #2D2D2DFF  !important;
 	color: #AAAAAAFF !important;
 }
 
+/*上一页*/
 .layui-laypage-next  {
 	margin-right: 5px !important;
 }
-.layui-laypage-prev  {
-	margin-left: 5px !important;
-}
 .layui-laypage-next i  {
 	color: inherit !important;
+}
+
+/*下一页*/
+.layui-laypage-prev  {
+	margin-left: 5px !important;
 }
 .layui-laypage-prev i {
 	color: inherit !important;

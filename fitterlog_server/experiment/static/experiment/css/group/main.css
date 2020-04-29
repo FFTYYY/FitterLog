@@ -15,7 +15,7 @@ body{
 #header{
 	position: absolute;
 
-	background-color: #606060;
+	background-color: #353535;
 	left: 0;
 	top: 0;
 	height: 8%;
@@ -29,7 +29,7 @@ body{
 	height: 92%;
 	width: 100%;
 
-	background-color: #606060;
+	background-color: #353535;
 
 	overflow: auto;
 	

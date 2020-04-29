@@ -5,12 +5,6 @@
 		<link rel = "stylesheet" href = {% static "/experiment/css/project/left_part.css" %} type = "text/css" />
 		<link rel = "stylesheet" href = {% static "/experiment/css/project/right_part.css" %} type = "text/css" />
 		<link rel = "stylesheet" href = {% static "/experiment/css/project/header.css" %} type = "text/css" />
-		
-		<!-- 为鼠标离开按钮的行为添加动画 -->
-		<script src = {% static "/experiment/js/project.js" %}></script>\
-
-
-
 </head>
 
 <body>
@@ -71,28 +65,6 @@
 
 	</div>
 </body>
-
-
-<!--
-<p>Project: {{project.name}}</p>
-
-<p>Groups:</p>
-
-{% for group in groups%}
-<a href = "/group/{{group.id}}">{{group.name}}</a><br/>
-{% endfor %}
-
-<p>-</p>
-
-<form action = "/project/{{project.id}}/new_group" method = "post">
-	{% csrf_token %}
-
-	name: <input type = "text" name = "name"/>
-	<input type = "submit" value = "new group"/>
-</form>
-
-<p>-</p>
-
-<a href = "/">back</a>
--->
-
+		
+<!-- 为鼠标离开按钮的行为添加动画 -->
+<script src = {% static "/experiment/js/project.js" %}></script>

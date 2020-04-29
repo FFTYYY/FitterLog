@@ -2,7 +2,6 @@
 
 <head>
 		<link rel = "stylesheet" href = {% static "/layui/css/layui.css" %} type = "text/css" />
-		<script src = {% static "/layui/layui.js" %}></script>
 
 		<link rel = "stylesheet" href = {% static "/experiment/css/group/main.css" %} type = "text/css" />
 		<link rel = "stylesheet" href = {% static "/experiment/css/group/header.css" %} type = "text/css" />
@@ -23,11 +22,8 @@
 
 				<div class = "header_row">  
 					<a class = "header_a layui-icon" title = "返回" href = "/project/{{group.project.id}}"> &#xe65c; </a>
-					<a class = "header_a layui-icon" href = "/project/{{group.project.id}}"> &#xe65c; </a>
 				</div>
 				<div class = "header_row">  
-					<a class = "header_a layui-icon" title = "返回" href = "/project/{{group.project.id}}"> &#xe65c; </a>
-					<a class = "header_a layui-icon" title = "返回" href = "/project/{{group.project.id}}"> &#xe65c; </a>
 				</div>
 			
  
@@ -42,7 +38,7 @@
 						fixed : 'left' ,
 						width : 100 , 
 						sort : true , 
-						style : 'background-color: #3F3F3F; color: #AAAAAAFF;',
+						style : 'background-color: #303030; color: #AAAAAAFF;',
 						align : 'center' , 
 					}"
 					>id</th>
@@ -70,6 +66,8 @@
 
 
 </body>
+
+<script src = {% static "/layui/layui.js" %}></script>
 
 <script>
 
