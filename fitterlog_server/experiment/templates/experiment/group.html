@@ -2,56 +2,72 @@
 
 <head>
 		<link rel = "stylesheet" href = {% static "/layui/css/layui.css" %} type = "text/css" />
-		
-		<!-- 为鼠标离开按钮的行为添加动画 -->
 		<script src = {% static "/layui/layui.js" %}></script>
+
+		<link rel = "stylesheet" href = {% static "/experiment/css/group/main.css" %} type = "text/css" />
+		<link rel = "stylesheet" href = {% static "/experiment/css/group/header.css" %} type = "text/css" />
+		<link rel = "stylesheet" href = {% static "/experiment/css/group/content.css" %} type = "text/css" />
 
 </head>
 
 
 <body>
+	<div id = "header">
+		<div id = "left_header">
+			<p id = "group_name">{{group.name}}</p>
+			<p id = "group_intro">{{group.intro}}</p>
+		</div>
 
-<table lay-filter="main_table">
-	<thead>
-		<tr>
-			<th lay-data = "{field : 'id', fixed : 'left' , width : 100 , sort : true}">id</th>
-			{% for h in head %}
-			<th lay-data = "{field : '{{h}}' , minWidth : 50 , sort : true}">{{h}}</th>
-			{% endfor %}
+		<div id = "right_header">
+		</div>
 
-		</tr> 
-	</thead>
-	<tbody>
+	</div>
 
-		{% for line in lines%}
-		<tr>
-			{% for val in line %}
-			<td>{{val}}</td>
-			{% endfor %}
-		</tr>
-		{% endfor %}
+	<div id = "content">
+		<table lay-filter="main_table" , id = "the_table">
+			<thead>
+				<tr>
+					<th lay-data = "{field : 'id', fixed : 'left' , width : 100 , sort : true}">id</th>
+					{% for h in head %}
+					<th lay-data = "{field : '{{h}}' , minWidth : 50 , sort : true}">{{h}}</th>
+					{% endfor %}
 
-	</tbody>
-</table>
+				</tr> 
+			</thead>
+			<tbody>
 
-	<script>
+				{% for line in lines%}
+				<tr>
+					{% for val in line %}
+					<td>{{val}}</td>
+					{% endfor %}
+				</tr>
+				{% endfor %}
 
-		layui.use("table", function(){
-			var table = layui.table;
-			 
-			//转换静态表格
-			table.init("main_table", {
-			  limit: 10 , 
-			  page: true , 
-			  skin: "line" , 
-			}); 
-	
-		});
-
-	</script>
+			</tbody>
+		</table>
+	</div>
 
 
 </body>
+
+<script>
+
+	layui.use("table", function(){
+		var table = layui.table;
+		 
+		//转换静态表格
+		table.init("main_table", {
+		  limit: 12 , 
+		  page: true , 
+		  skin: "line" , 
+		}); 
+
+	});
+
+</script>
+
+
 
 <!--
 <p>Group: {{group.name}}</p>

@@ -82,8 +82,9 @@
 	left : 5%;
 	height : 20%;
 	cursor : default;
-	font-size : 15px;
+	font-size : 14px;
 	text-align: center;
+	color: #D3D3D3FF;
 	background-color : #00000000;
 	text-decoration : none;
 }

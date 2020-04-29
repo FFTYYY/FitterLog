@@ -7,19 +7,22 @@
 		<link rel = "stylesheet" href = {% static "/experiment/css/project/header.css" %} type = "text/css" />
 		
 		<!-- 为鼠标离开按钮的行为添加动画 -->
-		<script src = {% static "/experiment/js/project.js" %}></script>
+		<script src = {% static "/experiment/js/project.js" %}></script>\
+
+
 
 </head>
 
 <body>
 	<div id = "header"> 
 
+
 		<div id = "left_header">
 			<p id = "project_name">【项目】{{project.name}}</p>
 		</div>
 
 		<div id = "middle_header">
-			<p id = "project_intro"> 此处应有项目介绍 </p>
+			<p id = "project_intro"> {{project.intro}} </p>
 		</div>
 		
 		<div id = "right_header">
@@ -35,7 +38,6 @@
 			<a href = "/" id = "go_back">◀返回</a>
 		
 		</div>
-
 	</div>
 
 	<div id = "content">

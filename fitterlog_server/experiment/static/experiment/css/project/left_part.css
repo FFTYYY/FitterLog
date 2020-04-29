@@ -43,7 +43,7 @@
 	}
 	to 
 	{
-		color : #0F0F0FFF;
+		color : #0F0F0FFF !important;
 		background-color: #B2B2B2FF;
 	}
 }
@@ -52,7 +52,7 @@
 {
 	from 
 	{
-		color : #0F0F0FFF;
+		color : #0F0F0FFF !important;
 		background-color: #B2B2B2FF;
 	}
 	to 
@@ -73,14 +73,14 @@
 
 .group_list_unhover_anime
 {
-	-webkit-animation : group_list_unhover 0.5s;
+	-webkit-animation : group_list_unhover 0.5s !important;
 }
 
 .group_list:hover
 {
 	color : #0F0F0FFF;
 	background-color: #B2B2B2FF;
-	-webkit-animation : group_list_hover 1s;
+	-webkit-animation : group_list_hover 1s !important;
 	-webkit-animation-timing-function: ease-out;
 
 }
@@ -89,7 +89,7 @@
 	margin-left: 5px;
 	font-size: 16px;
 	text-decoration : none;
-	color : inherit;
+	color : inherit !important;
 	font-family : "STXihei" ;
 	width : 100%;
 	display : block;
