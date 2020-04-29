@@ -7,8 +7,7 @@
 		<link rel = "stylesheet" href = {% static "/experiment/css/group/main.css" %} type = "text/css" />
 		<link rel = "stylesheet" href = {% static "/experiment/css/group/header.css" %} type = "text/css" />
 		<link rel = "stylesheet" href = {% static "/experiment/css/group/content.css" %} type = "text/css" />
-
-
+		<link rel = "stylesheet" href = {% static "/experiment/css/group/content_inside_table.css" %} type = "text/css" />
 
 </head>
 
@@ -16,31 +15,43 @@
 <body>
 	<div id = "header">
 		<div id = "left_header">
-			<p id = "group_name">{{group.name}}</p>
+			<p id = "group_name">【实验组】{{group.name}}</p>
 			<p id = "group_intro">{{group.intro}}</p>
 		</div>
 
 		<div id = "right_header">
-		</div>
 
+				<div class = "header_row">  
+					<a class = "header_a layui-icon" title = "返回" href = "/project/{{group.project.id}}"> &#xe65c; </a>
+					<a class = "header_a layui-icon" href = "/project/{{group.project.id}}"> &#xe65c; </a>
+				</div>
+				<div class = "header_row">  
+					<a class = "header_a layui-icon" title = "返回" href = "/project/{{group.project.id}}"> &#xe65c; </a>
+					<a class = "header_a layui-icon" title = "返回" href = "/project/{{group.project.id}}"> &#xe65c; </a>
+				</div>
+			
+ 
+		</div>
 	</div>
 
 	<div id = "content">
-		<table lay-filter="main_table" , id = "the_table">
+		<table lay-filter = "main_table" , id = "the_table">
 			<thead>
 				<tr>
 					<th lay-data = "{ field : 'id', 
 						fixed : 'left' ,
 						width : 100 , 
 						sort : true , 
-						style : 'background-color: #40487C; color: #CCC;',
+						style : 'background-color: #3F3F3F; color: #AAAAAAFF;',
+						align : 'center' , 
 					}"
 					>id</th>
 
 					{% for h in head %}
-					<th lay-data = "{field : '{{h}}' , minWidth : 50 , sort : true}">{{h}}</th>
+					<th lay-data = "{field : '{{h}}' , minWidth : 50 , sort : true , align : 'center'}">{{h}}</th>
 					{% endfor %}
 
+					<th lay-data = "{fixed: 'right', width : 100, align : 'center' , toolbar: '#right_bar'}"></th>
 				</tr> 
 			</thead>
 			<tbody>
@@ -67,14 +78,19 @@
 		 
 		//转换静态表格
 		table.init("main_table", {
-		  limit: 12 , 
-		  page: true , 
-		  skin: "line" , 
+			limits: [13,50,100,9999] , 
+			page: true , 
+			limit: 13 , 
+			skin: "nob" , 
 		})
 
 	});
 
 </script>
+
+<script type = "text/html" id = "right_bar">
+	<a class = "table_a" lay-event = "detail">TODO</a>
+ </script>
 
 <script src = {% static "jquery-1.10.2.min.js" %}></script>
 
@@ -91,6 +107,7 @@
 		}
 	);
 </script>
+
 
 <!--
 <p>Group: {{group.name}}</p>

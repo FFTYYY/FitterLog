@@ -1,0 +1,30 @@
+.layui-table-view{
+	position: absolute;
+	left: 0;
+	top: 0;
+	height: 100%;
+	width: 100%;
+
+	border: 0;
+	margin: 0;
+	padding: 0;
+}
+
+.layui-table thead tr{
+	background-color: #383838FF !important;
+	color: #D8D8D8FF!important;
+}
+.layui-table tbody tr{
+	background-color: #4C4C4CFF !important;
+	color: #D8D8D8FF!important;
+}
+
+.table_a {
+	color: #D8D8D8FF !important;
+}
+
+.table_a:hover {
+	background-color: #D8D8D8FF !important;
+	color: #4C4C4CFF !important;
+
+}

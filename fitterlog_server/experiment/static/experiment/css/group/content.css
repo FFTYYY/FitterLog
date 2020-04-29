@@ -1,20 +1,3 @@
-.layui-table-view{
-	position: absolute;
-	left: 0;
-	top: 0;
-	height: 100%;
-	width: 100%;
-
-	border: 0;
-	margin: 0;
-	padding: 0;
-}
-
-.layui-table thead tr{
-	background-color: #4C4C4CFF !important;
-	color: #D8D8D8FF!important;
-}
-
 .layui-laypage-em{
 	color: #D8D8D8FF !important;
 	background-color: #4C4C4CFF !important;
@@ -39,6 +22,12 @@
 	background-color: #AAAAAAFF  !important;
 	color: #2D2D2DFF !important;
 }
+
+.layui-laypage span ::selection{
+	background-color: #2D2D2DFF  !important;
+	color: #AAAAAAFF !important;
+}
+
 
 .layui-laypage-skip button  {
 	outline: none !important;
