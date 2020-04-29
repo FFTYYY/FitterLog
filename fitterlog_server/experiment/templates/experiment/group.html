@@ -7,6 +7,7 @@
 		<link rel = "stylesheet" href = {% static "/experiment/css/group/header.css" %} type = "text/css" />
 		<link rel = "stylesheet" href = {% static "/experiment/css/group/content.css" %} type = "text/css" />
 		<link rel = "stylesheet" href = {% static "/experiment/css/group/content_inside_table.css" %} type = "text/css" />
+		<link rel = "stylesheet" href = {% static "/experiment/css/group/scrollbar.css" %} type = "text/css" />
 
 </head>
 
@@ -43,8 +44,8 @@
 					}"
 					>id</th>
 
-					{% for h in head %}
-					<th lay-data = "{field : '{{h}}' , minWidth : 50 , sort : true , align : 'center'}">{{h}}</th>
+					{% for h , w in head_and_width %}
+					<th lay-data = "{field : '{{h}}' , minWidth : {{w}} , sort : true , align : 'center'}">{{h}}</th>
 					{% endfor %}
 
 					<th lay-data = "{fixed: 'right', width : 100, align : 'center' , toolbar: '#right_bar'}"></th>
@@ -71,15 +72,24 @@
 
 <script>
 
+	function ontabledone(){
+		setTimeout(
+			function(){new SimpleBar(document.getElementsByClassName("layui-table-main")[0])} ,
+			500 , 
+		)
+	}
+
 	layui.use("table", function(){
 		var table = layui.table
 		 
 		//转换静态表格
 		table.init("main_table", {
-			limits: [13,50,100,9999] , 
+			limits: [15,50,100,9999] , 
 			page: true , 
-			limit: 13 , 
-			skin: "nob" , 
+			limit: 15 , 
+			skin: "row" , 
+			height: "full-50" , 
+		//	done: ontabledone , 
 		})
 
 	});
@@ -88,25 +98,23 @@
 
 <script type = "text/html" id = "right_bar">
 	<a class = "table_a" lay-event = "detail">TODO</a>
- </script>
-
-<script src = {% static "jquery-1.10.2.min.js" %}></script>
-
-<script src = {% static "nicescroll/jquery.nicescroll.js" %}></script>
-<script>
-	
-	$(document).ready(
-		function() { 
-		//$("#inner_text").niceScroll();
-			$("#content").niceScroll({cursorborder:"",cursorcolor:"#309EA6",boxzoom:false});
-
-
-			setInterval(function(){$("#content").getNiceScroll().resize()} , 500)
-		}
-	);
 </script>
 
 
+<!--
+$(document).ready(
+function() { 
+	setInterval(function(){
+		$(".layui-table-main").niceScroll({
+			cursorborder : "" ,  
+			cursorcolor : "#309EA6" ,
+			boxzoom : false , 
+			cursorwidth : "10px" , 
+		})
+	;} , 500)
+}
+);
+-->
 <!--
 <p>Group: {{group.name}}</p>
 

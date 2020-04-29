@@ -8,8 +8,9 @@ body{
 	padding: 0;
 	outline: none;
 
-	color: #D3D3D3FF;
+	color: #D3D3D3FF;	
 	cursor: default;
+
 }
 
 #header{
@@ -31,7 +32,8 @@ body{
 
 	background-color: #353535;
 
-	overflow: auto;
+	overflow-y: auto;
+	overflow-x: hidden !important;
 	
 }
 

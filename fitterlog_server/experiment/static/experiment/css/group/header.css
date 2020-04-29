@@ -42,11 +42,13 @@
 }
 
 .header_a:hover {
-	background-color: #848484FF !important;
+	background-color: #B2B2B2FF !important;
+		color: #545454FF !important;
+
 }
 .header_a:active {
-	background-color: #D8D8D8FF !important;
-	color: #4C4C4CFF !important;
+	background-color: #EAEAEAFF !important;
+	color: #000000FF !important;
 }
 
 .header_row {

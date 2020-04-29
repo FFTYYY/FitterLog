@@ -15,6 +15,10 @@
 	background-color: #282828FF !important;
 	color: #D8D8D8FF!important;
 }
+.layui-table-mend{
+	background-color: #353535 !important;
+}
+
 /*表项*/
 .layui-table tbody tr{
 	background-color: #282828FF !important;

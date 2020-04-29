@@ -91,11 +91,12 @@
 
 #new_group_button:hover , #go_back:hover
 {
-	background-color : #727272FF;
+	background-color : #8E8E8EFF;
+	color: #2B2B2BFF;
 }
 #new_group_button:active , #go_back:active
 {
 	color : #000000FF;
-	background-color : #A5A5A5FF;
+	background-color : #D3D3D3FF;
 }
 

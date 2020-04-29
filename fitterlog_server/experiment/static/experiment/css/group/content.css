@@ -1,3 +1,7 @@
+.layui-laypage{
+	height: 50px !important;
+}
+
 .layui-laypage-em{
 	color: #D8D8D8FF !important;
 	background-color: #4C4C4CFF !important;
@@ -83,3 +87,7 @@
 	color: inherit !important;
 }
 
+/*单元格*/
+.layui-table-cell{
+	height : 29px !important;
+}

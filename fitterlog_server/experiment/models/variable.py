@@ -1,11 +1,11 @@
 from django.db import models
-from ..utils.constants import short_name_len
+from ..utils.constants import short_name_len , value_len
 from .experi import Experiment
 
 class SingleValue(models.Model):
 	'''某个变量的某条时间线上的一个值
 	'''
-	value = models.CharField(max_length = short_name_len)
+	value = models.CharField(max_length = value_len)
 	time_stamp = models.IntegerField()
 	track = models.ForeignKey("VariableTrack" , on_delete = models.CASCADE , related_name = "values")
 

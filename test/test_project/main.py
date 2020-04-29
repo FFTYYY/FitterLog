@@ -2,17 +2,31 @@ import os , sys
 sys.path.append("../..")
 from fitterlog.interface import Experiment
 from config import arg_proxy
+from YTools.universe.timer import Timer
+from YTools.universe.beautiful_str import beautiful_str
+import random
 
-E = Experiment(project_name = "hello" , group_name = "sdyyyf")
-E.use_argument_proxy( arg_proxy )
+with Timer("new experiment"):
+	E = Experiment(project_name = "hello" , group_name = "A test group")
 
-E.new_variable("loss" , type = int , default = 0)
-#E.loss.new_track("valid_loss")
+with Timer("apply args"):
+	E.use_argument_proxy( arg_proxy )
 
-E["loss"].update(1)
-E["loss"].update("23")
+with Timer("new variable"):
+	E.new_variable("loss" , type = float , default = 0)
 
-print (E["loss"].value + 22)
+k = random.randint(0 , 233)
+print (k)
+E.new_variable("k" , type = int , default = k)
+with Timer("updates"):
+	for i in range(k):
+		E["loss"].update(0.01 * i)
+
+x = 0
+with Timer("gets"):	
+	x += E["loss"].value
+
+print (Timer.output_all())
 print (E["n"])
 
 E.finish()
