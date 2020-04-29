@@ -4,8 +4,6 @@
 	left: 0;
 	height: 100%;
 	width: 50%;
-
-	background-color: #55FF11;
 }
 
 #right_header{
@@ -14,8 +12,6 @@
 	left: 50%;
 	height: 100%;
 	width: 50%;
-
-	background-color: #1111AA;
 }
 #group_name{
 	position : absolute;

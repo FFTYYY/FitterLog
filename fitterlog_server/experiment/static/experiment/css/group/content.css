@@ -9,3 +9,82 @@
 	margin: 0;
 	padding: 0;
 }
+
+.layui-table thead tr{
+	background-color: #4C4C4CFF !important;
+	color: #D8D8D8FF!important;
+}
+
+.layui-laypage-em{
+	color: #D8D8D8FF !important;
+	background-color: #4C4C4CFF !important;
+}
+
+.layui-laypage a {
+	color: #D8D8D8FF !important;
+}
+.layui-laypage a:hover {
+	color: #4C4C4CFF !important;
+	background-color: #AAAAAAFF !important;
+}
+
+
+.layui-laypage span {
+	color: inherit !important;
+}
+
+.layui-laypage-skip input{
+	outline: none !important;
+	border: none !important;
+	background-color: #AAAAAAFF  !important;
+	color: #2D2D2DFF !important;
+}
+
+.layui-laypage-skip button  {
+	outline: none !important;
+	border: none !important;
+	background-color: #AAAAAAFF  !important;
+	color: #2D2D2DFF !important;
+}
+.layui-laypage-skip button:hover {
+	background-color: #2D2D2DFF !important;
+	color: #AAAAAAFF !important;
+}
+
+.layui-laypage-limits select {
+	outline: none !important;
+	border: none !important;
+	background-color: #AAAAAAFF  !important;
+	color: #2D2D2DFF !important;
+}
+.layui-laypage-limits select:hover {
+	background-color: #2D2D2DFF  !important;
+	color: #AAAAAAFF !important;
+}
+
+.layui-laypage-limits select option {
+	outline: none !important;
+	border: none !important;
+	background-color: #AAAAAAFF  !important;
+	color: #2D2D2DFF !important;
+}
+
+/*TODO: 这个样式没有生效，不知道为什么*/
+.layui-laypage-limits option:hover {
+	background-color: #2D2D2DFF  !important;
+	color: #AAAAAAFF !important;
+}
+
+.layui-laypage-next  {
+	margin-right: 5px !important;
+}
+.layui-laypage-prev  {
+	margin-left: 5px !important;
+}
+.layui-laypage-next i  {
+	color: inherit !important;
+}
+.layui-laypage-prev i {
+	color: inherit !important;
+}
+

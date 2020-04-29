@@ -8,6 +8,8 @@
 		<link rel = "stylesheet" href = {% static "/experiment/css/group/header.css" %} type = "text/css" />
 		<link rel = "stylesheet" href = {% static "/experiment/css/group/content.css" %} type = "text/css" />
 
+
+
 </head>
 
 
@@ -27,7 +29,14 @@
 		<table lay-filter="main_table" , id = "the_table">
 			<thead>
 				<tr>
-					<th lay-data = "{field : 'id', fixed : 'left' , width : 100 , sort : true}">id</th>
+					<th lay-data = "{ field : 'id', 
+						fixed : 'left' ,
+						width : 100 , 
+						sort : true , 
+						style : 'background-color: #40487C; color: #CCC;',
+					}"
+					>id</th>
+
 					{% for h in head %}
 					<th lay-data = "{field : '{{h}}' , minWidth : 50 , sort : true}">{{h}}</th>
 					{% endfor %}
@@ -54,20 +63,34 @@
 <script>
 
 	layui.use("table", function(){
-		var table = layui.table;
+		var table = layui.table
 		 
 		//转换静态表格
 		table.init("main_table", {
 		  limit: 12 , 
 		  page: true , 
 		  skin: "line" , 
-		}); 
+		})
 
 	});
 
 </script>
 
+<script src = {% static "jquery-1.10.2.min.js" %}></script>
 
+<script src = {% static "nicescroll/jquery.nicescroll.js" %}></script>
+<script>
+	
+	$(document).ready(
+		function() { 
+		//$("#inner_text").niceScroll();
+			$("#content").niceScroll({cursorborder:"",cursorcolor:"#309EA6",boxzoom:false});
+
+
+			setInterval(function(){$("#content").getNiceScroll().resize()} , 500)
+		}
+	);
+</script>
 
 <!--
 <p>Group: {{group.name}}</p>

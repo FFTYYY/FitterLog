@@ -8,14 +8,14 @@ body{
 	padding: 0;
 	outline: none;
 
-	/*color: #D3D3D3FF;*/
+	color: #D3D3D3FF;
 	cursor: default;
 }
 
 #header{
 	position: absolute;
 
-	background-color: #4C4C4C;
+	background-color: #606060;
 	left: 0;
 	top: 0;
 	height: 10%;
@@ -29,7 +29,7 @@ body{
 	height: 90%;
 	width: 100%;
 
-	background-color: #666679;
+	background-color: #606060;
 
 	overflow: auto;
 	
