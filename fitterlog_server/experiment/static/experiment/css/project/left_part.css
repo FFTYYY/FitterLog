@@ -43,7 +43,7 @@
 	}
 	to 
 	{
-		color : #0F0F0FFF !important;
+		color : #0F0F0FFF ;
 		background-color: #B2B2B2FF;
 	}
 }
@@ -52,7 +52,7 @@
 {
 	from 
 	{
-		color : #0F0F0FFF !important;
+		color : #0F0F0FFF;
 		background-color: #B2B2B2FF;
 	}
 	to 
