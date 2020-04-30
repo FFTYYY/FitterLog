@@ -35,7 +35,6 @@ function add_hover_and_unhover_action()
 
 	for(var i = 0;i < lls.length;i++)
 	{
-		console.log("dfd")
 		lls[i].onmouseenter = when_hover	
 		lls[i].onmouseout = when_unhivor	
 	}

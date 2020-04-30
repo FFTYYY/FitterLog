@@ -13,21 +13,23 @@ body{
 
 }
 
+/*header 被放到了toolbar里面*/
 #header{
 	position: absolute;
 
-	background-color: #353535;
+	background-color: #00000000;
 	left: 0;
 	top: 0;
-	height: 8%;
-	width: 100%;
+	height: 100%;
+	width: 50%;
 }
 
+/*所以content就是整个页面*/
 #content{
 	position: absolute;
 	left: 0;
-	top: 8%;
-	height: 92%;
+	top: 0;
+	height: 100%;
 	width: 100%;
 
 	background-color: #353535;

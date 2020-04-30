@@ -1,33 +1,19 @@
-#left_header{
-	position: absolute;
-	top: 0;
-	left: 0;
-	height: 100%;
-	width: 50%;
-}
-
-#right_header{
-	position: absolute;
-	top: 0;
-	left: 50%;
-	height: 100%;
-	width: 50%;
-}
 #group_name{
 	position : absolute;
 	left 	: 0;
 	width 	: 100%;
-	top 	: 5%;
-	height 	: 25%;
+	top 	: 3%;
+	height 	: 30%;
 	text-align: center;
+	line-height: 100%;
 }
 #group_intro{
 
 	position : absolute;
 	left 	: 0;
 	width 	: 100%;
-	top 	: 30%;
-	height 	: 70%;
+	top 	: 33%;
+	height 	: 66%;
 	text-align : left;
 }
 

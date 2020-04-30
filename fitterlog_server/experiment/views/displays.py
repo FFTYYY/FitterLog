@@ -41,7 +41,7 @@ def group(request , group_id):
 		"lens" : lens , 
 		"head_and_width": zip(head , lens) , 
 	}
-	return render(request , get_path("group") , context)
+	return render(request , get_path("group/group") , context)
 
 def experiment(request , experiment_id):
 
