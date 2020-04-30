@@ -26,20 +26,28 @@ def group(request , group_id):
 
 	group = ExperimentGroup.objects.get(id = group_id)
 
-	head , lines = experiment_list_to_str_list( group.experiments.all() )
+	head , lines , styles = experiment_list_to_str_list( group.experiments.all() )
 	ids = [str(x.id) for x in group.experiments.all()]
+
+	# append id column
+	head = ["id"] + head
 	lines = [ [ids[i]] + lines[i] for i in range(len(lines))]
+	styles = ["fixed : 'left' , style : 'background-color: #303030; color: #AAAAAAFF;',"] + styles
 
 	lens = [max_len(s) for s in head]
-	lens = [max( lens[k] , max( [max_len(line[k+1]) for line in lines] )) for k in range(len((head)))]
+	lens = [max( lens[k] , max( [max_len(line[k]) for line in lines] )) for k in range(len((head)))]
 	lens = [ min(50 + x*10 , 300) for x in lens]
+
+	# add line_index
+	index_and_lines = zip(list(range(len(lines))) , lines)
 
 	context = {
 		"group": group , 
 		"head" : head , 
 		"lines" : lines , 
+		"index_and_lines" : index_and_lines , 
 		"lens" : lens , 
-		"head_and_width": zip(head , lens) , 
+		"head_and_width_and_style": zip(head , lens , styles) , 
 	}
 	return render(request , get_path("group/group") , context)
 

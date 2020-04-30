@@ -5,15 +5,18 @@
 	
 	function get_toolbar_event_func(table){
 		return function(obj) {
-			var checkStatus = table.checkStatus(obj.config.id);
+			var checkStatus = table.checkStatus(obj.config.id)
 			switch(obj.event){
-				case 'go-back':
+				case "go-back":
 					window.location.href = "/project/{{group.project.id}}"
-				break;
-				case 'save':
-					hide_headers = get_hide_headers()
-					console.log(hide_headers)
-				break;
+				break
+				case "save":
+					save_config()
+				break
+				case "delete":
+					hide_checked_rows()
+				break
+
 			}
 		}
 	}

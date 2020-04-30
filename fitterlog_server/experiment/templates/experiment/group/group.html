@@ -20,20 +20,18 @@
 	</div>
 
 	<div id = "content">
-		<table lay-filter = "main_table" , id = "the_table">
+		<table lay-filter = "main_table" , id = "the_table" , lay-data = "{id:'the_table'}">
 			<thead>
 				<tr>
-					<th lay-data = "{ field : 'id', 
+					<th lay-data = "{
+						filed : '_checkbox' , 
+						type : 'checkbox' , 
+						width : 50 ,
 						fixed : 'left' ,
-						width : 100 , 
-						sort : true , 
-						style : 'background-color: #303030; color: #AAAAAAFF;',
-						align : 'center' , 
-					}"
-					>id</th>
+					}"></th>
 
-					{% for h , w in head_and_width %}
-					<th lay-data = "{field : '{{h}}' , minWidth : {{w}} , sort : true , align : 'center'}">{{h}}</th>
+					{% for h , w , sty in head_and_width_and_style %}
+					<th lay-data = "{field:'{{h}}', minWidth:{{w}}, sort:true ,align:'center', {{sty}} }">{{h}}</th>
 					{% endfor %}
 
 					<th lay-data = "{fixed: 'right', width : 100, align : 'center' , toolbar: '#right_bar'}"></th>
@@ -41,11 +39,16 @@
 			</thead>
 			<tbody>
 
-				{% for line in lines%}
+				{% for idx , line in index_and_lines%}
 				<tr>
+					<td class = "{{idx}}"></td> <!--checkbox-->
+
 					{% for val in line %}
 					<td>{{val}}</td>
 					{% endfor %}
+
+					<td></td> <!--right-->
+
 				</tr>
 				{% endfor %}
 

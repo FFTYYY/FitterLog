@@ -3,6 +3,7 @@ def experiment_list_to_str_list(expe_lis):
 	head = {}
 	values = []
 	lines = []
+	styles = []
 
 	for exp in expe_lis:
 		value_map = {}
@@ -23,6 +24,7 @@ def experiment_list_to_str_list(expe_lis):
 		values.append(value_map)
 
 	head = list(head)
+	styles = ["" for _ in range(len(head))]
 
 	for i , exp in enumerate(expe_lis):
 		this_line = []
@@ -30,7 +32,7 @@ def experiment_list_to_str_list(expe_lis):
 			this_line.append(values[i].get(h , "-"))
 		lines.append(this_line)
 
-	return head , lines
+	return head , lines , styles
 		
 
 

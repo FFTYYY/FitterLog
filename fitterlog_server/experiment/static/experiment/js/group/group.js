@@ -23,8 +23,9 @@ layui.use("table", function(){
 		height: "full-0" , 
 		
 		defaultToolbar: [
-			{title: "返回",layEvent: 'go-back',icon: 'layui-icon-return',} , 
-			{title: "保存",layEvent: 'save',icon: 'layui-icon-ok',} , 
+			{title: "返回", layEvent: 'go-back',icon: 'layui-icon-return',} , 
+			{title: "保存设置", layEvent: 'save',icon: 'layui-icon-upload-circle',} , 
+			{title: "删除选中行", layEvent: 'delete',icon: 'layui-icon-close',} , 
 			"filter", 
 			"exports" , 
 		] ,
