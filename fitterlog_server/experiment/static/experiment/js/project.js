@@ -1,6 +1,6 @@
 now_active = undefined
 
-function when_unhivor()
+function when_unhovor()
 {
 	//获得动画
 	this.classList.add("group_list_unhover_anime")
@@ -31,12 +31,11 @@ function when_hover()
 function add_hover_and_unhover_action()
 {
 	var lls = document.getElementsByClassName("group_list")
-		console.log(lls.length)
 
 	for(var i = 0;i < lls.length;i++)
 	{
 		lls[i].onmouseenter = when_hover	
-		lls[i].onmouseout = when_unhivor	
+		lls[i].onmouseout = when_unhovor	
 	}
 
 }

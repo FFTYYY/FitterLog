@@ -8,6 +8,7 @@ function move_tools(){
 
 function ontabledone(){
 	move_tools()
+	add_hover_and_unhover_action()
 }
 
 
@@ -27,7 +28,7 @@ layui.use("table", function(){
 			{title: "保存设置", layEvent: 'save',icon: 'layui-icon-upload-circle',} , 
 			{title: "删除选中行", layEvent: 'delete',icon: 'layui-icon-close',} , 
 			"filter", 
-			"exports" , 
+			{title: "导出", layEvent: 'LAYTABLE_EXPORT',icon: 'layui-icon-male',} , 
 		] ,
 		toolbar: true , 
 		done: ontabledone , 
