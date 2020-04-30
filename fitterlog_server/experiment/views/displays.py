@@ -3,8 +3,7 @@ from django.http import HttpResponse , Http404
 from ..models import Project , ExperimentGroup , Experiment
 from ..models import Variable , VariableTrack
 from .base import get_path
-from .get_experiment import experiment_list_to_str_list
-from YTools.universe.strlen import max_len
+from ..utils.str_opt import seped_s2list , seped_list2s
 
 def index(request):
 	context = {
@@ -23,31 +22,28 @@ def project(request , project_id):
 	return render(request , get_path("project") , context)
 
 def group(request , group_id):
+	from .get_experiment import experiment_list_to_str_list , append_ids , generate_len
 
 	group = ExperimentGroup.objects.get(id = group_id)
 
-	head , lines , styles = experiment_list_to_str_list( group.experiments.all() )
-	ids = [str(x.id) for x in group.experiments.all()]
+	# generate hiddens
+	hide_heads = seped_s2list(group.config.hidden_heads)
+	hide_ids = [int(x) for x in seped_s2list(group.config.hidden_ids)]
 
-	# append id column
-	head = ["id"] + head
-	lines = [ [ids[i]] + lines[i] for i in range(len(lines))]
-	styles = ["fixed : 'left' , style : 'background-color: #303030; color: #AAAAAAFF;',"] + styles
-
-	lens = [max_len(s) for s in head]
-	lens = [max( lens[k] , max( [max_len(line[k]) for line in lines] )) for k in range(len((head)))]
-	lens = [ min(50 + x*10 , 300) for x in lens]
+	# generate heads and rows
+	heads , lines , styles = experiment_list_to_str_list( group.experiments.all() , hide_heads , hide_ids)
+	lens = generate_len(heads , lines)
 
 	# add line_index
 	index_and_lines = zip(list(range(len(lines))) , lines)
 
 	context = {
 		"group": group , 
-		"head" : head , 
+		"heads" : heads , 
 		"lines" : lines , 
 		"index_and_lines" : index_and_lines , 
 		"lens" : lens , 
-		"head_and_width_and_style": zip(head , lens , styles) , 
+		"head_and_width_and_style": zip(heads , lens , styles) , 
 	}
 	return render(request , get_path("group/group") , context)
 

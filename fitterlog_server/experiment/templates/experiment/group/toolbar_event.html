@@ -1,7 +1,31 @@
 {%load static%}
 
+<form id = "for_saving" class = "hidden"  action = "/group/{{group.id}}/save_config" method = "post">
+	{% csrf_token %}
+</form>
+
 <!--工具栏事件。比较适合在-->
 <script>
+
+	function save_config() {
+
+		config = {
+			hide_columns: get_hide_headers() , 
+			hide_ids: Array.from(deleted_ids) , 
+		}
+
+		var for_saving = document.getElementById("for_saving");
+
+		for (var x in config) {
+			var opt = document.createElement("textarea");
+			opt.name = x;
+			opt.value = config[x].join("__FITTERLOG__SEP__");
+			for_saving.appendChild(opt);
+		}
+
+		for_saving.submit();
+	}
+
 	
 	function get_toolbar_event_func(table){
 		return function(obj) {

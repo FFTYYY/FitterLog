@@ -1,10 +1,7 @@
-config = {
-	hide_columns: [] , 
-	hide_ids: [] , 
-}
 
 deleted_ids = new Set()
 
+/*更新deleted_ids，并事实上隐藏他们*/
 function hide_checked_rows() {
 	var checkStatus = table.checkStatus('the_table');
 	var checkData = checkStatus.data
@@ -48,12 +45,11 @@ function hide_checked_rows() {
 			trs[i].hidden = true
 	}
 
-
-	console.log("ids" , deleted_ids)
-	console.log("idxs" , del_idxs)
-
+	//console.log("ids" , deleted_ids)
+	//console.log("idxs" , del_idxs)
 }
 
+/*返回隐藏的列*/
 function get_hide_headers() {
 	var a_hide_list = document.getElementsByClassName("layui-hide")
 	var hide_list = []
@@ -65,12 +61,4 @@ function get_hide_headers() {
 		}
 	}
 	return hide_list
-}
-
-function save_config() {
-	hide_headers = get_hide_headers()
-
-	config.hide_columns = hide_headers
-	config.hide_ids = deleted_ids
-
 }
