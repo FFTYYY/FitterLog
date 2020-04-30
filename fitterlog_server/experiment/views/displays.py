@@ -32,7 +32,9 @@ def group(request , group_id):
 
 	# generate heads and rows
 	heads , lines , styles = experiment_list_to_str_list( group.experiments.all() , hide_heads , hide_ids)
+	
 	lens = generate_len(heads , lines)
+	min_lens = [x//2 for x in lens]
 
 	# add line_index
 	index_and_lines = zip(list(range(len(lines))) , lines)
@@ -43,7 +45,7 @@ def group(request , group_id):
 		"lines" : lines , 
 		"index_and_lines" : index_and_lines , 
 		"lens" : lens , 
-		"head_and_width_and_style": zip(heads , lens , styles) , 
+		"head_and_width_and_style": zip(heads , lens , min_lens , styles) , 
 	}
 	return render(request , get_path("group/group") , context)
 

@@ -30,8 +30,8 @@
 						fixed : 'left' ,
 					}"></th>
 
-					{% for h , w , sty in head_and_width_and_style %}
-					<th lay-data = "{field:'{{h}}', minWidth:{{w}}, sort:true ,align:'center', {{sty}} }">{{h}}</th>
+					{% for h , w , mw, sty in head_and_width_and_style %}
+					<th lay-data = "{field:'{{h}}', width: {{w}} , minWidth:{{mw}}, sort:true ,align:'center', {{sty}} }">{{h}}</th>
 					{% endfor %}
 
 					<th lay-data = "{fixed: 'right', width : 100, align : 'center' , toolbar: '#right_bar'}"></th>
