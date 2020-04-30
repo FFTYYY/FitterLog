@@ -48,7 +48,7 @@ class ExperimentGroup(models.Model):
 		self.checkconfig()
 
 		hide_cols = seped_s2list(self.config.hidden_heads)
-		hide_cols += seped_s2list(s)
+		hide_cols = seped_s2list(s)
 		hide_cols = list(set(hide_cols))
 		self.config.hidden_heads = seped_list2s(hide_cols)
 
