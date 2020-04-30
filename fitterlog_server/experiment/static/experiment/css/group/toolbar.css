@@ -29,11 +29,22 @@
 	padding-left: 10px !important;
 }
 
+.layui-table-tool-panel li .layui-form-checkbox , .layui-table-tool-panel li .layui-form-checkbox:hover{
+	background-color: inherit !important;
+	color: inherit !important;
+}
+
+
+.layui-table-tool-panel li .layui-form-checkbox span , .layui-table-tool-panel li .layui-form-checkbox span:hover{
+	background-color: inherit !important;
+	color: inherit !important;
+}
+
 @-webkit-keyframes panel_hover
 {
 	from 
 	{
-		color : #DBDBDBFF ;
+		color : #DBDBDBFF;
 		background-color: #00000000;
 	}
 	to 
@@ -47,7 +58,7 @@
 {
 	from 
 	{
-		color : #25656E ;
+		color : #25656E;
 		background-color: #DBDBDBFF;
 	}
 	to 
@@ -57,7 +68,7 @@
 	}
 }
 
-.panel_hover_anime
+.panel_unhover_anime
 {
 	-webkit-animation : panel_unhover 0.5s !important;
 }
@@ -67,5 +78,12 @@
 	color : #25656E !important;
 	background-color: #DBDBDBFF !important;
 	-webkit-animation : panel_hover 1s !important;
+	-webkit-animation-timing-function: ease-out;
+}
+
+.layui-table-tool-panel li span:hover{
+	color : #25656E !important;
+	background-color: #DBDBDBFF !important;
+	-webkit-animation : panel_hover 0.5s !important;
 	-webkit-animation-timing-function: ease-out;
 }

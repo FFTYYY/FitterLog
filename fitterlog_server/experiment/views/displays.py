@@ -25,7 +25,8 @@ def group(request , group_id):
 	from .get_experiment import experiment_list_to_str_list , append_ids , generate_len
 
 	group = ExperimentGroup.objects.get(id = group_id)
-
+	group.checkconfig()
+	
 	# generate hiddens
 	hide_heads = seped_s2list(group.config.hidden_heads)
 	hide_ids = [int(x) for x in seped_s2list(group.config.hidden_ids)]
