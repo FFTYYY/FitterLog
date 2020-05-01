@@ -25,8 +25,9 @@ def experiment_list_to_str_list(expe_lis , hidden_heads = [] , hidden_ids = []):
 	lines = []
 	styles = []
 
-	# 不显示删除的行
-	expe_lis = [exp for exp in expe_lis if not (int(exp.id) in hidden_ids)]
+	
+	expe_lis = expe_lis.order_by("-start_time") # 按开始时间降序排序
+	expe_lis = [exp for exp in expe_lis if not (int(exp.id) in hidden_ids)] # 不显示删除的行
 
 	for exp in expe_lis:
 		
