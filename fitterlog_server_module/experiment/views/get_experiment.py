@@ -1,6 +1,8 @@
 from YTools.universe.strlen import max_len
 
 def generate_len(heads , lines):
+	if len(lines) == 0:
+		return []
 	lens = [max_len(s) for s in heads]
 	lens = [max( lens[k] , max( [max_len(line[k]) for line in lines] )) for k in range(len((heads)))]
 	lens = [ min(50 + x*10 , 300) for x in lens]
