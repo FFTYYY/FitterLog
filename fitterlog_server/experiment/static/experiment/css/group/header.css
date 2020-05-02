@@ -27,12 +27,13 @@
 	text-align: center;
 }
 
-.header_a:hover {
+
+.header_a:hover , .header_a:hover i {
 	background-color: #B2B2B2FF !important;
-		color: #545454FF !important;
+	color: #333333FF !important;
 
 }
-.header_a:active {
+.header_a:active , .header_a:active i{
 	background-color: #EAEAEAFF !important;
 	color: #000000FF !important;
 }

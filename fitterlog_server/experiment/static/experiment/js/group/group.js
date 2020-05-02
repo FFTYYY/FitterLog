@@ -1,4 +1,32 @@
 
+function remove_panel_title()
+{
+	var tars = document.getElementsByClassName("layui-inline")
+
+	for(var _t = 0;_t < tars.length;_t ++)
+	{
+		let tar = tars[_t]
+		tar.onclick = function(){
+
+			setTimeout(function(){
+				var lls = tar.children
+
+				for(var i = 0;i < lls.length;i++)
+				{
+					if(!lls[i].classList.contains("layui-table-tool-panel") )
+						continue
+					for(var j = 0;j < lls[i].children.length;j++)
+					{
+						lls[i].children[j].title = "" //把title删掉
+					}
+				}
+			} , 50)
+		}
+	}
+
+
+}
+
 function move_tools(){
 	toolbar = document.getElementsByClassName("layui-table-tool")[0]
 	headbar = document.getElementById("header")
@@ -8,6 +36,7 @@ function move_tools(){
 
 function ontabledone(){
 	move_tools()
+	remove_panel_title()
 }
 
 

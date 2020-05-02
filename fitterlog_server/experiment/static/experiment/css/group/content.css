@@ -91,3 +91,34 @@
 .layui-table-cell{
 	height : 29px !important;
 }
+
+/*复选框*/
+.layui-form-checkbox[lay-skin=primary] i{
+	background-color: #8E8E8EFF !important;
+	color: #8E8E8EFF !important;
+
+	border: none !important;
+	transition: none !important;
+}
+
+.layui-form-checkbox[lay-skin=primary]:hover i{
+	background-color: #565656FF !important;
+	color: #B5B5B5FF !important;
+	border: none !important;
+	transition: none !important;
+}
+
+.layui-form-checked[lay-skin=primary] i{
+	background-color: #0F0F0FFF !important;
+	color: #C1CFE6 !important;
+	font-weight: bold !important;
+	border: none !important;
+	transition: none !important;
+}
+.layui-form-checked[lay-skin=primary]:hover i{
+	background-color: #2B2B2BFF !important;
+	color: #B5B5B5FF !important;
+	font-weight: bold !important;
+	border: none !important;
+	transition: none !important;
+}

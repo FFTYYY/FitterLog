@@ -58,17 +58,53 @@
 }
 
 
-/*我想取消动画，但不知道为什么还是有动画*/
+/*取消动画*/
 .layui-table-tool-self .layui-inline:hover {
 	color: #4C4C4CFF !important;
 	border: 1px solid #00000000 !important;
 	background-color: #DBDBDBFF !important;
-	-webkit-animation : none !important;
 	transition: none !important;
 }
 
 .layui-table-tool-self .layui-inline:hover i{
 	color: #4C4C4CFF !important;
 	transition: none !important;
+}
+
+
+/*弹出框的复选框*/
+.layui-table-tool-panel .layui-form-checkbox[lay-skin=primary] i{
+	background-color: #3796A3 !important;
+	color: #3796A3 !important;
+
+	border: none !important;
 	transition: none !important;
+	transition: 0.5s !important;
+	transition-timing-function: ease-out !important;
+}
+
+.layui-table-tool-panel li:hover .layui-form-checkbox[lay-skin=primary] i{
+	background-color: #20595E !important;
+	color: #20595E !important;
+	border: none !important;
+	transition: none !important;
+	transition: 1s !important;
+	transition-timing-function: ease-out !important;
+}
+
+.layui-table-tool-panel .layui-form-checked[lay-skin=primary] i{
+	background-color: #1B494F !important;
+	color: #C1CFE6 !important;
+	font-weight: bold !important;
+	border: none !important;
+	transition: 0.5s !important;
+	transition-timing-function: ease-out !important;
+}
+.layui-table-tool-panel li:hover .layui-form-checked[lay-skin=primary] i{
+	background-color: #2E7E88 !important;
+	color: #0F2A2D !important;
+	font-weight: bold !important;
+	border: none !important;
+	transition: 1s !important;
+	transition-timing-function: ease-out !important;
 }

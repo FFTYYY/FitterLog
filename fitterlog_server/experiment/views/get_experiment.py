@@ -12,7 +12,7 @@ def append_ids(the_ids , heads , lines , styles , hidden_heads = [] , hidden_ids
 
 	heads = ["id"] + heads
 	lines = [ [the_ids[i]] + lines[i] for i in range(len(lines))]
-	styles = ["fixed: 'left', style: 'background-color: #303030; color: #AAAAAAFF;',"] + styles
+	styles = ["fixed: 'left', style: 'background-color: #363636; color: #AAAAAAFF;',"] + styles
 
 	if "id" in hidden_heads:
 		styles[0] += "hide: true,"

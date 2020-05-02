@@ -1,3 +1,5 @@
+<!DOCTYPE html>
+
 {%load static%}
 
 <head>
@@ -28,13 +30,20 @@
 						type : 'checkbox' , 
 						width : 50 ,
 						fixed : 'left' ,
+						style: 'background-color: #363636; color: #AAAAAAFF;' , 
 					}"></th>
 
 					{% for h , w , mw, sty in head_and_width_and_style %}
 					<th lay-data = "{field:'{{h}}', width: {{w}} , minWidth:{{mw}}, sort:true ,align:'center', {{sty}} }">{{h}}</th>
 					{% endfor %}
 
-					<th lay-data = "{field:'right', fixed:'right', width: 100, align: 'center'}"></th>
+					<th lay-data = "{
+						field:'right', 
+						fixed:'right', 
+						width: 100, 
+						align: 'center' , 
+						style: 'background-color: #363636; color: #AAAAAAFF;' , 
+					}"></th>
 				</tr> 
 			</thead>
 			<tbody>
@@ -48,7 +57,9 @@
 					{% endfor %}
 
 					<td>
-						<a href = "/experiment/{{exp_id}}/logs" >L </a>
+						<a class = "header_a" href = "/experiment/{{exp_id}}/logs">
+							<i class="layui-icon">&#xe621;</i>
+						</a>
 					</td>
 
 				</tr>
@@ -63,8 +74,6 @@
 
 <script src = {% static "/layui/layui.js" %}></script>
 
-
-<script src = {% static "/experiment/js/group/anime.js" %}></script>
 
 
 <script>table = undefined</script>
