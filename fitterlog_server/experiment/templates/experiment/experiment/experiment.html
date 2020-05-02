@@ -1,0 +1,21 @@
+
+<p>Experiment: {{experiment.start_time}}</p>
+
+<p>Variables:</p>
+
+{% for variable in variables%}
+<a href = "/variable/{{variable.id}}">{{variable.name}}</a><br/>
+{% endfor %}
+
+<p>-</p>
+
+<form action = "/experiment/{{experiment.id}}/new_variable" method = "post">
+	{% csrf_token %}
+
+	name: <input type = "text" name = "name"/>
+
+	<input type = "submit" value = "new variable"/>
+</form>
+
+<p>-</p>
+<a href = "/group/{{experiment.group.id}}">back</a>

@@ -14,6 +14,7 @@ urlpatterns = [
 
 	path("experiment/<int:experiment_id>" , views.experiment),
 	path("experiment/<int:experiment_id>/new_variable" , views.new_variable),
+	path("experiment/<int:experiment_id>/logs" , views.experiment_log),
 
 	path("variable/<str:variable_id>" , views.variable),
 	path("variable/<str:variable_id>/new_track" , views.new_track),

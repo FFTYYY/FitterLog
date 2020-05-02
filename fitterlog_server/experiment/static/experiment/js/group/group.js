@@ -8,7 +8,6 @@ function move_tools(){
 
 function ontabledone(){
 	move_tools()
-	add_hover_and_unhover_action()
 }
 
 

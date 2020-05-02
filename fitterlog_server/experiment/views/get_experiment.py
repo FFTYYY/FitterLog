@@ -63,7 +63,7 @@ def experiment_list_to_str_list(expe_lis , hidden_heads = [] , hidden_ids = []):
 	ids = [exp.id for exp in expe_lis]
 	heads , lines , styles = append_ids(ids , heads , lines , styles , hidden_heads , hidden_ids)
 
-	return heads , lines , styles
+	return ids , heads , lines , styles
 		
 
 

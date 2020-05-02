@@ -32,19 +32,19 @@ def group(request , group_id):
 	hide_ids = [int(x) for x in seped_s2list(group.config.hidden_ids)]
 
 	# generate heads and rows
-	heads , lines , styles = experiment_list_to_str_list( group.experiments.all() , hide_heads , hide_ids)
+	ids , heads , lines , styles = experiment_list_to_str_list( group.experiments.all() , hide_heads , hide_ids)
 	
 	lens = generate_len(heads , lines)
 	min_lens = [x//2 for x in lens]
 
 	# add line_index
-	index_and_lines = zip(list(range(len(lines))) , lines)
+	id_and_index_and_lines = zip(ids , list(range(len(lines))) , lines)
 
 	context = {
 		"group": group , 
 		"heads" : heads , 
 		"lines" : lines , 
-		"index_and_lines" : index_and_lines , 
+		"id_and_index_and_lines" : id_and_index_and_lines , 
 		"lens" : lens , 
 		"head_and_width_and_style": zip(heads , lens , min_lens , styles) , 
 	}
@@ -58,7 +58,19 @@ def experiment(request , experiment_id):
 		"experiment": experiment , 
 		"variables": experiment.variables.all() , 
 	}
-	return render(request , get_path("experiment") , context)
+	return render(request , get_path("experiment/experiment") , context)
+
+
+def experiment_log(request , experiment_id):
+
+	experiment = Experiment.objects.get(id = experiment_id)
+
+	context = {
+		"experiment": experiment , 
+		"logs": experiment.logs , 
+	}
+	return render(request , get_path("experiment/logs") , context)
+
 
 def variable(request , variable_id):
 

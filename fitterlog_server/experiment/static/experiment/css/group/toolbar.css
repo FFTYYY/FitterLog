@@ -11,79 +11,64 @@
 
 /*导出的弹出框*/
 .layui-table-tool-panel{
+	color : #DBDBDBFF;
 	background-color: #25656E !important;
 	padding: 0 !important;
 	margin: 0 !important;
 	outline: 0 !important;
 	border: solid 1px !important;
 	border-color: #DBDBDBFF !important;
+
+	transition: 0.5s all !important;
+
 }
 
-.layui-table-tool-panel li{
-	background-color: #00000000 !important;
+.layui-table-tool-panel li .layui-form-checkbox span {
 	color: #DBDBDBFF !important;
-	padding: 0 !important;
-	margin: 0 !important;
-	outline: 0 !important;
-
-	padding-left: 10px !important;
+	background-color: #25656E !important;
+	transition: 0.5s all !important;
 }
-
-.layui-table-tool-panel li .layui-form-checkbox , .layui-table-tool-panel li .layui-form-checkbox:hover{
-	background-color: inherit !important;
-	color: inherit !important;
-}
-
-
-.layui-table-tool-panel li .layui-form-checkbox span , .layui-table-tool-panel li .layui-form-checkbox span:hover{
-	background-color: inherit !important;
-	color: inherit !important;
-}
-
-@-webkit-keyframes panel_hover
-{
-	from 
-	{
-		color : #DBDBDBFF;
-		background-color: #00000000;
-	}
-	to 
-	{
-		color : #25656E ;
-		background-color: #DBDBDBFF;
-	}
-}
-
-@-webkit-keyframes panel_unhover
-{
-	from 
-	{
-		color : #25656E;
-		background-color: #DBDBDBFF;
-	}
-	to 
-	{
-		color : #DBDBDBFF;
-		background-color: #00000000;
-	}
-}
-
-.panel_unhover_anime
-{
-	-webkit-animation : panel_unhover 0.5s !important;
-}
-
 
 .layui-table-tool-panel li:hover{
 	color : #25656E !important;
 	background-color: #DBDBDBFF !important;
-	-webkit-animation : panel_hover 1s !important;
-	-webkit-animation-timing-function: ease-out;
+	transition-timing-function: ease-out !important;
+	transition: 1s all !important;
 }
 
-.layui-table-tool-panel li span:hover{
+.layui-table-tool-panel li:hover .layui-form-checkbox span{
 	color : #25656E !important;
 	background-color: #DBDBDBFF !important;
-	-webkit-animation : panel_hover 0.5s !important;
-	-webkit-animation-timing-function: ease-out;
+
+	transition-timing-function: ease-out !important;
+	transition: 1s all !important;
+}
+
+/*工具栏按钮*/
+.layui-table-tool-self .layui-inline {
+	color: #DBDBDBFF !important;
+	border: 1px solid #DBDBDBFF !important;
+	background-color: #00000000 !important;
+	transition: none !important;
+
+}
+
+.layui-table-tool-self .layui-inline i{
+	color: #DBDBDBFF !important;
+}
+
+
+/*我想取消动画，但不知道为什么还是有动画*/
+.layui-table-tool-self .layui-inline:hover {
+	color: #4C4C4CFF !important;
+	border: 1px solid #00000000 !important;
+	background-color: #DBDBDBFF !important;
+	-webkit-animation : none !important;
+	transition: none !important;
+}
+
+.layui-table-tool-self .layui-inline:hover i{
+	color: #4C4C4CFF !important;
+	transition: none !important;
+	transition: none !important;
 }

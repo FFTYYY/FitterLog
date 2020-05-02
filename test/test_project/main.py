@@ -15,6 +15,10 @@ with Timer("apply args"):
 with Timer("new variable"):
 	E.new_variable("loss" , type = float , default = 0)
 
+E.add_line("log test!")
+E.add_line("hello!")
+E.add_line("???!")
+
 k = random.randint(0 , 233)
 print (k)
 E.new_variable("k" , type = int , default = k)

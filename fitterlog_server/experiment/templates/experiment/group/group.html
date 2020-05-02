@@ -34,12 +34,12 @@
 					<th lay-data = "{field:'{{h}}', width: {{w}} , minWidth:{{mw}}, sort:true ,align:'center', {{sty}} }">{{h}}</th>
 					{% endfor %}
 
-					<th lay-data = "{fixed: 'right', width : 100, align : 'center' , toolbar: '#right_bar'}"></th>
+					<th lay-data = "{field:'right', fixed:'right', width: 100, align: 'center'}"></th>
 				</tr> 
 			</thead>
 			<tbody>
 
-				{% for idx , line in index_and_lines%}
+				{% for exp_id , idx , line in id_and_index_and_lines%}
 				<tr>
 					<td class = "{{idx}}"></td> <!--checkbox-->
 
@@ -47,7 +47,9 @@
 					<td>{{val}}</td>
 					{% endfor %}
 
-					<td></td> <!--right-->
+					<td>
+						<a href = "/experiment/{{exp_id}}/logs" >L </a>
+					</td>
 
 				</tr>
 				{% endfor %}
@@ -74,9 +76,9 @@
 
 <script src = {% static "/experiment/js/group/group.js" %}></script>
 
-<script type = "text/html" id = "right_bar">
+<!--script type = "text/html" id = "right_bar">
 	<a class = "table_a" lay-event = "detail">TODO</a>
-</script>
+</script-->
 
 <!--
 $(document).ready(

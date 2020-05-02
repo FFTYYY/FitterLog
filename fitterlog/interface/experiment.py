@@ -18,6 +18,12 @@ class Experiment:
 		self.core = Core_Experiment(group = Core_Group.find(group_name , project_name))
 		self.variables = {}
 
+		self.add_line = self.write_log
+
+	def write_log(self , content = ""):
+		content = str(content) + "\n"
+		self.core.logs = self.core.logs + content
+
 	def new_variable(self , name , type = str , default = "None"):
 		self.variables[name] = Variable(self , name , type , default)
 
