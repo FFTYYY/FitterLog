@@ -10,9 +10,11 @@
 
 	function save_config() {
 
+		var sep_token = "__FITTERLOG__SEP__"
 		config = {
-			hide_columns: get_hide_headers() , 
-			hide_ids: Array.from(deleted_ids) , 
+			hide_columns: get_hide_headers().join(sep_token) , 
+			hide_ids    : Array.from(deleted_ids).join(sep_token) , 
+			intro       : document.getElementById("group_intro").value
 		}
 
 		var for_saving = document.getElementById("for_saving");
@@ -20,7 +22,8 @@
 		for (var x in config) {
 			var opt = document.createElement("textarea");
 			opt.name = x;
-			opt.value = config[x].join("__FITTERLOG__SEP__");
+
+			opt.value = config[x];
 			for_saving.appendChild(opt);
 		}
 

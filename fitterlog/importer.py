@@ -4,7 +4,6 @@ import django
 
 
 target_path = P.join( P.dirname(__file__) , "../fitterlog_server_module/")
-print (P.join( P.dirname(__file__) , "../fitterlog_server_module/"))
 flag = target_path in sys.path
 
 if not flag:

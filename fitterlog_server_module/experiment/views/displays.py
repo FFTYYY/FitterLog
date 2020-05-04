@@ -12,17 +12,18 @@ def index(request):
 	return render(request , get_path("index") , context)
 
 def project(request , project_id):
+	from .group_opt.group_sort import group_sort
 
 	project = Project.objects.get(id = project_id)
 
 	context = {
 		"project": project , 
-		"groups": project.groups.all() , 
+		"groups": group_sort(project.groups.all()) , 
 	}
 	return render(request , get_path("project") , context)
 
 def group(request , group_id):
-	from .get_experiment import experiment_list_to_str_list , append_ids , generate_len
+	from .group_opt.get_experiment import experiment_list_to_str_list , append_ids , generate_len
 
 	group = ExperimentGroup.objects.get(id = group_id)
 	group.checkconfig()

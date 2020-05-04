@@ -20,7 +20,10 @@ class Experiment(models.Model):
 	intro = models.TextField(default = "")
 	group = models.ForeignKey("ExperimentGroup" , on_delete = models.CASCADE , related_name = "experiments")
 
-	start_time = models.DateTimeField(auto_now = True)
+	running = models.BooleanField(default = True)
+
+	start_time = models.DateTimeField(auto_now_add = True) # 创建时间
+	end_time   = models.DateTimeField(null = True)
 
 	def __str__(self):
 		return self.name
@@ -30,6 +33,8 @@ class ExperimentGroup(models.Model):
 	intro = models.TextField(default = "")
 	project = models.ForeignKey(Project , on_delete = models.CASCADE , related_name = "groups")
 	config = models.OneToOneField(GroupConfig , on_delete = models.SET_NULL , null = True)
+
+	start_time = models.DateTimeField(auto_now_add = True) # 创建时间
 
 	def __str__(self):
 		return self.name

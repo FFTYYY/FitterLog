@@ -12,6 +12,8 @@ def new_project(request):
 
 		proj = Project(name = name , path = path)
 		proj.save()
+		grop = ExperimentGroup(name = "default", project_id = proj.id)
+		grop.save()
 	return HttpResponseRedirect("/")
 
 def new_group(request , project_id):
@@ -19,8 +21,8 @@ def new_group(request , project_id):
 	if request.POST:
 		name = request.POST.get("name")
 
-		proj = ExperimentGroup(name = name , project_id = project_id)
-		proj.save()
+		grop = ExperimentGroup(name = name , project_id = project_id)
+		grop.save()
 	return HttpResponseRedirect("/project/%s" % str(project_id))
 
 def new_experiment(request , group_id):
@@ -61,11 +63,13 @@ def save_config(request , group_id):
 	group = ExperimentGroup.objects.get(id = group_id)
 
 	if request.POST:
-		hide_columns = request.POST.get('hide_columns')
-		hide_ids 	 = request.POST.get('hide_ids')
+		hide_columns = request.POST.get("hide_columns")
+		hide_ids 	 = request.POST.get("hide_ids")
+		intro 		 = request.POST.get("intro")
 
 		group.add_hide_cols(hide_columns)
 		group.add_hide_ids(hide_ids)
+		group.intro = intro
 		group.save()
 
 	return HttpResponseRedirect("/group/%s" % (str(group_id)))

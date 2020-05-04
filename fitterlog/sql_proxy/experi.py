@@ -21,9 +21,19 @@ class Project(Object):
 			id 			= "id" , 
 		)
 
-	def find(name):
-		return SQL_Project.objects.get(name = name)
+	def find(id = None , name = None):
+		assert (id is not None) or (name is not None)
+		if id is None:
 
+			objs = SQL_Project.objects.filter(name = name)
+			if len(objs) <= 0:
+				proj = SQL_Project(name = name)
+				proj.save()
+			else:
+				proj = objs[0]
+			return proj
+
+		return SQL_Project.objects.get(id = id)
 
 class ExperimentGroup(Object):
 	'''一组实验
@@ -39,8 +49,19 @@ class ExperimentGroup(Object):
 			sql_project 	= "project" , 
 		)
 
-	def find(name , project_name):
-		return SQL_ExperimentGroup.objects.get(name = name , project = Project.find(name = project_name))
+	def find(id = None , name = None , project_id = None , project_name = None):
+		proj = Project.find(id = project_id , name = project_name)
+		assert (id is not None) or (name is not None)
+
+		if id is None:
+			objs = SQL_ExperimentGroup.objects.filter(name = name , project = proj)
+			if len(objs) <= 0:
+				grop = SQL_ExperimentGroup(name = name , project = proj)
+				grop.save()
+			else:
+				grop = objs[0]
+			return grop
+		return SQL_ExperimentGroup.objects.get(id = id , project = proj)
 
 class Experiment(Object):
 	'''一次实验
@@ -54,6 +75,9 @@ class Experiment(Object):
 			logs 			= "logs" , 
 			sql_variables 	= "variables" ,
 			id 				= "id" , 
+			running 		= "running" , 
+			end_time 		= "end_time" , 
+			start_time 		= "start_time" , 
 		)
 
 

@@ -1,7 +1,7 @@
 import sys , os
 sys.path.append("..")
-from fitterlog.data.experi import SQL_Project , SQL_Experiment , SQL_ExperimentGroup
-from fitterlog.data.variable import SQL_Variable , SQL_SingleValue , SQL_VariableTrack
+from fitterlog.sql_proxy.experi import SQL_Project , SQL_Experiment , SQL_ExperimentGroup
+from fitterlog.sql_proxy.variable import SQL_Variable , SQL_SingleValue , SQL_VariableTrack
 import pdb
 
 def clear_class(clas):
