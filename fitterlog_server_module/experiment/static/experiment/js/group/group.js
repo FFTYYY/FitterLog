@@ -37,8 +37,11 @@ function add_cell_onhover(){
 		var p = x.parentElement.parentElement.parentElement.parentElement.parentElement
 		if(!p.classList.contains("layui-table-main"))
 			continue
-		x.onmouseenter = function(){
-			fff = this
+		x.onmousedown = function(){
+
+			var my_id = this.children[0].getAttribute("my_id")
+			
+			window.location.href = "/variable/" + String(my_id);
 		}
 	}
 }
@@ -79,14 +82,6 @@ layui.use(["table" , "soulTable"] , function(){
 		toolbar: true , 
 		done: ontabledone , 
 
-
-		rowDrag: {trigger: 'row', done: function(obj) {
-            console.log(obj.row) // 当前行数据
-            console.log(obj.cache) // 改动后表格数据
-            console.log(obj.oldIndex) // 原来的数据索引
-            console.log(obj.newIndex) // 改动后数据索引
-        }}
- 
 	})
 
 	//在toolbar_event.html里定义

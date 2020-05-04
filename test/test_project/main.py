@@ -26,6 +26,7 @@ E.add_line("running: {0}".format(E.core.running))
 k = random.randint(0 , 23)
 print (k)
 E.new_variable("k" , type = int , default = k)
+E.new_variable("23333" , type = int , default = 2333)
 with Timer("updates"):
 	for i in range(k):
 		E["loss"].update(0.01 * i)
@@ -33,6 +34,7 @@ with Timer("updates"):
 x = 0
 with Timer("gets"):	
 	x += E["loss"].value
+
 
 print (Timer.output_all())
 print (E["n"])

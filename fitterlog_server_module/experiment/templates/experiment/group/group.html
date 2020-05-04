@@ -35,7 +35,7 @@
 					}"></th>
 
 					{% for h , w , mw, sty in head_and_width_and_style %}
-					<th lay-data = "{field:'{{h}}', width: {{w}} , minWidth:{{mw}}, sort:true ,align:'center', {{sty}} }">{{h}}</th>
+					<th lay-data = "{field:'{{h}}', width: {{w}} , minWidth:{{mw}}, sort:true ,align:'center', {{sty}}}">{{h}}</th>
 					{% endfor %}
 
 					<th lay-data = "{
@@ -53,8 +53,8 @@
 				<tr>
 					<td class = "{{idx}}"></td> <!--checkbox-->
 
-					{% for val in line %}
-					<td>{{val}}</td>
+					{% for v_id , val in line %}
+					<td>{{val}}<div my_id = {{v_id}} class = "hidden"></div></td>
 					{% endfor %}
 
 					<td>
