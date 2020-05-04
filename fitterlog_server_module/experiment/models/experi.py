@@ -52,7 +52,6 @@ class ExperimentGroup(models.Model):
 	def add_hide_cols(self , s):
 		self.checkconfig()
 
-		hide_cols = seped_s2list(self.config.hidden_heads)
 		hide_cols = seped_s2list(s)
 		hide_cols = list(set(hide_cols))
 		self.config.hidden_heads = seped_list2s(hide_cols)
@@ -60,10 +59,15 @@ class ExperimentGroup(models.Model):
 	def add_hide_ids(self , s):
 		self.checkconfig()
 
-		hide_cols = seped_s2list(self.config.hidden_ids)
-		hide_cols += seped_s2list(s)
-		hide_cols = list(set(hide_cols))
-		self.config.hidden_ids = seped_list2s(hide_cols)
+		hide_ids = seped_s2list(self.config.hidden_ids)
+		hide_ids += seped_s2list(s)
+		hide_ids = list(set(hide_ids))
+		self.config.hidden_ids = seped_list2s(hide_ids)
+
+	def add_show_order(self , s):
+		self.checkconfig()
+
+		self.config.show_order = s
 
 
 __all__ = [

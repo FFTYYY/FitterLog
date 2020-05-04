@@ -7,7 +7,7 @@ from YTools.universe.beautiful_str import beautiful_str
 import random
 
 with Timer("new experiment"):
-	E = new_or_load_experiment(project_name = "hahahaha" , group_name = "latest 2")
+	E = new_or_load_experiment(project_name = "hahahaha")
 
 with Timer("apply args"):
 	E.use_argument_proxy( arg_proxy )

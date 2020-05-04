@@ -14,7 +14,8 @@
 		config = {
 			hide_columns: get_hide_headers().join(sep_token) , 
 			hide_ids    : Array.from(deleted_ids).join(sep_token) , 
-			intro       : document.getElementById("group_intro").value
+			intro       : document.getElementById("group_intro").value , 
+			show_order  : get_show_headers().join(sep_token) , 
 		}
 
 		var for_saving = document.getElementById("for_saving");

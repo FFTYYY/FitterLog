@@ -66,9 +66,11 @@ def save_config(request , group_id):
 		hide_columns = request.POST.get("hide_columns")
 		hide_ids 	 = request.POST.get("hide_ids")
 		intro 		 = request.POST.get("intro")
+		show_order 	 = request.POST.get("show_order")
 
 		group.add_hide_cols(hide_columns)
 		group.add_hide_ids(hide_ids)
+		group.add_show_order(show_order)
 		group.intro = intro
 		group.save()
 

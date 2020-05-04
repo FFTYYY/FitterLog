@@ -62,3 +62,19 @@ function get_hide_headers() {
 	}
 	return hide_list
 }
+
+/*返回显示的列的顺序*/
+function get_show_headers() {
+	var headers = document.getElementsByClassName("layui-table-header")[0]
+	headers = headers.children[0].children[0].children[0].children
+
+	var show_list = []
+	for(var i = 0;i < headers.length;i++)
+	{
+		if(headers[i].tagName == "TH") //表头
+		{
+			show_list.push(headers[i].innerText)
+		}
+	}
+	return show_list
+}

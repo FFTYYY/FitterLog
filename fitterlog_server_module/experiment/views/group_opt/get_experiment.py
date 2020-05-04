@@ -21,7 +21,20 @@ def append_ids(the_ids , heads , lines , styles , hidden_heads = [] , hidden_ids
 
 	return heads , lines , styles
 
-def experiment_list_to_str_list(expe_lis , hidden_heads = [] , hidden_ids = []):
+def get_head_reorder(heads , show_order):
+
+	show_order = [x for x in show_order if x in heads]
+
+	child_pos = []
+	for i in range(len(heads)):
+		if heads[i] in show_order:
+			child_pos.append(i)
+	for i in range(len(child_pos)):
+		heads[child_pos[i]] = show_order[i]
+
+	return heads
+
+def experiment_list_to_str_list(expe_lis , hidden_heads = [] , hidden_ids = [] , show_order = []):
 	heads = {}
 	values = []
 	lines = []
@@ -50,7 +63,7 @@ def experiment_list_to_str_list(expe_lis , hidden_heads = [] , hidden_ids = []):
 		heads.update(value_map)
 		values.append(value_map)
 
-	heads = list(heads)
+	heads = get_head_reorder(list(heads) , show_order)
 	styles = ["" for _ in range(len(heads))]
 	for i in range(len(heads)):
 		if heads[i] in hidden_heads:

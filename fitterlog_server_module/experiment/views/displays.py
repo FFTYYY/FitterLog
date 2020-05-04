@@ -31,9 +31,11 @@ def group(request , group_id):
 	# generate hiddens
 	hide_heads = seped_s2list(group.config.hidden_heads)
 	hide_ids = [int(x) for x in seped_s2list(group.config.hidden_ids)]
+	show_order = seped_s2list(group.config.show_order)
 
 	# generate heads and rows
-	ids , heads , lines , styles = experiment_list_to_str_list( group.experiments.all() , hide_heads , hide_ids)
+	ids , heads , lines , styles = experiment_list_to_str_list( 
+					group.experiments.all() , hide_heads , hide_ids , show_order)
 	
 	lens = generate_len(heads , lines)
 	min_lens = [x//2 for x in lens]

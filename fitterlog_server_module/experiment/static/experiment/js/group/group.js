@@ -37,10 +37,11 @@ function move_tools(){
 function ontabledone(){
 	move_tools()
 	remove_panel_title()
+	layui.soulTable.render(this)
 }
 
 
-layui.use("table", function(){
+layui.use(["table" , "soulTable"] , function(){
 	table = layui.table
 	 
 	//转换静态表格

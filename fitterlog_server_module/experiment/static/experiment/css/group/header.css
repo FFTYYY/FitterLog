@@ -50,3 +50,8 @@
 	margin-right: 5%;
 	margin-bottom: : 2%;
 }
+
+
+.isDrag{
+	background-color: inherit !important;
+}
