@@ -23,8 +23,24 @@ function remove_panel_title()
 			} , 50)
 		}
 	}
+}
 
+function add_cell_onhover(){
+	cells = document.getElementsByClassName("layui-table-cell")
 
+	for (var i = 0;i < cells.length;i++)
+	{
+		var x = cells[i]
+
+		if(x.parentElement.tagName != "TD")
+			continue
+		var p = x.parentElement.parentElement.parentElement.parentElement.parentElement
+		if(!p.classList.contains("layui-table-main"))
+			continue
+		x.onmouseenter = function(){
+			fff = this
+		}
+	}
 }
 
 function move_tools(){
@@ -37,6 +53,7 @@ function move_tools(){
 function ontabledone(){
 	move_tools()
 	remove_panel_title()
+	add_cell_onhover()
 	layui.soulTable.render(this)
 }
 
@@ -61,6 +78,15 @@ layui.use(["table" , "soulTable"] , function(){
 		] ,
 		toolbar: true , 
 		done: ontabledone , 
+
+
+		rowDrag: {trigger: 'row', done: function(obj) {
+            console.log(obj.row) // 当前行数据
+            console.log(obj.cache) // 改动后表格数据
+            console.log(obj.oldIndex) // 原来的数据索引
+            console.log(obj.newIndex) // 改动后数据索引
+        }}
+ 
 	})
 
 	//在toolbar_event.html里定义

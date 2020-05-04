@@ -40,3 +40,26 @@
 	color: #4C4C4CFF !important;
 
 }
+
+/*查看详细值*/
+.layui-table-grid-down {
+	background-color: #4C4C4CFF !important;
+	border: none !important; 
+}
+
+/*单元格*/
+.layui-table-main td .layui-table-cell:hover {
+	background-color: #D8D8D8FF !important;
+	color: #4C4C4CFF!important;
+
+	transition: 1s !important;
+	transition-timing-function: ease-out !important;
+}
+.layui-table-main td .layui-table-cell {
+	background-color: inherit !important;
+	color: inherit !important;
+
+	transition: 0.5s !important;	
+	transition-timing-function: ease-out !important;
+
+}

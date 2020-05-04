@@ -23,7 +23,7 @@ E.add_line("start  : {0}".format(E.core.start_time))
 E.add_line("end    : {0}".format(E.core.end_time))
 E.add_line("running: {0}".format(E.core.running))
 
-k = random.randint(0 , 233)
+k = random.randint(0 , 23)
 print (k)
 E.new_variable("k" , type = int , default = k)
 with Timer("updates"):
