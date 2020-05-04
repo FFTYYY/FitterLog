@@ -49,7 +49,7 @@
 
 /*单元格*/
 .layui-table-main td .layui-table-cell:hover::selection {
-	background-color: #4C4C4CFF !important;
+	background-color: #7F7F7FFF !important;
 	color: #D8D8D8FF!important;
 }
 
