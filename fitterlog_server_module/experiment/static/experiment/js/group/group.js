@@ -25,26 +25,26 @@ function remove_panel_title()
 	}
 }
 
-function add_cell_onhover(){
-	cells = document.getElementsByClassName("layui-table-cell")
-
-	for (var i = 0;i < cells.length;i++)
-	{
-		var x = cells[i]
-
-		if(x.parentElement.tagName != "TD")
-			continue
-		var p = x.parentElement.parentElement.parentElement.parentElement.parentElement
-		if(!p.classList.contains("layui-table-main"))
-			continue
-		x.onmousedown = function(){
-
-			var my_id = this.children[0].getAttribute("my_id")
-			
-			window.location.href = "/variable/" + String(my_id);
-		}
-	}
-}
+//function add_cell_onhover(){
+//	cells = document.getElementsByClassName("layui-table-cell")
+//
+//	for (var i = 0;i < cells.length;i++)
+//	{
+//		var x = cells[i]
+//
+//		if(x.parentElement.tagName != "TD")
+//			continue
+//		var p = x.parentElement.parentElement.parentElement.parentElement.parentElement
+//		if(!p.classList.contains("layui-table-main"))
+//			continue
+//		x.ondoubleclick = function(){
+//
+//			var my_id = this.children[0].getAttribute("my_id")
+//			
+//			window.location.href = "/variable/" + String(my_id);
+//		}
+//	}
+//}
 
 function move_tools(){
 	toolbar = document.getElementsByClassName("layui-table-tool")[0]
@@ -56,7 +56,7 @@ function move_tools(){
 function ontabledone(){
 	move_tools()
 	remove_panel_title()
-	add_cell_onhover()
+	//add_cell_onhover()
 	layui.soulTable.render(this)
 }
 
@@ -81,6 +81,37 @@ layui.use(["table" , "soulTable"] , function(){
 		] ,
 		toolbar: true , 
 		done: ontabledone , 
+
+		contextmenu: {
+			body: [
+				{
+					name: "细节",
+					icon: "layui-icon layui-icon-slider",
+					//click: function(obj) {
+					//	console.log(event)
+					//	my_id = obj.elem.children()[0].children[0].getAttribute("my_id")
+					//	window.open("/variable/" + String(my_id) , "_blank")
+					//},
+
+					mouseup: function(obj) {
+						my_id = obj.elem.children()[0].children[0].getAttribute("my_id")
+						new_url = "/variable/" + String(my_id)
+						if(event.button == 1) // 中键
+						{
+							window.open(new_url , "_blank")
+						}
+						else if(event.button == 0) //左键
+						{
+							window.location.href = new_url
+						}
+						console.log(obj)
+						console.log(event)
+					},
+					children: []
+				}
+
+			],
+		}
 
 	})
 

@@ -1,0 +1,34 @@
+
+/*和toolbar.panel一直*/
+
+.soul-table-contextmenu{
+	color : #DBDBDBFF !important;
+	background-color: #25656E !important;
+	padding: 0 !important;
+	margin: 0 !important;
+	outline: 0 !important;
+	border: solid 1px !important;
+	border-color: #DBDBDBFF !important;
+
+	transition: 0.5s all !important;
+
+}
+
+.soul-table-contextmenu li{
+	color : inherit !important;
+	background-color: inherit !important;
+	transition: 0.5s all !important;
+}
+
+
+.soul-table-contextmenu li:hover{
+	color : #25656E !important;
+	background-color: #DBDBDBFF !important;
+	transition-timing-function: ease-out !important;
+	transition: 1s all !important;
+}
+.soul-table-contextmenu li:hover i{
+	color : #25656E !important;
+	transition-timing-function: ease-out !important;
+	transition: 1s all !important;
+}

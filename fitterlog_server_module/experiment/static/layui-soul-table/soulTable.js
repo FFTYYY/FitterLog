@@ -990,8 +990,106 @@ layui.define(['table', 'tableFilter', 'tableChild', 'tableMerge'], function (exp
                                 })
                                 $('#soul-table-contextmenu-wrapper').remove();
                             })
+
                         })(i)
                     }
+
+                    if (typeof options[i].mousedown === "function") {
+                        (function (i) {
+                            $parent.children('.soul-table-contextmenu:last').children('li[data-index="'+i+'"]').on('mousedown', function () {
+                            var index = $this.parents('tr:eq(0)').data('index'),
+                                tr = box.find('tr[data-index="'+ index +'"]'),
+                                row = layui.table.cache[tableId][index];
+
+                                options[i].mousedown.call(myTable, {
+                                    cell: $this,
+                                    elem: tag === 'th' ? $this : isBody ? box.children('tbody').children('tr[data-index="'+index+'"]').children('[data-key="'+$this.data('key')+'"]') : box.find('[data-key="'+$this.data('key')+'"]'),
+                                    trElem: box.children('tbody').children('tr[data-index="'+index+'"]'),
+                                    text: $this.text(),
+                                    field: $this.data('field'),
+                                    del: !isBody? '' : function() {
+                                        table.cache[tableId][index] = [];
+                                        tr.remove();
+                                        table.resize(tableId);
+                                    },
+                                    update: !isBody?'':function(fields) {
+                                        fields = fields || {};
+                                        layui.each(fields, function(key, value){
+                                            if(key in row){
+                                                var templet, td = tr.children('td[data-field="'+ key +'"]');
+                                                row[key] = value;
+                                                table.eachCols(tableId, function(i, item2){
+                                                    if(item2.field == key && item2.templet){
+                                                        templet = item2.templet;
+                                                    }
+                                                });
+                                                td.children('.layui-table-cell').html(function(){
+                                                    return templet ? function(){
+                                                        return typeof templet === 'function'
+                                                            ? templet(row)
+                                                            : layui.laytpl($(templet).html() || value).render(row)
+                                                    }() : value;
+                                                }());
+                                                td.data('content', value);
+                                            }
+                                        });
+                                    },
+                                    row: isBody ? row : {},
+                                })
+                                $('#soul-table-contextmenu-wrapper').remove();
+                            })
+
+                        })(i)
+                    }
+
+                    if (typeof options[i].mouseup === "function") {
+                        (function (i) {
+                            $parent.children('.soul-table-contextmenu:last').children('li[data-index="'+i+'"]').on('mouseup', function () {
+                            var index = $this.parents('tr:eq(0)').data('index'),
+                                tr = box.find('tr[data-index="'+ index +'"]'),
+                                row = layui.table.cache[tableId][index];
+
+                                options[i].mouseup.call(myTable, {
+                                    cell: $this,
+                                    elem: tag === 'th' ? $this : isBody ? box.children('tbody').children('tr[data-index="'+index+'"]').children('[data-key="'+$this.data('key')+'"]') : box.find('[data-key="'+$this.data('key')+'"]'),
+                                    trElem: box.children('tbody').children('tr[data-index="'+index+'"]'),
+                                    text: $this.text(),
+                                    field: $this.data('field'),
+                                    del: !isBody? '' : function() {
+                                        table.cache[tableId][index] = [];
+                                        tr.remove();
+                                        table.resize(tableId);
+                                    },
+                                    update: !isBody?'':function(fields) {
+                                        fields = fields || {};
+                                        layui.each(fields, function(key, value){
+                                            if(key in row){
+                                                var templet, td = tr.children('td[data-field="'+ key +'"]');
+                                                row[key] = value;
+                                                table.eachCols(tableId, function(i, item2){
+                                                    if(item2.field == key && item2.templet){
+                                                        templet = item2.templet;
+                                                    }
+                                                });
+                                                td.children('.layui-table-cell').html(function(){
+                                                    return templet ? function(){
+                                                        return typeof templet === 'function'
+                                                            ? templet(row)
+                                                            : layui.laytpl($(templet).html() || value).render(row)
+                                                    }() : value;
+                                                }());
+                                                td.data('content', value);
+                                            }
+                                        });
+                                    },
+                                    row: isBody ? row : {},
+                                })
+                                $('#soul-table-contextmenu-wrapper').remove();
+                            })
+
+                        })(i)
+                    }
+
                 }
                 $parent.children('.soul-table-contextmenu:last').children('li').on('mouseenter', function (e) {
                     e.stopPropagation()
