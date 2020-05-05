@@ -45,7 +45,16 @@
 
 			<ul id = "group_list_container">
 			{% for group in groups %}
-				<li class = "group_list" group_id = "{{group.id}}">
+				<li 
+					class = "group_list
+					{%if group.name == 'default' %} 
+						active_left 
+					{%endif%}" 
+
+					id = "left_content_{{group.id}}"
+
+					group_id = "{{group.id}}"
+				>
 					<a class = "group_list_a" href = "/group/{{group.id}}" >
 						{{group.name}}
 					</a>
@@ -58,7 +67,15 @@
 		<div id = "right_part">
 
 			{% for group in groups%}
-				<div class = "right_content hidden" id = "right_content_{{group.id}}">
+				<div 
+					class = "right_content 
+					{%if group.name != 'default' %} 
+						hidden 
+					{% else %}
+						default_right
+					{%endif%}" 
+					id = "right_content_{{group.id}}"
+				>
 				<p">name: {{group.name}}</p>
 				</div>
 			{% endfor %}

@@ -34,34 +34,6 @@
 	width: 100%;
 }
 
-@-webkit-keyframes group_list_hover
-{
-	from 
-	{
-		color : #D3D3D3FF;
-		background-color: inherit;
-	}
-	to 
-	{
-		color : #0F0F0FFF ;
-		background-color: #B2B2B2FF;
-	}
-}
-
-@-webkit-keyframes group_list_unhover
-{
-	from 
-	{
-		color : #0F0F0FFF;
-		background-color: #B2B2B2FF;
-	}
-	to 
-	{
-		color : #D3D3D3FF;
-		background-color: inherit;
-	}
-}
-
 .group_list
 {
 	margin-top: 3px;
@@ -69,19 +41,17 @@
 	width : 100%;
 	line-height: 20px;
 	list-style : none;
-}
+	transition: 0.5s !important;
+	transition-timing-function: ease-out;
 
-.group_list_unhover_anime
-{
-	-webkit-animation : group_list_unhover 0.5s !important;
 }
 
 .group_list:hover
 {
 	color : #0F0F0FFF;
 	background-color: #B2B2B2FF;
-	-webkit-animation : group_list_hover 1s !important;
-	-webkit-animation-timing-function: ease-out;
+	transition: 1s !important;
+	transition-timing-function: ease-out;
 
 }
 .group_list_a
@@ -96,3 +66,10 @@
 
 	cursor : default;
 }
+
+
+.active_left{
+	color : #0F0F0FFF  !important;
+	background-color: #B2B2B2FF  !important;
+}
+

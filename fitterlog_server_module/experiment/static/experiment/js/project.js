@@ -1,17 +1,8 @@
-now_active = undefined
+now_active = document.getElementsByClassName("default_right")[0]
+active_left = document.getElementsByClassName("active_left")[0]
 
 function when_unhovor()
 {
-	//获得动画
-	this.classList.add("group_list_unhover_anime")
-	
-	//因为动画的执行时间是0.5s，在0.5s后移除动画
-	setTimeout(
-		function (){
-			this.classList.remove("group_list_unhover_anime")
-		}.bind(this),
-		500
-	)
 }
 
 function when_hover()
@@ -20,12 +11,15 @@ function when_hover()
 
 	if (now_active != undefined)
 		now_active.classList.add("hidden")
-
 	var the_right = document.getElementById("right_content_" + String(group_id))
 	the_right.classList.remove("hidden")
-
 	now_active = the_right
 
+	if(active_left != undefined)
+		active_left.classList.remove("active_left")
+	var the_left = document.getElementById("left_content_" + String(group_id))
+	the_left.classList.add("active_left")
+	active_left = the_left
 }
 
 function add_hover_and_unhover_action()
