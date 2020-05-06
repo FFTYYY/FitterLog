@@ -1,0 +1,73 @@
+*{
+	background-color: #5B5B5B;
+	color: #C1C1C1FF;
+	margin: 0;
+	padding: 0;
+}
+
+.tab-head:hover{
+	background-color: #44BAB4FF !important;
+	color: #2B2B2BFF;
+
+	transition: 0.5s;
+	transition-timing-function: ease-out;
+}
+
+.layui-this{
+	background-color: #88A7E6FF !important;
+	color: #2B2B2BFF !important;
+}
+
+#header #decs{
+	position: absolute;
+	background-color: #494949;
+
+	left: 0;
+	top: 0;
+	height: 100%;
+	width: 50%;
+}
+#header #buts{
+	position: absolute;
+	background-color: #494949;
+
+	left: 50%;
+	top: 0;
+	height: 100%;
+	width: 50%;
+}
+
+#header{
+	position: absolute;
+	background-color: #494949;
+	left: 0;
+	top: 0;
+	height: 7%;
+	width: 100%;
+}
+
+.layui-tab{
+	position: absolute;
+	left: 0;
+	top: 7%;
+	height: 88%;
+	width: 100%;
+
+}
+
+#header p , #header a{
+	background-color: inherit;
+	color: inherit;
+}
+
+#header a:hover{
+	background-color: #C1C1C1FF;
+	color: #5B5B5B;
+}
+
+
+::selection
+{
+	background : #DDDDDD; 
+	color : #383838FF;
+}

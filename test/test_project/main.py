@@ -5,6 +5,7 @@ from config import arg_proxy
 from YTools.universe.timer import Timer
 from YTools.universe.beautiful_str import beautiful_str
 import random
+from tqdm import tqdm
 
 with Timer("new experiment"):
 	E = new_or_load_experiment(project_name = "hahahaha")
@@ -45,6 +46,10 @@ for i in range(3):
 	E["loss"]["草"].update(3 * 0.4)
 	E["loss"]["草"].update(3 * 0.5)
 
+E.new_variable("metric")
+E["metric"].new_track("test acc")
+for i in tqdm(range(10000) , ncols = 100):
+	E["metric"]["test acc"].update((i*random.random()) * 100 , 1 + i * 20)
 
 x = 0
 with Timer("gets"):	

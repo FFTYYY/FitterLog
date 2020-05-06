@@ -6,16 +6,30 @@
 
 	<script src = "{% static "Highcharts/highcharts.src.js" %} "></script>
 	<script src = "{% static "Highcharts/themes/dark-unica.js" %} "></script>
+
+	<link rel = "stylesheet" href = {% static "/experiment/css/variable/main.css" %} type = "text/css" />
+
 </head>
 
 <body>
 
+<div id = "header">
+	<div id = "decs">
+		<p> 【Experiment id】 {{variable.expe.id}}</p>
+		<p> 【Variable】 {{variable.name}}</p>
+	</div>
+
+	<div id = "buts">
+		<a class = "layui-icon" href = "/group/{{variable.expe.group.id}}" title = "返回"> &#xe65c;</a>
+	</div>
+</div>
+
 <div class="layui-tab">
   <ul class="layui-tab-title">
 
-  	<li class = "layui-this">all</li>
+  	<li class = "layui-this tab-head">ALL</li>
 	{% for tra , lis in tracks_and_values%}
-		<li>{{tra.name}}</li>
+		<li class = "tab-head">{{tra.name}}</li>
 	{% endfor %}
   </ul>
   <div class="layui-tab-content">

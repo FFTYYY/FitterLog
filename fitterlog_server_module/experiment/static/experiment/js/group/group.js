@@ -25,27 +25,6 @@ function remove_panel_title()
 	}
 }
 
-//function add_cell_onhover(){
-//	cells = document.getElementsByClassName("layui-table-cell")
-//
-//	for (var i = 0;i < cells.length;i++)
-//	{
-//		var x = cells[i]
-//
-//		if(x.parentElement.tagName != "TD")
-//			continue
-//		var p = x.parentElement.parentElement.parentElement.parentElement.parentElement
-//		if(!p.classList.contains("layui-table-main"))
-//			continue
-//		x.ondoubleclick = function(){
-//
-//			var my_id = this.children[0].getAttribute("my_id")
-//			
-//			window.location.href = "/variable/" + String(my_id);
-//		}
-//	}
-//}
-
 function move_tools(){
 	toolbar = document.getElementsByClassName("layui-table-tool")[0]
 	headbar = document.getElementById("header")
@@ -56,7 +35,6 @@ function move_tools(){
 function ontabledone(){
 	move_tools()
 	remove_panel_title()
-	//add_cell_onhover()
 	layui.soulTable.render(this)
 }
 
@@ -73,11 +51,11 @@ layui.use(["table" , "soulTable"] , function(){
 		height: "full-0" , 
 		
 		defaultToolbar: [
-			{title: "返回", layEvent: 'go-back',icon: 'layui-icon-return',} , 
-			{title: "保存设置", layEvent: 'save',icon: 'layui-icon-upload-circle',} , 
-			{title: "删除选中行", layEvent: 'delete',icon: 'layui-icon-close',} , 
+			{title: "返回", layEvent: "go-back",icon: "layui-icon-return",} , 
+			{title: "保存设置", layEvent: "save",icon: "layui-icon-upload",} , 
+			{title: "删除选中行", layEvent: "delete",icon: "layui-icon-close",} , 
 			"filter", 
-			{title: "导出", layEvent: 'LAYTABLE_EXPORT',icon: 'layui-icon-male',} , 
+			{title: "导出", layEvent: "LAYTABLE_EXPORT",icon: "layui-icon-male",} , 
 		] ,
 		toolbar: true , 
 		done: ontabledone , 
@@ -116,6 +94,6 @@ layui.use(["table" , "soulTable"] , function(){
 	})
 
 	//在toolbar_event.html里定义
-	table.on('toolbar', get_toolbar_event_func(table))
+	table.on("toolbar", get_toolbar_event_func(table))
 });
 

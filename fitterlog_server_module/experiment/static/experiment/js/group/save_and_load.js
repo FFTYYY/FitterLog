@@ -3,12 +3,12 @@ deleted_ids = new Set()
 
 /*更新deleted_ids，并事实上隐藏他们*/
 function hide_checked_rows() {
-	var checkStatus = table.checkStatus('the_table');
+	var checkStatus = table.checkStatus("the_table");
 	var checkData = checkStatus.data
 
 	for(var i = 0;i < checkData.length;i++)
 	{
-		deleted_ids.add(checkData[i].id)
+		deleted_ids.add(checkData[i].id.split("<div")[0])
 	}
 
 
@@ -36,7 +36,6 @@ function hide_checked_rows() {
 			del_idxs.push(r.getAttribute("data-index"))
 		}
 	}
-	
 
 	var trs = document.getElementsByTagName("tr")
 	for(var i = 0;i < trs.length;i++)
@@ -45,8 +44,8 @@ function hide_checked_rows() {
 			trs[i].hidden = true
 	}
 
-	//console.log("ids" , deleted_ids)
-	//console.log("idxs" , del_idxs)
+	console.log("ids" , deleted_ids)
+	console.log("idxs" , del_idxs)
 }
 
 /*返回隐藏的列*/

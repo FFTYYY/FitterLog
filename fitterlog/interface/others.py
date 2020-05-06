@@ -24,7 +24,7 @@ class Track:
 
 		self.core = Core_Track(name , variable = variable.core)
 		
-		self.max_time_stamp = 0
+		self.max_time_stamp = -1
 		self.time_stamps = []
 		self.single_values = {}
 
