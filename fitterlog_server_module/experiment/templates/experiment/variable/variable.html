@@ -1,0 +1,41 @@
+{% load static %}
+
+<head>
+	<link rel = "stylesheet" href = {% static "/layui/css/layui.css" %} type = "text/css" />
+	<script src = {% static "/layui/layui.js" %}></script>
+
+	<script src = "{% static "Highcharts/highcharts.src.js" %} "></script>
+	<script src = "{% static "Highcharts/themes/dark-unica.js" %} "></script>
+</head>
+
+<body>
+
+<div class="layui-tab">
+  <ul class="layui-tab-title">
+
+  	<li class = "layui-this">all</li>
+	{% for tra , lis in tracks_and_values%}
+		<li>{{tra.name}}</li>
+	{% endfor %}
+  </ul>
+  <div class="layui-tab-content">
+
+  	<div id = "all_container" class = "layui-show layui-tab-item"></div>
+
+  	{% for tra , lis in tracks_and_values %}
+		<div class = "layui-tab-item">
+			{% for t , v in lis %}
+				<div id = "container_{{tra.id}}"></div>
+			{% endfor %}
+		</div>
+	{% endfor %}
+  </div>
+</div>
+
+</body>
+
+{% include "experiment/variable/charts.html" %}
+
+<script>
+	layui.use('element', function(){});
+</script>

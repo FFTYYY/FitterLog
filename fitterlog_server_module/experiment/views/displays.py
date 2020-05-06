@@ -11,6 +11,7 @@ def index(request):
 	}
 	return render(request , get_path("index") , context)
 
+
 def project(request , project_id):
 	from .group_opt.group_sort import group_sort
 
@@ -21,6 +22,7 @@ def project(request , project_id):
 		"groups": group_sort(project.groups.all()) , 
 	}
 	return render(request , get_path("project") , context)
+
 
 def group(request , group_id):
 	from .group_opt.get_experiment import experiment_list_to_str_list , append_ids , generate_len
@@ -53,6 +55,7 @@ def group(request , group_id):
 	}
 	return render(request , get_path("group/group") , context)
 
+
 def experiment(request , experiment_id):
 
 	experiment = Experiment.objects.get(id = experiment_id)
@@ -62,6 +65,7 @@ def experiment(request , experiment_id):
 		"variables": experiment.variables.all() , 
 	}
 	return render(request , get_path("experiment/experiment") , context)
+
 
 
 def experiment_log(request , experiment_id):
@@ -75,15 +79,21 @@ def experiment_log(request , experiment_id):
 	return render(request , get_path("experiment/logs") , context)
 
 
+
 def variable(request , variable_id):
+
+	from .varaible_opt import get_tracks
 
 	variable = Variable.objects.get(id = variable_id)
 
+	tracks_and_values = get_tracks(variable.tracks.all())
+
 	context = {
 		"variable": variable ,
-		"tracks" : variable.tracks.all() ,  
+		"tracks_and_values": tracks_and_values ,  
 	}
-	return render(request , get_path("variable") , context)
+	return render(request , get_path("variable/variable") , context)
+
 
 def track(request , track_id):
 

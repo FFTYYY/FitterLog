@@ -31,6 +31,21 @@ with Timer("updates"):
 	for i in range(k):
 		E["loss"].update(0.01 * i)
 
+E["loss"].new_track("train loss")
+E["loss"]["train loss"].update(0)
+E["loss"]["train loss"].update(0.1)
+E["loss"]["train loss"].update(0.4)
+E["loss"]["train loss"].update(0.5)
+
+
+E["loss"].new_track("草")
+for i in range(3):
+	E["loss"]["草"].update(3 * 0)
+	E["loss"]["草"].update(3 * 0.1)
+	E["loss"]["草"].update(3 * 0.4)
+	E["loss"]["草"].update(3 * 0.5)
+
+
 x = 0
 with Timer("gets"):	
 	x += E["loss"].value

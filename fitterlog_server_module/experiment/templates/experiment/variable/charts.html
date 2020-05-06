@@ -1,0 +1,113 @@
+{% load static %}
+
+
+<script id = "charts_all">
+var chart = Highcharts.chart("all_container", {
+	title: {
+		text: "All Tracks of Variable 【{{variable.name}}】"
+	},
+	yAxis: {
+		title: {
+			text: "Value"
+		}
+	},
+	legend: {
+		layout: "vertical",
+		align: "right",
+		verticalAlign: "middle"
+	},
+	plotOptions: {
+		series: {
+			label: {
+				connectorAllowed: false
+			},
+		}
+	},
+	series: [
+		{% for tra , lis in tracks_and_values%}
+		{
+			name: "{{tra.name}}",
+			data: [
+				{% for t , v in lis %}
+					[{{t}} , {{v}}] , 
+				{% endfor %}
+			]
+		} , 
+		{% endfor %}
+	],
+
+	responsive: {
+		rules: [{
+			condition: {
+				maxWidth: 500
+			},
+			chartOptions: {
+				legend: {
+					layout: "horizontal",
+					align: "center",
+					verticalAlign: "bottom"
+				}
+			}
+		}]
+	}
+});
+</script>
+
+
+{% for tra , lis in tracks_and_values %}
+<script>
+var chart = Highcharts.chart("container_{{tra.id}}", {
+	title: {
+		text: "Tracks 【{{tra.name}}】 of Variable 【{{variable.name}}】"
+	},
+	yAxis: {
+		title: {
+			text: "Value"
+		}
+	},
+	xAxis: {
+		title: {
+			text: "Time"
+		}
+	},
+	legend: {
+		layout: "vertical",
+		align: "right",
+		verticalAlign: "middle"
+	},
+	plotOptions: {
+		series: {
+			label: {
+				connectorAllowed: false
+			},
+		}
+	},
+	series: [
+		{
+			name: "{{tra.name}}",
+			data: [
+				{% for t , v in lis %}
+					[{{t}} , {{v}}] , 
+				{% endfor %}
+			]
+		} , 
+	],
+
+	responsive: {
+		rules: [{
+			condition: {
+				maxWidth: 500
+			},
+			chartOptions: {
+				legend: {
+					layout: "horizontal",
+					align: "center",
+					verticalAlign: "bottom"
+				}
+			}
+		}]
+	}
+});
+
+</script>
+{% endfor %}
