@@ -14,7 +14,11 @@ with Timer("apply args"):
 	E.use_argument_proxy( arg_proxy )
 
 with Timer("new variable"):
-	E.new_variable("loss" , type = float , default = 0)
+	def avg_merge(*x):
+		x = [d[0] for d in x]
+		return sum(x) / len(x)
+	E.new_variable("loss" , type = float , default = 0 , merge_func = avg_merge)
+	E.new_variable("metric" , type = float , default = 0 , merge_func = avg_merge)
 
 E.add_line("hahaha E!")
 E.add_line("hello!")
@@ -28,27 +32,25 @@ k = random.randint(0 , 23)
 print (k)
 E.new_variable("k" , type = int , default = k)
 E.new_variable("23333" , type = int , default = 2333)
+
+
 with Timer("updates"):
 	for i in range(k):
-		E["loss"].update(0.01 * i)
+		E["loss"]["test loss"].update(0.01 * i)
 
-E["loss"].new_track("train loss")
 E["loss"]["train loss"].update(0)
 E["loss"]["train loss"].update(0.1)
 E["loss"]["train loss"].update(0.4)
 E["loss"]["train loss"].update(0.5)
 
 
-E["loss"].new_track("草")
 for i in range(3):
 	E["loss"]["草"].update(3 * 0)
 	E["loss"]["草"].update(3 * 0.1)
 	E["loss"]["草"].update(3 * 0.4)
 	E["loss"]["草"].update(3 * 0.5)
 
-E.new_variable("metric")
-E["metric"].new_track("test acc")
-for i in tqdm(range(10000) , ncols = 100):
+for i in tqdm(range(1000) , ncols = 100):
 	E["metric"]["test acc"].update((i*random.random()) * 100 , 1 + i * 20)
 
 x = 0

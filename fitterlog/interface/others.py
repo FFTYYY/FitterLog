@@ -47,6 +47,10 @@ class Track:
 		self.single_values[time_stamp] = SingleValue(self , time_stamp , str(value))
 		self.now_value = self.single_values[time_stamp]
 
+		# 更新变量的值
+		if self.name != "default":
+			self.variable.merge()
+
 	@property
 	def value(self):
 		'''返回最近的value的值
@@ -75,11 +79,12 @@ class Track:
 
 # variable 实际上是 track 的公有继承。
 class Variable:
-	def __init__(self , experiment , name , type , default_value):
+	def __init__(self , experiment , name , type , default_value , merge_func):
 		self.experiment = experiment
 		self.name = name
 		self.type = type
 		self.default_value = str(default_value)
+		self.merge_func = merge_func
 
 		self.core = Core_Variable(name , experiment = experiment.core)
 		self.tracks = {}
@@ -90,6 +95,17 @@ class Variable:
 		if default_value is None:
 			default_value = self.default_value
 		self.tracks[name] = Track(self , name , self.type , str(default_value))
+
+	def merge(self): #合并所有track的值，生成default的值
+		if self.merge_func is None:
+			return
+		v_list = []
+		for t in self.tracks:
+			v_list.append([self.tracks[t].max_time_stamp , self.tracks[t].value])
+
+		new_val = self.merge_func(*v_list)
+		if new_val is not None:
+			self.update(new_val)
 
 	def update(self , value , time_stamp = None , track = "default"):
 		self[track].update(value , time_stamp)
@@ -103,7 +119,10 @@ class Variable:
 
 	def __getitem__(self , name):
 		if name not in self.tracks:
-			return self.tracks["default"][name]
+			if isinstance(name , int): #time stamp
+				return self.tracks["default"][name]
+			else: #new track name
+				self.new_track(name)
 		return self.tracks[name]
 
 	def __str__(self):

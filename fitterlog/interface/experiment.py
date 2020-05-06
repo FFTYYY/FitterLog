@@ -40,8 +40,8 @@ class Experiment:
 		content = str(content) + "\n"
 		self.core.logs = self.core.logs + content
 
-	def new_variable(self , name , type = str , default = "None"):
-		self.variables[name] = Variable(self , name , type , default)
+	def new_variable(self , name , type = str , default = "None" , merge_func = None):
+		self.variables[name] = Variable(self , name , type , default , merge_func)
 
 	def use_argument_proxy(self , arg_prox , args = None):
 		C = arg_prox.assign_from_cmd(args)

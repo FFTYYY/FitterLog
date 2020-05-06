@@ -13,6 +13,7 @@ arg_proxy.add_argument("num_layers" , type = int , default = 6)
 arg_proxy.add_argument("num_head" , type = int , default = 6)
 arg_proxy.add_argument("ui" , type = float , default = 0.23333)
 arg_proxy.add_argument("a rand val" , type = int , default = random.random())
+arg_proxy.add_store_true("use_kernel")
 
 __all__ = [
 	arg_proxy , 
