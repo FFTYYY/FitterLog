@@ -20,7 +20,8 @@ class Experiment(models.Model):
 	intro = models.TextField(default = "")
 	group = models.ForeignKey("ExperimentGroup" , on_delete = models.CASCADE , related_name = "experiments")
 
-	running = models.BooleanField(default = True)
+	# 0: running , 1: finished , 2: almost finished , 3: unexpected quit
+	state = models.IntegerField(default = 0)
 
 	start_time = models.DateTimeField(auto_now_add = True) # 创建时间
 	end_time   = models.DateTimeField(null = True)

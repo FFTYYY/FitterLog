@@ -43,13 +43,19 @@ def group(request , group_id):
 	min_lens = [x//2 for x in lens]
 
 	# add line_index
-	id_and_index_and_lines = zip(ids , list(range(len(lines))) , lines)
+	line_information = zip(ids , list(range(len(lines))) , lines)
+
+	# add state
+	line_information = [ [Experiment.objects.get(id = x[0]).state] + list(x) for x in line_information]
+
+	print (group.config.hide_bad_exp)
 
 	context = {
+		"hide_bad_exp" : "true" if group.config.hide_bad_exp else "false", 
 		"group": group , 
 		"heads" : heads , 
 		"lines" : lines , 
-		"id_and_index_and_lines" : id_and_index_and_lines , 
+		"line_information" : line_information , 
 		"lens" : lens , 
 		"head_and_width_and_style": zip(heads , lens , min_lens , styles) , 
 	}

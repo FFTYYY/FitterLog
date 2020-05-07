@@ -1,6 +1,7 @@
 from ..sql_proxy import Experiment 		as Core_Experiment
 from ..sql_proxy import ExperimentGroup as Core_Group
 from .others import Variable
+from ..quit import add_quit_process
 
 this_experiment = None
 
@@ -33,7 +34,7 @@ class Experiment:
 
 	def finish(self):
 		from django.utils import timezone
-		self.core.finish = True
+		self.core.state = 1
 		self.core.end_time = timezone.now()
 
 	def write_log(self , content = ""):
@@ -50,3 +51,13 @@ class Experiment:
 
 	def __getitem__(self , name):
 		return self.variables[name]
+
+
+
+def make_exp_state_on_quit():
+	if this_experiment is not None:
+		print ("unexpected quit!!!")
+		if this_experiment.core.state == 0:
+			this_experiment.core.state = 3 #unexpected quit
+
+add_quit_process(make_exp_state_on_quit)

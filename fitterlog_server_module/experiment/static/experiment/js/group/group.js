@@ -32,10 +32,12 @@ function move_tools(){
 	toolbar.appendChild(headbar)
 }
 
+
 function ontabledone(){
 	move_tools()
 	remove_panel_title()
 	layui.soulTable.render(this)
+	process_state()
 }
 
 
@@ -51,6 +53,7 @@ layui.use(["table" , "soulTable"] , function(){
 		height: "full-0" , 
 		
 		defaultToolbar: [
+			{title: "隐藏异常终止的实验", layEvent: "hide-bad",icon: "layui-icon-menu-fill"} , 
 			{title: "返回", layEvent: "go-back",icon: "layui-icon-return",} , 
 			{title: "保存设置", layEvent: "save",icon: "layui-icon-upload",} , 
 			{title: "删除选中行", layEvent: "delete",icon: "layui-icon-close",} , 
@@ -82,8 +85,6 @@ layui.use(["table" , "soulTable"] , function(){
 						{
 							window.location.href = new_url
 						}
-						console.log(obj)
-						console.log(event)
 					},
 					children: []
 				}

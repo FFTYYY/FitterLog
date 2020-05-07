@@ -75,7 +75,7 @@ class Experiment(Object):
 			logs 			= "logs" , 
 			sql_variables 	= "variables" ,
 			id 				= "id" , 
-			running 		= "running" , 
+			state 			= "state" , 
 			end_time 		= "end_time" , 
 			start_time 		= "start_time" , 
 		)

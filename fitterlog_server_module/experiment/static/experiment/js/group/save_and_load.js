@@ -8,7 +8,7 @@ function hide_checked_rows() {
 
 	for(var i = 0;i < checkData.length;i++)
 	{
-		deleted_ids.add(checkData[i].id.split("<div")[0])
+		deleted_ids.add( parseInt(checkData[i].id).toString())
 	}
 
 
@@ -41,7 +41,10 @@ function hide_checked_rows() {
 	for(var i = 0;i < trs.length;i++)
 	{
 		if(del_idxs.indexOf(trs[i].getAttribute("data-index")) >= 0)
+		{
+			trs[i]["hide_by_delete"] = true
 			trs[i].hidden = true
+		}
 	}
 
 	console.log("ids" , deleted_ids)

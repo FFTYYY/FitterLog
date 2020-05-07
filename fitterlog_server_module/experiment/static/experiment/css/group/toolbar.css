@@ -48,7 +48,7 @@
 .layui-table-tool-self .layui-inline {
 	color: #DBDBDBFF !important;
 	border: 1px solid #DBDBDBFF !important;
-	background-color: #00000000 !important;
+	background-color: #353535 !important;
 	transition: none !important;
 
 }
@@ -57,6 +57,9 @@
 	color: #DBDBDBFF !important;
 }
 
+.inverse-color{
+	filter: invert(100%);
+}
 
 /*取消动画*/
 .layui-table-tool-self .layui-inline:hover {

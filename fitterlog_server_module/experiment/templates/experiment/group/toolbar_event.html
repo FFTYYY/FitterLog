@@ -16,6 +16,7 @@
 			hide_ids    : Array.from(deleted_ids).join(sep_token) , 
 			intro       : document.getElementById("group_intro").value , 
 			show_order  : get_show_headers().join(sep_token) , 
+			hide_bad_exp: hide_bad_exp.toString() , 
 		}
 
 		var for_saving = document.getElementById("for_saving");
@@ -44,6 +45,9 @@
 				break
 				case "delete":
 					hide_checked_rows()
+				break
+				case "hide-bad":
+					change_hide_bad()
 				break
 
 			}
