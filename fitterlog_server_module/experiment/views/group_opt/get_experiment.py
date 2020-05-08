@@ -66,17 +66,22 @@ def experiment_list_to_str_list(expe_lis , hidden_heads = [] , hidden_ids = [] ,
 		heads.update(value_map)
 		values.append(value_map)
 
+	# 获得 head 的排列顺序
 	heads = get_head_reorder(list(heads) , show_order)
-	styles = ["" for _ in range(len(heads))]
-	for i in range(len(heads)):
-		if heads[i] in hidden_heads:
-			styles[i] = "hide: true,"
 
+	# 获得每一行
 	for i , exp in enumerate(expe_lis):
 		this_line = []
 		for h in heads:
 			this_line.append(values[i].get(h , (-1 , "-") ))
 		lines.append(this_line)
+
+
+	# 决定head的style
+	styles = ["" for _ in range(len(heads))]
+	for i in range(len(heads)):
+		if heads[i] in hidden_heads: # 前端点击隐藏的
+			styles[i] = "hide: true,"
 
 	ids = [exp.id for exp in expe_lis]
 	heads , lines , styles = append_ids(ids , heads , lines , styles , hidden_heads , hidden_ids)

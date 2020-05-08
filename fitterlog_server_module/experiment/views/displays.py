@@ -24,43 +24,6 @@ def project(request , project_id):
 	return render(request , get_path("project") , context)
 
 
-def group(request , group_id):
-	from .group_opt.get_experiment import experiment_list_to_str_list , append_ids , generate_len
-
-	group = ExperimentGroup.objects.get(id = group_id)
-	group.checkconfig()
-	
-	# generate hiddens
-	hide_heads = seped_s2list(group.config.hidden_heads)
-	hide_ids = [int(x) for x in seped_s2list(group.config.hidden_ids)]
-	show_order = seped_s2list(group.config.show_order)
-
-	# generate heads and rows
-	ids , heads , lines , styles = experiment_list_to_str_list( 
-					group.experiments.all() , hide_heads , hide_ids , show_order)
-	
-	lens = generate_len(heads , lines)
-	min_lens = [x//2 for x in lens]
-
-	# add line_index
-	line_information = zip(ids , list(range(len(lines))) , lines)
-
-	# add state
-	line_information = [ [Experiment.objects.get(id = x[0]).state] + list(x) for x in line_information]
-
-	print (group.config.hide_bad_exp)
-
-	context = {
-		"hide_bad_exp" : "true" if group.config.hide_bad_exp else "false", 
-		"group": group , 
-		"heads" : heads , 
-		"lines" : lines , 
-		"line_information" : line_information , 
-		"lens" : lens , 
-		"head_and_width_and_style": zip(heads , lens , min_lens , styles) , 
-	}
-	return render(request , get_path("group/group") , context)
-
 
 def experiment(request , experiment_id):
 
@@ -83,22 +46,6 @@ def experiment_log(request , experiment_id):
 		"logs": experiment.logs , 
 	}
 	return render(request , get_path("experiment/logs") , context)
-
-
-
-def variable(request , variable_id):
-
-	from .varaible_opt import get_tracks
-
-	variable = Variable.objects.get(id = variable_id)
-
-	tracks_and_values = get_tracks(variable.tracks.all())
-
-	context = {
-		"variable": variable ,
-		"tracks_and_values": tracks_and_values ,  
-	}
-	return render(request , get_path("variable/variable") , context)
 
 
 def track(request , track_id):

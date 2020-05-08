@@ -1,4 +1,3 @@
-
 def smooth_lis(lis):
 	lim = 500
 	if len(lis) < lim:
