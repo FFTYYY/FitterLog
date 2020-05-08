@@ -26,7 +26,7 @@ class ArgProxy:
 			if arg.type == Bool:
 				C.add_argument("--%s" % arg.name , action = "store_true" , default = False)
 			else:
-				C.add_argument("--%s" % arg.name , type = str , default = arg.default)
+				C.add_argument("--%s" % arg.name , type = arg.type , default = arg.default)
 
 		C = C.parse_args(args)
 

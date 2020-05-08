@@ -16,7 +16,7 @@ print(pkgs)
 
 setup(
 	name 								= "fitterlog",
-	version 							= "0.1.7",
+	version 							= "0.1.10",
 	url 								= "http://github.com/FFTYYY/fitterlog",
 	description 						= "",
 	license 							= "MIT",

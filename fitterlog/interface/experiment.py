@@ -47,7 +47,7 @@ class Experiment:
 	def use_argument_proxy(self , arg_prox , args = None):
 		C = arg_prox.assign_from_cmd(args)
 		for arg in arg_prox.args:
-			self.new_variable(arg.name , arg.type , C.__dict__[arg.name])
+			self.new_variable(arg.name , arg.type , str(C.__dict__[arg.name]))
 
 	def __getitem__(self , name):
 		return self.variables[name]
@@ -56,8 +56,8 @@ class Experiment:
 
 def make_exp_state_on_quit():
 	if this_experiment is not None:
-		print ("unexpected quit!!!")
 		if this_experiment.core.state == 0:
+			print ("unexpected quit!!!")
 			this_experiment.core.state = 3 #unexpected quit
 
 add_quit_process(make_exp_state_on_quit)

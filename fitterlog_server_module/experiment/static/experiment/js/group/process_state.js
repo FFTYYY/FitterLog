@@ -22,29 +22,41 @@ function change_hide_bad(){
 	hide_bad_exp = !hide_bad_exp
 	change_color()
 
+	bad_idx = new Set()
+
 	var bad_exp_inside = document.getElementsByClassName("bad_experiment")
 	for(var i = 0;i < bad_exp_inside.length;i++)
 	{
 		var pa = bad_exp_inside[i].parentElement.parentElement.parentElement
 
+		if(pa.getAttribute("data-index") != null)
+			bad_idx.add(pa.getAttribute("data-index"))
+	}
+
+	var trs = document.getElementsByTagName("tr")
+
+	for(var i = 0;i < trs.length;i++)
+	{
+		var pa = trs[i];
+
 		if(pa["hide_by_delete"])
 			continue
-		pa.hidden = hide_bad_exp
+
+		if(bad_idx.has( pa.getAttribute("data-index") ))
+			pa.hidden = hide_bad_exp
 	}
 }
 
 function process_state(){
 	//根据状态划分不同的行颜色
-
-	change_color()
+	change_hide_bad()
+	change_hide_bad()
 
 	var bad_exp_inside = document.getElementsByClassName("bad_experiment")
 	for(var i = 0;i < bad_exp_inside.length;i++)
 	{
 		var pa = bad_exp_inside[i].parentElement.parentElement
 		pa.style.backgroundColor = "#9C0B56FC"
-		if(hide_bad_exp)
-			pa.parentElement.hidden = hide_bad_exp
 	}
 
 	var running_exp_inside = document.getElementsByClassName("running_experiment")

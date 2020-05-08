@@ -8,7 +8,7 @@ import random
 from tqdm import tqdm
 
 with Timer("new experiment"):
-	E = new_or_load_experiment(project_name = "hahahaha")
+	E = new_or_load_experiment(project_name = "hahahaha" , group_name = "fuck!!!")
 
 with Timer("apply args"):
 	E.use_argument_proxy( arg_proxy )
