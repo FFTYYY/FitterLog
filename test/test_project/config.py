@@ -4,7 +4,7 @@ import random
 
 arg_proxy = ArgProxy()
 arg_proxy.add_argument("n" , type = lambda x: M.sqrt(int(x)) , default = 10)
-arg_proxy.add_argument("info" , type = str , default = "haha")
+arg_proxy.add_argument("info" , type = str , default = "haha" , editable = True)
 arg_proxy.add_argument("lr" , type = float , default = 0.1)
 arg_proxy.add_argument("batch size" , type = int , default = 32)
 arg_proxy.add_argument("num_steps" , type = float , default = 1000)

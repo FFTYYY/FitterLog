@@ -15,6 +15,7 @@ class Variable(Object):
 			experiment 	= "experiment" ,
 			sql_tracks 	= "tracks" ,
 			id 			= "id" , 
+			editable    = "editable" , 
 		)
 
 

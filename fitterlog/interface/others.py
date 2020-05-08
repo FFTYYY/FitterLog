@@ -79,14 +79,16 @@ class Track:
 
 # variable 实际上是 track 的公有继承。
 class Variable:
-	def __init__(self , experiment , name , type , default_value , merge_func):
+	def __init__(self , experiment , name , type , default_value , merge_func , editable):
 		self.experiment = experiment
 		self.name = name
 		self.type = type
 		self.default_value = str(default_value)
 		self.merge_func = merge_func
+		self.editable = editable
 
 		self.core = Core_Variable(name , experiment = experiment.core)
+		self.core.editable = editable
 		self.tracks = {}
 
 		self.new_track("default")

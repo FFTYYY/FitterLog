@@ -1,4 +1,25 @@
 from YTools.universe.strlen import max_len
+from ...models import Variable , VariableTrack , SingleValue
+from ...utils.str_opt import seped_s2list , seped_list2s
+
+def save_editables(editable_id , editable_val):
+	editable_id = [int(x) for x in seped_s2list(editable_id)]
+	editable_val = seped_s2list(editable_val)
+	for k , v_id in enumerate(editable_id):
+		if v_id < 0:
+			continue
+		varia = Variable.objects.get(id = v_id)
+
+		track = varia.tracks.filter(name = "default")
+		if len(track) <= 0: #没有default track，则跳过此变量
+			continue
+		track = track[0]
+
+		val = track.values.latest("time_stamp")
+		val.value = editable_val[k]
+		val.save()
+
+
 
 def generate_len(heads , lines):
 	if len(lines) == 0:
@@ -39,6 +60,7 @@ def experiment_list_to_str_list(expe_lis , hidden_heads = [] , hidden_ids = [] ,
 	values = []
 	lines = []
 	styles = []
+	editable = {}
 
 	
 	expe_lis = expe_lis.order_by("-start_time") # 按开始时间降序排序
@@ -62,7 +84,11 @@ def experiment_list_to_str_list(expe_lis , hidden_heads = [] , hidden_ids = [] ,
 			value_map[varia.name] = (
 				varia.id ,  # value的每个元素是 (变量id，变量的值)
 				track.values.latest("time_stamp").value , #找到这个track最新的一个变量
-			) 
+			)
+
+			# 只要有一个元素可编辑，就整列可编辑
+			if varia.editable:
+				editable[varia.name] = True
 		heads.update(value_map)
 		values.append(value_map)
 
@@ -81,7 +107,9 @@ def experiment_list_to_str_list(expe_lis , hidden_heads = [] , hidden_ids = [] ,
 	styles = ["" for _ in range(len(heads))]
 	for i in range(len(heads)):
 		if heads[i] in hidden_heads: # 前端点击隐藏的
-			styles[i] = "hide: true,"
+			styles[i] += "hide: true,"
+		if editable.get(heads[i] , False):
+			styles[i] += "edit: 'text',"
 
 	ids = [exp.id for exp in expe_lis]
 	heads , lines , styles = append_ids(ids , heads , lines , styles , hidden_heads , hidden_ids)

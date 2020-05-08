@@ -21,6 +21,9 @@ class VariableTrack(models.Model):
 class Variable(models.Model):
 	name = models.CharField(max_length = short_name_len)
 	expe = models.ForeignKey(Experiment , on_delete = models.CASCADE , related_name = "variables")
+	
+	#注意，editable虽然记在Variable中，但是是表头的属性。一列只要有单元格可编辑这一列就都是可编辑的。
+	editable = models.BooleanField(default = False) 
 
 	def __str__(self):
 		return self.name

@@ -55,13 +55,7 @@
 					<td class = "{{idx}}"></td> <!--checkbox-->
 
 					{% for v_id , val in line %}
-					<td>{{val}}<div my_exp_id = {{exp_id}} my_id = {{v_id}} class = "hidden 
-						{% if state == 3 %}
-							bad_experiment
-						{% elif state == 0 %}
-							running_experiment
-						{% endif %}"
-						></div>
+					<td>{{val}}<div my_exp_id = {{exp_id}} my_id = {{v_id}} class = "hidden {% if state == 3 %}bad_experiment{% elif state == 0 %}running_experiment{% endif %}"></div>
 					</td>
 					{% endfor %}
 

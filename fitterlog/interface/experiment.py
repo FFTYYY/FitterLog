@@ -41,13 +41,13 @@ class Experiment:
 		content = str(content) + "\n"
 		self.core.logs = self.core.logs + content
 
-	def new_variable(self , name , type = str , default = "None" , merge_func = None):
-		self.variables[name] = Variable(self , name , type , default , merge_func)
+	def new_variable(self , name , type = str , default = "None" , merge_func = None , editable = False):
+		self.variables[name] = Variable(self , name , type , default , merge_func , editable)
 
 	def use_argument_proxy(self , arg_prox , args = None):
 		C = arg_prox.assign_from_cmd(args)
 		for arg in arg_prox.args:
-			self.new_variable(arg.name , arg.type , str(C.__dict__[arg.name]))
+			self.new_variable(arg.name , arg.type , str(C.__dict__[arg.name]) , editable = arg.editable)
 
 	def __getitem__(self , name):
 		return self.variables[name]

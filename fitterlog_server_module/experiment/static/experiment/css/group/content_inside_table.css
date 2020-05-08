@@ -69,3 +69,10 @@
 
 }
 
+/*变量编辑框*/
+.layui-table-edit {
+	background-color: #135241FF !important;
+	color: #D8D8D8FF !important;
+	outline: none;
+	border: 1px solid #D8D8D8FF !important;
+}

@@ -33,11 +33,21 @@ function move_tools(){
 }
 
 
+inpus = []
 function ontabledone(){
 	move_tools()
 	remove_panel_title()
 	layui.soulTable.render(this)
 	process_state()
+
+	//去掉首位空格，方便编辑
+	var cells = document.getElementsByClassName("layui-table-cell")
+	for(var i = 0;i < cells.length;i++)
+	{
+		cells[i].innerHTML = cells[i].innerHTML.replace(/(^\s*)|(\s*$)/g, "")
+		cells[i].parentElement.setAttribute("my_id" , cells[i].children[0].getAttribute("my_id"))
+	}
+
 }
 
 

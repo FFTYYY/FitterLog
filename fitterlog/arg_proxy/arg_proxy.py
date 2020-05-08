@@ -3,21 +3,22 @@ import argparse
 from .types import *
 
 class Argument:
-	def __init__(self , name , type , default):
+	def __init__(self , name , type , default , editable):
 		self.name = name
 		self.type = type 
 		self.default = default
+		self.editable = editable
 
 class ArgProxy:
 	def __init__(self , name = None):
 		self.name = name
 		self.args = []
 
-	def add_argument(self , name , type = str , default = None):
-		self.args.append(Argument(name , type , default))
+	def add_argument(self , name , type = str , default = None , editable = False):
+		self.args.append(Argument(name , type , default , editable = editable))
 
-	def add_store_true(self , name):
-		self.args.append(Argument(name , Bool , "False"))
+	def add_store_true(self , name , editable = False):
+		self.args.append(Argument(name , Bool , "False" , editable = editable))
 
 	def assign_from_cmd(self , args = None):
 		C = argparse.ArgumentParser()

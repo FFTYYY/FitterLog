@@ -4,10 +4,10 @@ from ...models import Project , ExperimentGroup , Experiment
 from ...models import Variable , VariableTrack , SingleValue
 from ..base import get_path
 from ...utils.str_opt import seped_s2list , seped_list2s
+from .get_experiment import *
 
 
 def group(request , group_id):
-	from .get_experiment import experiment_list_to_str_list , append_ids , generate_len
 
 	group = ExperimentGroup.objects.get(id = group_id)
 	group.checkconfig()
@@ -61,6 +61,11 @@ def save_config(request , group_id):
 		intro 		 = request.POST.get("intro")
 		show_order 	 = request.POST.get("show_order")
 		hide_bad_exp = request.POST.get("hide_bad_exp")
+		editable_id  = request.POST.get("editable_id") 
+		editable_val = request.POST.get("editable_val") 
+
+		save_editables(editable_id , editable_val)
+
 
 		hide_bad_exp = True if hide_bad_exp == "true" else False
 

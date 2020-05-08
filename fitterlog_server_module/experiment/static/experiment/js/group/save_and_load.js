@@ -80,3 +80,24 @@ function get_show_headers() {
 	}
 	return show_list
 }
+
+
+function get_editable_values(){
+	var cells = document.getElementsByTagName("td")
+
+	editable_ids = []
+	editable_vals = []
+	for(var i = 0;i < cells.length;i++)
+	{
+		if(cells[i].getAttribute("data-edit") == "text")
+		{
+			var my_id = cells[i].getAttribute("my_id")
+			var my_val = cells[i].innerText
+
+			editable_ids.push(my_id)
+			editable_vals.push(my_val)
+		}
+	}
+
+	return [editable_ids , editable_vals]
+}

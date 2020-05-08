@@ -10,6 +10,10 @@
 
 	function save_config() {
 
+		var got = get_editable_values()
+		var editable_id = got[0]
+		var editable_val = got[1]
+
 		var sep_token = "__FITTERLOG__SEP__"
 		config = {
 			hide_columns: get_hide_headers().join(sep_token) , 
@@ -17,6 +21,8 @@
 			intro       : document.getElementById("group_intro").value , 
 			show_order  : get_show_headers().join(sep_token) , 
 			hide_bad_exp: hide_bad_exp.toString() , 
+			editable_id : editable_id.join(sep_token) , 
+			editable_val: editable_val.join(sep_token) , 
 		}
 
 		var for_saving = document.getElementById("for_saving");
