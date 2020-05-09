@@ -79,4 +79,4 @@ time_stamp 默认为上次的时间戳+1（初始默认为0）
 
 * 使用`expe.add_line`可以向前端写文字版log，相当于fitlog的`fitlog.add_to_line`（没错我刚刚才发现名字打错了，本来是想跟fitlog一致的）
 
-* 还有很多功能<ruby>自己摸索吧<rt>懒得写了</rt></ruby>
+* 还有很多<del>功能</del>bug<ruby>自己摸索吧<rt>懒得写了</rt></ruby>
