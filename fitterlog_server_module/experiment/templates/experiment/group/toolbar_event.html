@@ -13,6 +13,11 @@
 		var got = get_editable_values()
 		var editable_id = got[0]
 		var editable_val = got[1]
+		for(var i = 0;i < editable_val.length;i++)
+		{
+			if(editable_val[i] == "")
+				editable_val[i] = " "
+		}
 
 		var sep_token = "__FITTERLOG__SEP__"
 		config = {
