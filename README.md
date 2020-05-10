@@ -2,7 +2,7 @@
 
 总得来说使用逻辑跟[fitlog](https://github.com/fastnlp/fitlog)差不多
 
-## 安装和启动服务
+## 安装
 
 `pip install fitterlog`
 
