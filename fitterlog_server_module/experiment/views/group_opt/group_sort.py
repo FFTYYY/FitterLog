@@ -6,6 +6,7 @@ def group_sort(group_list):
 	for i in range(len(group_list)):
 		if group_list[i].name == "default":
 			didx = i
-	group_list = group_list[didx:didx+1] + group_list[:didx] + group_list[didx+1:]
+	if didx is not None:
+		group_list = group_list[didx:didx+1] + group_list[:didx] + group_list[didx+1:]
 
 	return group_list

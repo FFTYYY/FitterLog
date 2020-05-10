@@ -37,16 +37,16 @@ inpus = []
 function ontabledone(){
 	move_tools()
 	remove_panel_title()
-	layui.soulTable.render(this)
-	process_state()
+	setInterval( process_state , 200)
 
-	//去掉首位空格，方便编辑
+	
 	var cells = document.getElementsByClassName("layui-table-cell")
 	for(var i = 0;i < cells.length;i++)
-	{
-		cells[i].innerHTML = cells[i].innerHTML.replace(/(^\s*)|(\s*$)/g, "")
+	{	
+		//添加id，在get_editable_values中使用
 		cells[i].parentElement.setAttribute("my_id" , cells[i].children[0].getAttribute("my_id"))
 	}
+	layui.soulTable.render(this)
 
 }
 
@@ -61,7 +61,10 @@ layui.use(["table" , "soulTable"] , function(){
 		limit: 15 , 
 		skin: "row" , 
 		height: "full-0" , 
-		
+		done: ontabledone , 
+
+		//工具栏
+		toolbar: true , 
 		defaultToolbar: [
 			{title: "隐藏异常终止的实验", layEvent: "hide-bad",icon: "layui-icon-menu-fill"} , 
 			{title: "返回", layEvent: "go-back",icon: "layui-icon-return",} , 
@@ -70,19 +73,13 @@ layui.use(["table" , "soulTable"] , function(){
 			"filter", 
 			{title: "导出", layEvent: "LAYTABLE_EXPORT",icon: "layui-icon-male",} , 
 		] ,
-		toolbar: true , 
-		done: ontabledone , 
 
+		//右键菜单
 		contextmenu: {
 			body: [
 				{
 					name: "细节",
 					icon: "layui-icon layui-icon-slider",
-					//click: function(obj) {
-					//	console.log(event)
-					//	my_id = obj.elem.children()[0].children[0].getAttribute("my_id")
-					//	window.open("/variable/" + String(my_id) , "_blank")
-					//},
 
 					mouseup: function(obj) {
 						my_id = obj.elem.children()[0].children[0].getAttribute("my_id")
@@ -100,8 +97,7 @@ layui.use(["table" , "soulTable"] , function(){
 				}
 
 			],
-		}
-
+		},
 	})
 
 	//在toolbar_event.html里定义

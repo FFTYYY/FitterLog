@@ -8,7 +8,7 @@ import random
 from tqdm import tqdm
 
 with Timer("new experiment"):
-	E = new_or_load_experiment(project_name = "hahahaha" , group_name = "fuck!!!")
+	E = new_or_load_experiment(project_name = "pro2" , group_name = "sad")
 
 with Timer("apply args"):
 	E.use_argument_proxy( arg_proxy )
@@ -50,7 +50,7 @@ for i in range(3):
 	E["loss"]["草"].update(3 * 0.4)
 	E["loss"]["草"].update(3 * 0.5)
 
-for i in tqdm(range(1000) , ncols = 100):
+for i in tqdm(range(10) , ncols = 100):
 	E["metric"]["test acc"].update((i*random.random()) * 100 , 1 + i * 20)
 
 x = 0

@@ -1,6 +1,10 @@
 from .constants import split_token
 
 
+def seped_s2list_allow_empty(s , sep = split_token):
+	return s.strip().split(sep)
+
+
 def seped_s2list(s , sep = split_token):
 	return list(filter(lambda x:x , s.strip().split(sep)))
 

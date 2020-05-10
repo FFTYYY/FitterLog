@@ -1,10 +1,11 @@
 from YTools.universe.strlen import max_len
 from ...models import Variable , VariableTrack , SingleValue
-from ...utils.str_opt import seped_s2list , seped_list2s
+from ...utils.str_opt import seped_s2list , seped_list2s , seped_s2list_allow_empty
 
 def save_editables(editable_id , editable_val):
+
 	editable_id = [int(x) for x in seped_s2list(editable_id)]
-	editable_val = seped_s2list(editable_val)
+	editable_val = seped_s2list_allow_empty(editable_val) #允许空白字符
 	for k , v_id in enumerate(editable_id):
 		if v_id < 0:
 			continue
