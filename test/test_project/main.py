@@ -53,10 +53,7 @@ for i in range(3):
 for i in tqdm(range(10) , ncols = 100):
 	E["metric"]["test acc"].update((i*random.random()) * 100 , 1 + i * 20)
 
-x = 0
-with Timer("gets"):	
-	x += E["loss"].value
-
+E["loss"].update("23.4 ( 2.0 )")
 
 print (Timer.output_all())
 print (E["n"])

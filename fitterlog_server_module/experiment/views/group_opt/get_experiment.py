@@ -20,8 +20,6 @@ def save_editables(editable_id , editable_val):
 		val.value = editable_val[k]
 		val.save()
 
-
-
 def generate_len(heads , lines):
 	if len(lines) == 0:
 		return []

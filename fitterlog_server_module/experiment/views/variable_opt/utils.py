@@ -17,7 +17,12 @@ def get_tracks(track_lis):
 		for v in t.values.all():
 			if v.time_stamp < 0:
 				continue
-			vlis.append( (v.time_stamp , v.value) )
+			val = v.value
+			try:
+				float(val)
+			except ValueError: #not a float
+				continue
+			vlis.append( (v.time_stamp , val) )
 		vlis = smooth_lis(vlis)
 		t_vs.append( (t , vlis))
 
