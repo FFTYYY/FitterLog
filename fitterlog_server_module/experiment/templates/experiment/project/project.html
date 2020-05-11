@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+
+{%load static%}
+
+<head>
+		<script src = "{% static "Highcharts/highcharts.src.js" %} "></script>
+		<script src = "{% static "Highcharts/themes/grid-light.js" %} "></script>
+
+		<link rel = "stylesheet" href = {% static "/experiment/css/project/main.css" %} type = "text/css" />
+		<link rel = "stylesheet" href = {% static "/experiment/css/project/left_part.css" %} type = "text/css" />
+		<link rel = "stylesheet" href = {% static "/experiment/css/project/right_part.css" %} type = "text/css" />
+		<link rel = "stylesheet" href = {% static "/experiment/css/project/header.css" %} type = "text/css" />
+</head>
+
+<body>
+	<div id = "header"> 
+
+
+		<div id = "left_header">
+			<p id = "project_name">【项目】{{project.name}}</p>
+		</div>
+
+		<div id = "middle_header">
+			<p id = "project_intro"> {{project.intro}} </p>
+		</div>
+		
+		<div id = "right_header">
+
+			<form action = "/project/{{project.id}}/new_group" method = "post">
+				{% csrf_token %}
+
+				<p id = "new_group_text"> 【实验组名】 </p> 
+				<input type = "text" name = "name" id = "new_group_name_inp" autocomplete = "off"/>
+				<input type = "submit" value = "新建" id = "new_group_button"/>
+			</form>
+
+			<a href = "/" id = "go_back">◀返回</a>
+		
+		</div>
+	</div>
+
+	<div id = "content">
+
+		<div id = "left_part">
+			<div id = "left_title">
+				<p>实验组列表</p>
+			</div>
+
+			<ul id = "group_list_container">
+			{% for group in groups %}
+				<li 
+					class = "group_list
+					{%if group.name == 'default' %} 
+						active_left 
+					{%endif%}" 
+
+					id = "left_content_{{group.id}}"
+
+					group_id = "{{group.id}}"
+				>
+					<a class = "group_list_a" href = "/group/{{group.id}}" >
+						{{group.name}}
+					</a>
+				</li>
+			{% endfor %}
+			</ul>
+		</div>
+
+
+		<div id = "right_part">
+
+			{% for group in groups%}
+			<div 
+				class = "right_content 
+				{%if group.name != 'default' %} 
+					hidden 
+				{% else %}
+					default_right
+				{%endif%}" 
+				id = "right_content_{{group.id}}"
+			>
+				<p class = "group_name">【实验组】{{group.name}}</p>
+				<div class = "chart_container">
+					<div id = "container_{{group.id}}"></div>
+				</div>
+			</div>
+			{% endfor %}
+
+		</div>
+
+	</div>
+</body>
+		
+<!-- 鼠标放上按钮的行为 -->
+<script src = {% static "/experiment/js/project.js" %}></script>
+
+{% include "experiment/project/charts.html"%}

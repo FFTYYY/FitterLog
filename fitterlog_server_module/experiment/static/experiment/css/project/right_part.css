@@ -14,3 +14,22 @@
 	width: 100%;
 
 }
+
+.group_name{
+	position: absolute;
+	left: 0;
+	top: 0%;
+	height: 5%;
+	width: 100%;
+	text-align: center;
+	overflow: hidden;
+}
+
+.chart_container{
+	position: absolute;
+	left: 0;
+	top: 5%;
+	height: 60%;
+	width: 30%;
+	overflow: hidden;
+}

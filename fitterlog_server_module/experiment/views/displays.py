@@ -12,17 +12,6 @@ def index(request):
 	return render(request , get_path("index") , context)
 
 
-def project(request , project_id):
-	from .group_opt.group_sort import group_sort
-
-	project = Project.objects.get(id = project_id)
-
-	context = {
-		"project": project , 
-		"groups": group_sort(project.groups.all()) , 
-	}
-	return render(request , get_path("project") , context)
-
 
 
 def experiment(request , experiment_id):
