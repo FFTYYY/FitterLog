@@ -23,6 +23,7 @@ class Experiment:
 		self.get_core(group_id , group_name , project_id , project_name)
 		self.variables = {}
 		self.add_line = self.write_log
+		self.id = int(self.core.id)
 
 	def get_core(self , group_id = None, group_name = None, project_id = None, project_name = None):
 

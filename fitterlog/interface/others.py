@@ -38,8 +38,8 @@ class Track:
 		if time_stamp is None:
 			time_stamp = self.max_time_stamp + 1
 
-		if time_stamp <= self.max_time_stamp:
-			raise "Bad time stamp."
+		if time_stamp <= self.max_time_stamp: # bad timestamp
+			return 
 
 		self.max_time_stamp = time_stamp
 
@@ -92,6 +92,8 @@ class Variable:
 		self.tracks = {}
 
 		self.new_track("default")
+
+		self.id = int(self.core.id)
 
 	def new_track(self , name , default_value = None):
 		if default_value is None:
