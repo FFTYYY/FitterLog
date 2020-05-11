@@ -5,7 +5,7 @@ from ...models import Variable , VariableTrack , SingleValue
 from ..base import get_path
 from ...utils.str_opt import seped_s2list , seped_list2s
 from .get_experiment import *
-
+from .editable import save_editables
 
 def group(request , group_id):
 
@@ -52,7 +52,6 @@ def new_group(request , project_id):
 
 
 def save_config(request , group_id):
-	
 	group = ExperimentGroup.objects.get(id = group_id)
 
 	if request.POST:

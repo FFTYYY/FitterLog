@@ -35,6 +35,9 @@ class Track:
 		return self.single_values[time_stamp]
 
 	def update(self , value , time_stamp = None):
+		'''更新track。
+		time_stamp如果留空，则默认为上一次的值加一。初始默认为0。
+		'''
 		if time_stamp is None:
 			time_stamp = self.max_time_stamp + 1
 
@@ -53,18 +56,14 @@ class Track:
 
 	@property
 	def value(self):
-		'''返回最近的value的值
+		'''返回最近的value的值（解释）
 		返回值类型：self.type
 		'''
 		return self.type(self.recent_value)
-	
-	def __str__(self):
-		return str(self.value)
 
-	#private
 	@property
 	def recent_value(self):
-		'''返回最近的value
+		'''返回最近的value（不解释）
 		返回值类型：str
 		'''
 		if len(self.time_stamps) > 0:
@@ -72,9 +71,12 @@ class Track:
 		return self.default_value
 
 	def kth_value(self , k):
-		'''离散化后的时间戳。
+		'''离散化后的时间戳。返回第k个value解释前的值。
 		'''
 		return self.single_values[self.time_stamps[k]]
+	
+	def __str__(self):
+		return str(self.value)
 
 
 # variable 实际上是 track 的公有继承。

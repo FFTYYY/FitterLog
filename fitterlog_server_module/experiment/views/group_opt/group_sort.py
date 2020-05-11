@@ -1,4 +1,5 @@
 def group_sort(group_list):
+	'''按创建时间降序排列，将default放在最前面'''
 	group_list = list(group_list)
 	group_list.sort(key = lambda x: x.start_time , reverse = True)
 

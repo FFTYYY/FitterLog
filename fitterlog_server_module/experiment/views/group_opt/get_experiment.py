@@ -2,25 +2,8 @@ from YTools.universe.strlen import max_len
 from ...models import Variable , VariableTrack , SingleValue
 from ...utils.str_opt import seped_s2list , seped_list2s , seped_s2list_allow_empty
 
-def save_editables(editable_id , editable_val):
-	
-	editable_id = [int(x) for x in seped_s2list(editable_id)]
-	editable_val = seped_s2list_allow_empty(editable_val) #允许空白字符
-	for k , v_id in enumerate(editable_id):
-		if v_id < 0:
-			continue
-		varia = Variable.objects.get(id = v_id)
-
-		track = varia.tracks.filter(name = "default")
-		if len(track) <= 0: #没有default track，则跳过此变量
-			continue
-		track = track[0]
-
-		val = track.values.latest("time_stamp")
-		val.value = editable_val[k]
-		val.save()
-
 def generate_len(heads , lines):
+	'''为heads生成长度（根据字符串长度）用于前端'''
 	if len(lines) == 0:
 		return []
 	lens = [max_len(s) for s in heads]
@@ -30,6 +13,7 @@ def generate_len(heads , lines):
 	return lens
 
 def append_ids(the_ids , heads , lines , styles , hidden_heads = [] , hidden_ids = []):
+	'''为输出的表格添加id列'''
 	assert len(the_ids) == len(lines)
 
 	heads = ["id"] + heads
@@ -42,19 +26,25 @@ def append_ids(the_ids , heads , lines , styles , hidden_heads = [] , hidden_ids
 	return heads , lines , styles
 
 def get_head_reorder(heads , show_order):
+	'''将head重排序为config中保存的顺序'''
 
-	show_order = [x for x in show_order if x in heads]
+	show_order = [x for x in show_order if x in heads] #按顺序挑出那些记录了的head
 
-	child_pos = []
-	for i in range(len(heads)):
+	child_pos = [] #哪些head位置是需要重排序的
+	for i in range(len(heads)):	
 		if heads[i] in show_order:
 			child_pos.append(i)
-	for i in range(len(child_pos)):
+	for i in range(len(child_pos)): #将这些位置替换成show_order
 		heads[child_pos[i]] = show_order[i]
 
 	return heads
 
 def get_expe_reorder(expe_lis , hidden_ids):
+	'''重排序实验
+	1）去掉删除的行
+	2）异常退出的实验一定排在后面
+	3）按开始时间降序排列
+	'''
 	expe_lis = expe_lis.order_by("-start_time") # 按开始时间降序排序
 	expe_lis = [exp for exp in expe_lis if not (int(exp.id) in hidden_ids)] # 不显示删除的行
 
@@ -64,6 +54,8 @@ def get_expe_reorder(expe_lis , hidden_ids):
 	return expe_good + expe_bad
 
 def experiment_list_to_str_list(expe_lis , hidden_heads = [] , hidden_ids = [] , show_order = []):
+	'''输出前端需要的表格的各种信息
+	'''
 	heads = {}
 	values = []
 	lines = []
