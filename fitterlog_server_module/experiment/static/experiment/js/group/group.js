@@ -38,16 +38,13 @@ function ontabledone(){
 	move_tools()
 	remove_panel_title()
 	setInterval( process_state , 200)
-
 	
+	//添加id，在get_editable_values中使用
 	var cells = document.getElementsByClassName("layui-table-cell")
 	for(var i = 0;i < cells.length;i++)
-	{	
-		//添加id，在get_editable_values中使用
 		cells[i].parentElement.setAttribute("my_id" , cells[i].children[0].getAttribute("my_id"))
-	}
-	layui.soulTable.render(this)
 
+	layui.soulTable.render(this)
 }
 
 

@@ -3,7 +3,7 @@ from ...models import Variable , VariableTrack , SingleValue
 from ...utils.str_opt import seped_s2list , seped_list2s , seped_s2list_allow_empty
 
 def save_editables(editable_id , editable_val):
-
+	
 	editable_id = [int(x) for x in seped_s2list(editable_id)]
 	editable_val = seped_s2list_allow_empty(editable_val) #允许空白字符
 	for k , v_id in enumerate(editable_id):
@@ -54,6 +54,15 @@ def get_head_reorder(heads , show_order):
 
 	return heads
 
+def get_expe_reorder(expe_lis , hidden_ids):
+	expe_lis = expe_lis.order_by("-start_time") # 按开始时间降序排序
+	expe_lis = [exp for exp in expe_lis if not (int(exp.id) in hidden_ids)] # 不显示删除的行
+
+	expe_good = [exp for exp in expe_lis if exp.state != 3]
+	expe_bad  = [exp for exp in expe_lis if exp.state == 3]
+
+	return expe_good + expe_bad
+
 def experiment_list_to_str_list(expe_lis , hidden_heads = [] , hidden_ids = [] , show_order = []):
 	heads = {}
 	values = []
@@ -61,9 +70,7 @@ def experiment_list_to_str_list(expe_lis , hidden_heads = [] , hidden_ids = [] ,
 	styles = []
 	editable = {}
 
-	
-	expe_lis = expe_lis.order_by("-start_time") # 按开始时间降序排序
-	expe_lis = [exp for exp in expe_lis if not (int(exp.id) in hidden_ids)] # 不显示删除的行
+	expe_lis = get_expe_reorder(expe_lis , hidden_ids)
 
 	for exp in expe_lis:
 		
@@ -100,7 +107,6 @@ def experiment_list_to_str_list(expe_lis , hidden_heads = [] , hidden_ids = [] ,
 		for h in heads:
 			this_line.append(values[i].get(h , (-1 , "-") ))
 		lines.append(this_line)
-
 
 	# 决定head的style
 	styles = ["" for _ in range(len(heads))]
