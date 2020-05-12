@@ -14,4 +14,4 @@ def run():
 		os.system("python3 manage.py migrate")
 
 	if os.system("python manage.py runserver 0.0.0.0:%d" % (C.p)) > 0:
-		os.system("python3 manage.py runserver")
+		os.system("python3 manage.py runserver 0.0.0.0:%d" % (C.p))
