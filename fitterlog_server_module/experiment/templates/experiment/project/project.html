@@ -2,7 +2,9 @@
 
 {%load static%}
 
-<head>
+<head>		
+		<link rel = "stylesheet" href = {% static "/layui/css/layui.css" %} type = "text/css" />
+
 		<script src = "{% static "Highcharts/highcharts.src.js" %} "></script>
 		<script src = "{% static "Highcharts/themes/grid-light.js" %} "></script>
 
@@ -29,12 +31,13 @@
 			<form action = "/project/{{project.id}}/new_group" method = "post">
 				{% csrf_token %}
 
-				<p id = "new_group_text"> 【实验组名】 </p> 
-				<input type = "text" name = "name" id = "new_group_name_inp" autocomplete = "off"/>
-				<input type = "submit" value = "新建" id = "new_group_button"/>
+				<input type = "text" name = "name" id = "new_group_name_inp" autocomplete = "off" 
+					placeholder = "新实验组名"/>
+				<input type = "submit" class = "layui-icon "value = "&#xe624;" id = "new_group_button"
+					title = "新建">
 			</form>
 
-			<a href = "/" id = "go_back">◀返回</a>
+			<a href = "/" id = "go_back" title = "返回"><i class = "layui-icon">&#xe65c;</i></a>
 		
 		</div>
 	</div>
@@ -90,8 +93,13 @@
 
 	</div>
 </body>
-		
+	
+
+<script src = {% static "/layui/layui.js" %}></script>
+
+
 <!-- 鼠标放上按钮的行为 -->
 <script src = {% static "/experiment/js/project.js" %}></script>
 
 {% include "experiment/project/charts.html"%}
+

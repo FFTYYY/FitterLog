@@ -5,6 +5,10 @@
 	padding: 0;
 }
 
+*{
+	font-family: "STXiHei";
+}
+
 .tab-head:hover{
 	background-color: #44BAB4FF !important;
 	color: #2B2B2BFF;

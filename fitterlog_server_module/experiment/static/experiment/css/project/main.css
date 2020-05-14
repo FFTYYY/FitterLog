@@ -43,3 +43,10 @@ body{
 	color : #383838FF;
 }
 
+.layui-icon{
+	color: inherit !important;
+}
+
+p , input , textarea{
+	font-family: "DengXian";
+}
