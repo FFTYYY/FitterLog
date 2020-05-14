@@ -11,7 +11,7 @@ var chart_{{group.id}} = Highcharts.chart("container_{{group.id}}", {
 	title: {
 		floating: true,
 		text: "实验数：{{tot_num}}" , 
-		style: { "color": "#E0E0E0",} , 
+		style: { "color": "#E0E0E0", "fontSize": 15,} , 
 	},
 	plotOptions: {
 		pie: {
@@ -29,13 +29,14 @@ var chart_{{group.id}} = Highcharts.chart("container_{{group.id}}", {
 			point: {
 				events: {
 					mouseOver: function(e) {
+						var new_text = e.target.name + "："+ (parseInt(e.target.percentage*100)/100) + " %"
 						chart_{{group.id}}.setTitle({
-							text: e.target.name + "："+ (parseInt(e.target.percentage*100)/100) + " %"
+							text: new_text , 
 						})
 					} , 
 					mouseOut: function(e) {
 						chart_{{group.id}}.setTitle({
-							text: "实验数：{{tot_num}}"
+							text: "实验数：{{tot_num}}" , 
 						})
 					} , 
 				} , 
@@ -47,19 +48,21 @@ var chart_{{group.id}} = Highcharts.chart("container_{{group.id}}", {
 		innerSize: "80%",
 		name: "数量",
 		data: [
-			["未完成"	,	{{state_num.0}}],
 			["已完成"	,	{{state_num.1}} + {{state_num.2}}],
 			["异常终止"	,	{{state_num.3}}],
+			["未完成"	,	{{state_num.0}}],
 		]
 	}]
 }, function(c) {
 	// 环形图圆心
-	var centerY = c.series[0].center[1],
-		titleHeight = parseInt(c.title.styles.fontSize);
+	var center_y = c.series[0].center[1]
+	var title_height = parseInt(c.title.styles.fontSize)
+
 	// 动态设置标题位置
 	c.setTitle({
-		y:centerY + titleHeight/2
-	});
+		y: center_y + title_height/2 , 
+	})
+
 });
 </script>
 {% endfor %}
