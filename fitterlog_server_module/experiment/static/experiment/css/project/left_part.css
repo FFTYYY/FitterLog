@@ -11,7 +11,7 @@
 #left_title{
 	position: absolute;
 	left: 0;
-	top: 0;
+	top: 2%;
 	height: 5%;
 	width: 100%;
 }
@@ -29,8 +29,8 @@
 #group_list_container{
 	position: absolute;
 	left: 0;
-	top: 5%;
-	height: 95%;
+	top: 7%;
+	height: 93%;
 	width: 100%;
 }
 

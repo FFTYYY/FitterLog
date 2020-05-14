@@ -3,7 +3,7 @@
 	left 	: 0;
 	width 	: 100%;
 	top 	: 3%;
-	height 	: 30%;
+	height 	: 25%;
 	text-align: center;
 	line-height: 100%;
 }
@@ -12,13 +12,14 @@
 	position : absolute;
 	left 	: 0;
 	width 	: 100%;
-	top 	: 33%;
-	height 	: 66%;
+	top 	: 30%;
+	height 	: 70%;
 	text-align : left;
 	resize: none;
 	background-color: #00000000;
 	font-size: 12px;
 	color: #D8D8D8FF;
+	font-family: "STXiHei";
 }
 
 .header_a {
