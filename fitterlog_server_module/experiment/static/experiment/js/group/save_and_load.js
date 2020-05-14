@@ -46,9 +46,6 @@ function hide_checked_rows() {
 			trs[i].hidden = true
 		}
 	}
-
-	console.log("ids" , deleted_ids)
-	console.log("idxs" , del_idxs)
 }
 
 /*返回隐藏的列*/
@@ -81,8 +78,22 @@ function get_show_headers() {
 	return show_list
 }
 
+//添加id，在get_editable_values中使用
+function add_cell_id() {	
+	var cells = document.getElementsByClassName("layui-table-cell")
+	for(var i = 0;i < cells.length;i++)
+	{
+		if(cells[i].children.length <= 0)
+			continue
+		cells[i].parentElement.setAttribute("my_id" , cells[i].children[0].getAttribute("my_id"))
+	}
+
+}
+
 
 function get_editable_values(){
+	add_cell_id()
+	
 	var cells = document.getElementsByTagName("td")
 
 	editable_ids = []

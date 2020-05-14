@@ -32,19 +32,15 @@ function move_tools(){
 	toolbar.appendChild(headbar)
 }
 
-
+the_this = undefined
 inpus = []
 function ontabledone(){
 	move_tools()
 	remove_panel_title()
 	setInterval( process_state , 200)
 	
-	//添加id，在get_editable_values中使用
-	var cells = document.getElementsByClassName("layui-table-cell")
-	for(var i = 0;i < cells.length;i++)
-		cells[i].parentElement.setAttribute("my_id" , cells[i].children[0].getAttribute("my_id"))
-
 	layui.soulTable.render(this)
+	the_this = this
 }
 
 
@@ -73,6 +69,7 @@ layui.use(["table" , "soulTable"] , function(){
 
 		//右键菜单
 		contextmenu: {
+			//header: false , 
 			body: [
 				{
 					name: "细节",
@@ -99,5 +96,9 @@ layui.use(["table" , "soulTable"] , function(){
 
 	//在toolbar_event.html里定义
 	table.on("toolbar", get_toolbar_event_func(table))
+
+	table.on("sort", function() {
+		layui.soulTable.render(the_this) //重新渲染soul-table，否则会失去右键菜单
+	})
 });
 
