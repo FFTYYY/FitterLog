@@ -51,7 +51,7 @@ def new_group(request , project_id):
 	return HttpResponseRedirect("/project/%s" % str(project_id))
 
 
-def save_config(request , group_id):
+def group_save_config(request , group_id):
 	group = ExperimentGroup.objects.get(id = group_id)
 
 	if request.POST:

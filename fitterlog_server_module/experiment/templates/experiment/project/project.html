@@ -23,7 +23,7 @@
 		</div>
 
 		<div id = "middle_header">
-			<p id = "project_intro"> {{project.intro}} </p>
+			<textarea class = "intro" id = "project_intro" name = "project_intro"> {{project.intro}} </textarea>
 		</div>
 		
 		<div id = "right_header">
@@ -37,8 +37,12 @@
 					title = "新建">
 			</form>
 
-			<a href = "/" id = "go_back" title = "返回"><i class = "layui-icon">&#xe65c;</i></a>
-		
+			<div id = "header_button_container">
+				<a class = "header_a" title = "返回" href = "/"><i class = "layui-icon">&#xe65c;</i></a>
+				<a class = "header_a" title = "保存" href = "javascript:void(0);" onclick = "javascript:save_config();">
+					<i class = "layui-icon">&#xe681;</i></a>
+
+			</div>
 		</div>
 	</div>
 
@@ -86,6 +90,8 @@
 				<div class = "chart_container">
 					<div id = "container_{{group.id}}"></div>
 				</div>
+
+				<textarea class = "group_intro intro" name = "group_intro_{{group.id}}">{{group.intro}}</textarea>
 			</div>
 			{% endfor %}
 
@@ -99,7 +105,8 @@
 
 
 <!-- 鼠标放上按钮的行为 -->
-<script src = {% static "/experiment/js/project.js" %}></script>
+<script src = {% static "/experiment/js/project/project.js" %}></script>
 
 {% include "experiment/project/charts.html"%}
+{% include "experiment/project/save_config.html"%}
 

@@ -18,7 +18,7 @@
 .group_name{
 	position: absolute;
 	left: 0;
-	top: 0%;
+	top: 2%;
 	height: 5%;
 	width: 100%;
 	text-align: center;
@@ -27,9 +27,23 @@
 
 .chart_container{
 	position: absolute;
-	left: 0;
-	top: 5%;
-	height: 95%;
+	left: 35%;
+	top: 10%;
+	height: 85%;
 	width: 30%;
+
 	overflow: hidden;
+}
+
+.group_intro{
+	position: absolute;
+	overflow: hidden;
+	left: 5%;
+	top: 10%;
+	height: 85%;
+	width: 25%;
+
+	color: #E0E0E0FF;
+	background-color: inherit;
+	resize: none;
 }

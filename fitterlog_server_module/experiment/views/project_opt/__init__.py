@@ -30,3 +30,24 @@ def new_project(request):
 		grop = ExperimentGroup(name = "default", project_id = proj.id)
 		grop.save()
 	return HttpResponseRedirect("/")
+
+def project_save_config(request , project_id):
+	project = Project.objects.get(id = project_id)
+
+	if request.POST:
+		for name in request.POST:
+			content = request.POST[name]
+			name = name.strip()
+
+			if name == "project_intro":
+				project.intro = content
+				project.save()
+			if name.startswith("group_intro_"):
+				grp_id = int(name.split("group_intro_")[1])
+				grp = ExperimentGroup.objects.get(id = grp_id)
+				grp.intro = content
+				grp.save()
+				print (content)
+			print (name)
+
+	return HttpResponseRedirect("/project/%d" % project_id)

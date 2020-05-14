@@ -7,10 +7,11 @@ urlpatterns = [
 
 	path("project/<int:project_id>" , views.project),
 	path("project/<int:project_id>/new_group" , views.new_group),
+	path("project/<int:project_id>/save_config" , views.project_save_config),
 
 	path("group/<int:group_id>" , views.group),
 	path("group/<int:group_id>/new_experiment" , views.new_experiment),
-	path("group/<int:group_id>/save_config" , views.save_config),
+	path("group/<int:group_id>/save_config" , views.group_save_config),
 
 	path("experiment/<int:experiment_id>" , views.experiment),
 	path("experiment/<int:experiment_id>/new_variable" , views.new_variable),

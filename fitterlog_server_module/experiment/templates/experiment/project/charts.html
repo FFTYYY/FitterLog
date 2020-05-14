@@ -2,7 +2,7 @@
 {% for tot_num , state_num , group in inform%}
 <script>
 
-var chart = Highcharts.chart("container_{{group.id}}", {
+var chart_{{group.id}} = Highcharts.chart("container_{{group.id}}", {
 	chart: {
 		spacing: [0,0,0,0] , 
 		margin: [0,0,0,0] , 
@@ -29,16 +29,16 @@ var chart = Highcharts.chart("container_{{group.id}}", {
 			point: {
 				events: {
 					mouseOver: function(e) {
-						chart.setTitle({
+						chart_{{group.id}}.setTitle({
 							text: e.target.name + "："+ (parseInt(e.target.percentage*100)/100) + " %"
-						});
+						})
 					} , 
 					mouseOut: function(e) {
-						chart.setTitle({
+						chart_{{group.id}}.setTitle({
 							text: "实验数：{{tot_num}}"
-						});
-					}
-				}
+						})
+					} , 
+				} , 
 			},
 		}
 	},

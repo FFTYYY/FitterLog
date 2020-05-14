@@ -26,10 +26,13 @@
 
 #project_intro{
 	position: absolute;
-	top: 2%;
+	top: 5%;
 	left: 5px;
-	height: 20px;
+	height: 90%;
 	width: 100%;
+
+	background-color: inherit;
+	resize: none;
 
 	text-align: left;
 }
@@ -50,7 +53,7 @@
 	width : 82%;
 	left: 5%;
 	font-size : 13px;
-	background-color : #363636FF;
+	background-color : #232329FF;
 	outline: none;
 }
 
@@ -65,28 +68,38 @@
 	background-color : #00000000;
 }
 
-#go_back{
-	position: absolute;
-	top: 75%;
-	width : 5%;
-	left : 5%;
-	height : 20%;
+.header_a{		
+	position: relative;
+
+	margin-left: 	2px;
+	margin-right: 	3px;
+	margin-top: 	2px;
+	margin-bottom: 	3px;
+
 	cursor : default;
-	font-size : 14px;
+	font-size : 15px;
 	text-align: center;
 	color: #D3D3D3FF;
 	background-color : #00000000;
 	text-decoration : none;
 }
 
-#new_group_button:hover , #go_back:hover
+#header_button_container{		
+	position: absolute;
+
+	top: 55%;
+	width : 90%;
+	left : 5%;
+	height : 20%;
+}
+
+#new_group_button:hover , .header_a:hover
 {
 	background-color : #8E8E8EFF !important;
 	color: #2B2B2BFF !important;
 }
-#new_group_button:active , #go_back:active
+#new_group_button:active , .header_a:active
 {
 	color : #000000FF !important;
 	background-color : #D3D3D3FF !important;
 }
-

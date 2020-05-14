@@ -1,10 +1,6 @@
 now_active = document.getElementsByClassName("default_right")[0]
 active_left = document.getElementsByClassName("active_left")[0]
 
-function when_unhovor()
-{
-}
-
 function when_hover()
 {
 	var group_id = this.getAttribute("group_id")
@@ -32,6 +28,5 @@ function add_hover_and_unhover_action()
 	}
 
 }
-
 
 add_hover_and_unhover_action()
