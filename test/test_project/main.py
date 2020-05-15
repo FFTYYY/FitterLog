@@ -1,7 +1,7 @@
 import os , sys
 sys.path.append("../..")
 from fitterlog.interface import new_or_load_experiment
-from config import arg_proxy
+from config import get_arg_proxy
 from YTools.universe.timer import Timer
 from YTools.universe.beautiful_str import beautiful_str
 import random
@@ -11,7 +11,7 @@ with Timer("new experiment"):
 	E = new_or_load_experiment(project_name = "hahahaha" , group_name = "default")
 
 with Timer("apply args"):
-	E.use_argument_proxy( arg_proxy )
+	E.use_argument_proxy( get_arg_proxy() )
 
 with Timer("new variable"):
 	def avg_merge(*x):

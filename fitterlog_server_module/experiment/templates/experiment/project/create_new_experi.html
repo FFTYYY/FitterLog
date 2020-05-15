@@ -1,0 +1,36 @@
+<script>
+
+function on_layer_done()
+{
+}
+
+function create_ask()
+{
+	layui.use("layer", function(){
+		var layer = layui.layer;
+
+		layer.open({
+			title: "<p class='title-text'>新建设置</p>" , 
+			content: '																				\
+			<form action = "/experiment/create" method = "post">						\
+				{% csrf_token %}																	\
+																									\
+				<input type = "text" name = "name" id = "config_name_input" autocomplete = "off" 	\
+					placeholder = "config文件名"/>\
+				<input type = "submit" class = "layui-icon" value = "&#xe624;" id = "create_button"\
+					title = "新建">\
+			</form>\
+			<a class = "layui-icon layui-layer-close layui-layer-close1 my-close">&#x1006;</a>\
+			' , 
+			skin: "my-skin",
+			btn: [],
+			resize: false,
+			closeBtn: 0,
+			shade: 0,
+
+			success : on_layer_done,
+			
+		});
+	});
+}
+</script>

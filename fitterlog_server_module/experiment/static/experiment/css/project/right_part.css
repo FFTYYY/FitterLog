@@ -46,4 +46,9 @@
 	color: #E0E0E0FF;
 	background-color: inherit;
 	resize: none;
+	overflow: auto;
+}
+
+.group_intro::placeholder{
+	color: #A8A8A8FF;
 }

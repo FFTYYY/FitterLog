@@ -41,13 +41,13 @@ def project_save_config(request , project_id):
 
 			if name == "project_intro":
 				project.intro = content
-				project.save()
+			if name == "path_inp":
+				project.path = content
 			if name.startswith("group_intro_"):
 				grp_id = int(name.split("group_intro_")[1])
 				grp = ExperimentGroup.objects.get(id = grp_id)
 				grp.intro = content
 				grp.save()
-				print (content)
-			print (name)
+		project.save()
 
 	return HttpResponseRedirect("/project/%d" % project_id)

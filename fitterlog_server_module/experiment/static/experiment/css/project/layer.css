@@ -1,0 +1,23 @@
+#config_name_input{
+	position: absolute;
+	color: #E5E5E5FF;
+	background-color: #333333FF;
+	left: 5%;
+	top: 30%;
+	width: 70%;
+	height: 30%;
+}
+
+#create_button{
+	position: relative;
+	color: #E5E5E5FF;
+	background-color: inherit;
+	left: 85%;
+	top: 30%;
+	width: 10%;
+	height: 30%;
+}
+#create_button:hover{
+	color: #333333FF !important;
+	background-color: #E5E5E5FF !important;
+}

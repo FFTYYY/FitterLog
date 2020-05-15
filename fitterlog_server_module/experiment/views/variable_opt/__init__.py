@@ -28,3 +28,12 @@ def new_variable(request , experiment_id):
 	return HttpResponseRedirect("/experiment/%s" % (str(experiment_id)))
 
 
+def track(request , track_id):
+
+	track = VariableTrack.objects.get(id = track_id)
+
+	context = {
+		"track": track , 
+		"values": track.values.all() , 
+	}
+	return render(request , get_path("track") , context)
