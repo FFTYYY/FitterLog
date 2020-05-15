@@ -1,0 +1,133 @@
+#header_button_container{
+	position: absolute;
+
+	top: 10%;
+	width : 90%;
+	left : 5%;
+	height : 80%;
+}
+#middle{
+	position: absolute;
+	left: 0;
+	top: 15%;
+	height: 5%;
+	width: 100%;
+
+	background-color: #666679;
+}
+#middle p{
+	text-align: center;
+	font-size: 20px;
+	line-height: 150%;
+	font-family: "DengXian Light";
+}
+
+#content{
+	position: absolute;
+	left: 0;
+	top: 20%;
+	height: 80%;
+	width: 100%;
+
+	background-color: #666679;
+	
+}
+
+#left_part{	
+	position: absolute;
+	left: 0;
+	top: 0;
+	height: 98%;
+	width: 20%;
+}
+#right_part{	
+	position: absolute;
+	left: 20%;
+	top: 0;
+	height: 98%;
+	width: 80%;
+
+	background-color: inherit;
+	overflow: auto;
+}
+
+/*一行*/
+.arg_line{
+	position: relative;
+	left: 3%;
+	width: 94%;
+	height: 5%;
+	margin-top: 1%;
+	margin-bottom: : 1%;
+}
+
+/*每行内的各种元素*/
+.inner_type , .title_type{
+	position: absolute;
+	left: 0;
+	top: 0;
+	height: 100%;
+	width: 20%;
+	text-align: center;
+}
+
+/*一条分隔线，把type和name分开。其实不是行内元素（甚至不在right_part内，因为我需要他一直浮在上面）*/
+.outer_line{
+	position: absolute;
+	left: 37.6%; /*37.6% = 22% * 80% + 20%，我希望他的实际位置是 right_part的22%*/
+	top: 0;
+	height: 98%;
+	width: 1px;
+	text-align: center;
+	background-color: #FFFFFF;
+
+}
+/*一条分隔线，把type和name分开。也不是行内元素，但是right_part内的元素*/
+.inner_line{
+	position: relative;
+	left: 0; /*22% * 80% + 20%，我希望他的实际位置是 right_part的22%*/
+	width: 98%;
+	height: 1px;
+	margin-top: 1%;
+	margin-bottom: : 1%;
+	text-align: center;
+	background-color: #FFFFFF;
+
+}
+
+
+.inner_name , .title_name{
+	position: absolute;
+	left: 25%;
+	top: 0;
+	height: 100%;
+	width: 20%;
+	text-align: center;
+	overflow: auto;
+}
+.inner_eq{
+	position: absolute;
+	left: 45%;
+	top: 0;
+	height: 100%;
+	width: 5%;
+	text-align: center;
+}
+.title_default{
+	position: absolute;
+	left: 50%;
+	top: 0;
+	height: 100%;
+	width: 45%;
+	text-align: center;
+}
+.inner_default{
+	position: absolute;
+	left: 50%;
+	top: 0;
+	height: 100%;
+	width: 45%;
+	text-align: left;
+	color: #E0E0E0FF;
+	background-color: #4B4B57;
+}

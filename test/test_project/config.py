@@ -15,6 +15,10 @@ def get_arg_proxy():
 	arg_proxy.add_argument("ui" , type = float , default = 0.23333)
 	arg_proxy.add_argument("a rand val" , type = int , default = random.random())
 	arg_proxy.add_store_true("use_kernel")
+	arg_proxy.add_store_true("a variable with very very long variable name hahahahha dsfjdsfljfjfljdsfjfjsdflflf")
+	arg_proxy.add_store_true("another variable with very very long variable name hahahahha dsfjdsfljfjfljdsfjfjsdflflf")
+	arg_proxy.add_store_true("use_core")
+
 	return arg_proxy
 
 __all__ = [

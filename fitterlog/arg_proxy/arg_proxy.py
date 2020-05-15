@@ -1,6 +1,7 @@
 from ..interface.others import Variable
 import argparse
 from .types import *
+from YTools.universe import beautiful_str
 
 class Argument:
 	def __init__(self , name , type , default , editable):
@@ -32,4 +33,9 @@ class ArgProxy:
 		C = C.parse_args(args)
 
 		return C
+
+	def __str__(self):
+		return beautiful_str(["name" , "default" , "type"] , [
+			[x.name , x.default , x.type] for x in self.args
+		])
 

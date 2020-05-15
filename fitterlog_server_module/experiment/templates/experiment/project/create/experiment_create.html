@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+
+{%load static%}
+
+<head>		
+		<link rel = "stylesheet" href = {% static "/layui/css/layui.css" %} type = "text/css" />
+		<link rel = "stylesheet" href = {% static "/experiment/css/scrollbar.css" %} type = "text/css" />
+
+		<link rel = "stylesheet" href = {% static "/experiment/css/project/main.css" %} type = "text/css" />
+		<link rel = "stylesheet" href = {% static "/experiment/css/project/header.css" %} type = "text/css" />
+		
+		<link rel = "stylesheet" href = {% static "/experiment/css/project/create/main.css" %} type = "text/css" />
+
+</head>
+
+<body>
+	<div id = "header"> 
+
+
+		<div id = "left_header">
+			<p id = "project_name">【项目】{{project.name}}</p>
+		</div>
+
+		<div id = "middle_header">
+			<input id = "path_inp" class = "to_save" name = "path_inp" placeholder = "项目位置" 
+			value = "{{project.path}}" readonly="readonly"></input>
+			<textarea class = "to_save" id = "project_intro" name = "project_intro" placeholder = "项目介绍"
+			 readonly="readonly">{{project.intro}}</textarea>
+		</div>
+		
+		<div id = "right_header">
+
+			<div id = "header_button_container">
+				<a class = "header_a" title = "返回" href = "/project/{{project.id}}"><i class = "layui-icon">&#xe65c;</i></a>
+				<a class = "header_a" title = "建立实验" href = "/project/{{project.id}}"><i class = "layui-icon">&#xe605;</i></a>
+			</div>
+		</div>
+	</div>
+	<div id = "middle">
+		<p>新建实验</p>
+	</div>
+
+	<div id = "content">
+
+		<div id = "left_part">
+		</div>
+
+
+		<div id = "right_part">
+			<div class = "arg_line"> 
+				<p class = "title_type the_title">Type</p>
+				<p class = "title_name the_title">Name</p>
+				<p class = "title_default the_title">Value</p>
+			</div>
+			<div class = "inner_line"> </div>
+
+			{% for type , name , default in args%}
+			<div class = "arg_line"> 
+				<p class = "inner_type">{{type}}</p>
+				<p class = "inner_name">{{name}}</p>
+				<p class = "inner_eq">=</p>
+				<input class = "inner_default" value = "{{default}}"></input>
+			</div>
+			{% endfor %}
+		</div>
+
+		<div class = "outer_line"></div>
+
+	</div>
+</body>
+	
+
+<script src = {% static "/layui/layui.js" %}></script>

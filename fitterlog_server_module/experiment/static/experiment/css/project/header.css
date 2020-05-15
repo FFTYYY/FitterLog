@@ -82,7 +82,7 @@
 	background-color : #00000000;
 }
 
-.header_a{		
+.header_a{
 	position: relative;
 
 	margin-left: 	2px;
@@ -98,7 +98,7 @@
 	text-decoration : none;
 }
 
-#header_button_container{		
+#header_button_container{
 	position: absolute;
 
 	top: 55%;
