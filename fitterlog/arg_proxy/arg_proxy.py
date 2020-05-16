@@ -15,10 +15,15 @@ class ArgProxy:
 		self.name = name
 		self.args = []
 
+	def process_name(self , name):
+		return name.strip().replace(" " , "_")
+
 	def add_argument(self , name , type = str , default = None , editable = False):
+		name = self.process_name(name)
 		self.args.append(Argument(name , type , default , editable = editable))
 
 	def add_store_true(self , name , editable = False):
+		name = self.process_name(name)
 		self.args.append(Argument(name , Bool , "False" , editable = editable))
 
 	def assign_from_cmd(self , args = None):
