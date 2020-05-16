@@ -3,6 +3,7 @@ from django.http import HttpResponse , Http404 , HttpResponseRedirect
 from ...models import Project , ExperimentGroup
 from ..base import get_path
 from .utils import group_sort , get_num_exp
+from .create import *
 
 def project(request , project_id):
 

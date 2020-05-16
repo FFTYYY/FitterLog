@@ -1,5 +1,5 @@
 from django.shortcuts import render
-from django.http import HttpResponse , Http404
+from django.http import HttpResponse , Http404 , HttpResponseRedirect
 from ...models import Experiment , Project
 from ..base import get_path
 import os
@@ -23,6 +23,7 @@ def type2str(type):
 
 
 def experiment_to_create(request , project_id):
+	'''新建实验的界面'''
 	project = Project.objects.get(id = project_id)
 
 	if request.POST:
@@ -46,6 +47,7 @@ def experiment_to_create(request , project_id):
 	context = {
 		"args" : args , 
 		"project" : project , 
+		"config_file": target_file , 
 	}
 
 	return render(request , get_path("project/create/experiment_create") , context)
@@ -54,6 +56,10 @@ def experiment_to_create(request , project_id):
 def new_experiment(request , project_id):
 	'''根据获得的各种信息来在命令行开始一个实验（运行代码）。'''
 
-	# TODO
+	if request.POST:
+		for name in request.POST:
+			if name == "csrfmiddlewaretoken":
+				continue
+			print (request.POST[name])
 
-	return render(request , get_path("project/create/experiment_create") , {})
+	return HttpResponseRedirect("/project/%d" % project_id)

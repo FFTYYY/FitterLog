@@ -2,7 +2,6 @@ from django.shortcuts import render
 from django.http import HttpResponse , Http404
 from ...models import Experiment
 from ..base import get_path
-from .create import *
 
 def experiment(request , experiment_id):
 

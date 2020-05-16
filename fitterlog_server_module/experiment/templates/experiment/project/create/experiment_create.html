@@ -22,9 +22,9 @@
 		</div>
 
 		<div id = "middle_header">
-			<input id = "path_inp" class = "to_save" name = "path_inp" placeholder = "项目位置" 
-			value = "{{project.path}}" readonly="readonly"></input>
-			<textarea class = "to_save" id = "project_intro" name = "project_intro" placeholder = "项目介绍"
+			<input id = "path_inp"  name = "path_inp" placeholder = "项目位置" 
+			value = "{{config_file}}" readonly="readonly"></input>
+			<textarea id = "project_intro" name = "project_intro" placeholder = "项目介绍"
 			 readonly="readonly">{{project.intro}}</textarea>
 		</div>
 		
@@ -32,7 +32,7 @@
 
 			<div id = "header_button_container">
 				<a class = "header_a" title = "返回" href = "/project/{{project.id}}"><i class = "layui-icon">&#xe65c;</i></a>
-				<a class = "header_a" title = "建立实验" href = "/project/{{project.id}}"><i class = "layui-icon">&#xe605;</i></a>
+				<a class = "header_a" title = "建立实验" href = "javascript:void(0);" onclick = "javascript:finish_create()"><i class = "layui-icon">&#xe605;</i></a>
 			</div>
 		</div>
 	</div>
@@ -59,7 +59,7 @@
 				<p class = "inner_type">{{type}}</p>
 				<p class = "inner_name">{{name}}</p>
 				<p class = "inner_eq">=</p>
-				<input class = "inner_default" value = "{{default}}"></input>
+				<input class = "inner_default to_save" name = "{{name}}" value = "{{default}}"></input>
 			</div>
 			{% endfor %}
 		</div>
@@ -71,3 +71,4 @@
 	
 
 <script src = {% static "/layui/layui.js" %}></script>
+{% include "experiment/project/create/finish_create.html" %}

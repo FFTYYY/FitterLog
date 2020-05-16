@@ -1,0 +1,22 @@
+<form id = "for_saving" class = "hidden"  action = "/project/{{project.id}}/new_experiment" method = "post">
+	{% csrf_token %}
+</form>
+
+
+<script>
+function finish_create(){
+	values = document.getElementsByClassName("to_save")
+
+	var for_saving = document.getElementById("for_saving");
+
+	for (var i = 0;i < values.length;i++) {
+
+		var opt = document.createElement("textarea");
+		opt.name = values[i].name;
+		opt.value = values[i].value;
+		for_saving.appendChild(opt);
+	}
+
+	for_saving.submit();
+}
+</script>
