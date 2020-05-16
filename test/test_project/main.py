@@ -6,6 +6,7 @@ from YTools.universe.timer import Timer
 from YTools.universe.beautiful_str import beautiful_str
 import random
 from tqdm import tqdm
+import time
 
 with Timer("new experiment"):
 	E = new_or_load_experiment(project_name = "hahahaha" , group_name = "default")
@@ -52,6 +53,10 @@ for i in range(3):
 
 for i in tqdm(range(10) , ncols = 100):
 	E["metric"]["test acc"].update((i*random.random()) * 100 , 1 + i * 20)
+
+
+time.sleep(20)
+sys.stderr.write("I'm awake!!!")
 
 E["loss"].update("23.4 ( 2.0 )")
 

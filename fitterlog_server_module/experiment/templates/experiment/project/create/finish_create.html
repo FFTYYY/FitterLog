@@ -10,12 +10,16 @@ function finish_create(){
 	var for_saving = document.getElementById("for_saving");
 
 	for (var i = 0;i < values.length;i++) {
-
 		var opt = document.createElement("textarea");
 		opt.name = values[i].name;
 		opt.value = values[i].value;
 		for_saving.appendChild(opt);
 	}
+
+	var opt = document.createElement("textarea");
+	opt.name = "__FITTERLOG__CONFIG__";
+	opt.value = "{{config_name}}";
+	for_saving.appendChild(opt);
 
 	for_saving.submit();
 }

@@ -3,6 +3,8 @@ from django.http import HttpResponse , Http404 , HttpResponseRedirect
 from ...models import Experiment , Project
 from ..base import get_path
 import os
+from fitterlog_cmd.cmd_start import run_a_experiment
+from ...utils.constants import special_postfix , config_file_key
 
 def type2str(type):
 	base_types = {
@@ -48,6 +50,7 @@ def experiment_to_create(request , project_id):
 		"args" : args , 
 		"project" : project , 
 		"config_file": target_file , 
+		"config_name": config_name , 
 	}
 
 	return render(request , get_path("project/create/experiment_create") , context)
@@ -56,10 +59,25 @@ def experiment_to_create(request , project_id):
 def new_experiment(request , project_id):
 	'''根据获得的各种信息来在命令行开始一个实验（运行代码）。'''
 
+	project = Project.objects.get(id = project_id)
+
+
+	values = {}
 	if request.POST:
 		for name in request.POST:
 			if name == "csrfmiddlewaretoken":
 				continue
-			print (request.POST[name])
+			if name.startswith(special_postfix):
+				continue
+			values[name] = str(request.POST[name])
+		config_name = request.POST[config_file_key]
 
+	run_a_experiment(
+		path 		= project.path , 
+		config_name = config_name , 
+		values 		= values, 
+		command 	= "python" , 
+		entry_file 	= "main.py"
+	)
+	
 	return HttpResponseRedirect("/project/%d" % project_id)
