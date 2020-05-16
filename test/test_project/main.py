@@ -9,7 +9,7 @@ from tqdm import tqdm
 import time
 
 with Timer("new experiment"):
-	E = new_or_load_experiment(project_name = "hahahaha" , group_name = "default")
+	E = new_or_load_experiment(project_name = "hahahaha" , group_name = "a very very very long group name hahahhahaha")
 
 with Timer("apply args"):
 	E.use_argument_proxy( get_arg_proxy() )
