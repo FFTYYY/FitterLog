@@ -1,0 +1,9 @@
+{{info}}
+
+<form action = "/login" method = "post">
+	{% csrf_token %}
+
+	输入密码啊啊啊啊啊 <input type = "text" name = "password"/>
+	<input type = "hidden" name = "path" value = "{{path}}"/>
+	<input type = "submit" value = "确定"/>
+</form>

@@ -5,6 +5,8 @@ from ..base import get_path
 import os
 from fitterlog_cmd.cmd_start import run_a_experiment
 from ...utils.constants import special_postfix , config_file_key
+from ...utils.permission import check_permission
+from ..displays import ask_login
 
 def type2str(type):
 	base_types = {
@@ -26,6 +28,9 @@ def type2str(type):
 
 def experiment_to_create(request , project_id):
 	'''新建实验的界面'''
+	if not check_permission(request):
+		return ask_login(request)
+
 	project = Project.objects.get(id = project_id)
 
 	if request.POST:
@@ -57,7 +62,10 @@ def experiment_to_create(request , project_id):
 
 
 def new_experiment(request , project_id):
-	'''根据获得的各种信息来在命令行开始一个实验（运行代码）。'''
+	'''根据获得的各种信息来在命令行开始一个实验（运行代码）。'''	
+
+	if not check_permission(request):
+		return ask_login(request)
 
 	project = Project.objects.get(id = project_id)
 

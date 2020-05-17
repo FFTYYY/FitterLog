@@ -4,8 +4,12 @@ from ...models import Project , ExperimentGroup
 from ..base import get_path
 from .utils import group_sort , get_num_exp
 from .create import *
+from ...utils.permission import check_permission
+from ..displays import ask_login
 
 def project(request , project_id):
+	if not check_permission(request):
+		return ask_login(request)
 
 	project = Project.objects.get(id = project_id)
 
@@ -21,6 +25,8 @@ def project(request , project_id):
 
 
 def new_project(request):
+	if not check_permission(request):
+		return ask_login(request)
 
 	if request.POST:
 		name = request.POST.get("name")
@@ -33,6 +39,10 @@ def new_project(request):
 	return HttpResponseRedirect("/")
 
 def project_save_config(request , project_id):
+	if not check_permission(request):
+		return ask_login(request)
+
+
 	project = Project.objects.get(id = project_id)
 
 	if request.POST:
