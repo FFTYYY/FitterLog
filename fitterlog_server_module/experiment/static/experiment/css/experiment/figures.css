@@ -11,7 +11,6 @@
 
 .layui-tab-title , .layui-this::after{
 	border-color: #9393EB!important;
-
 }
 
 .tab-head{
@@ -21,8 +20,8 @@
 
 	transition: 0.5s;
 	transition-timing-function: ease-out;
-
 }
+
 .tab-head:hover{
 	background-color: #2E7E79FF !important;
 	color: #DDDDDDFF;

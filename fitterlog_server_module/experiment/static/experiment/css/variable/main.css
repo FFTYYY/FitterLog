@@ -8,6 +8,15 @@
 *{
 	font-family: "STXiHei";
 }
+.tab-head{
+	background-color: #00000000 !important;
+	color: inherit;
+	margin-left: 2px;
+
+	transition: 0.5s;
+	transition-timing-function: ease-out;
+
+}
 
 .tab-head:hover{
 	background-color: #44BAB4FF !important;
