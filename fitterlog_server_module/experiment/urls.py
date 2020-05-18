@@ -18,6 +18,7 @@ urlpatterns = [
 	path("experiment/<int:experiment_id>" 					, views.experiment),
 	path("experiment/<int:experiment_id>/new_variable" 		, views.new_variable),
 	path("experiment/<int:experiment_id>/logs" 				, views.experiment_log),
+	path("experiment/<int:experiment_id>/figures" 			, views.experiment_figure),
 
 	path("variable/<str:variable_id>" 						, views.variable),
 

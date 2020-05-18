@@ -1,0 +1,91 @@
+*{
+	background-color: #D3D3F7;
+	color: #2B2B2BFF;
+	margin: 0;
+	padding: 0;
+}
+
+*{
+	font-family: "STXiHei";
+}
+
+.layui-tab-title , .layui-this::after{
+	border-color: #9393EB!important;
+
+}
+
+.tab-head{
+	background-color: #00000000 !important;
+	color: inherit;
+	margin-left: 2px;
+
+	transition: 0.5s;
+	transition-timing-function: ease-out;
+
+}
+.tab-head:hover{
+	background-color: #2E7E79FF !important;
+	color: #DDDDDDFF;
+
+	transition: 0.5s;
+	transition-timing-function: ease-out;
+}
+
+.layui-this{
+	background-color: #2655B4FF !important;
+	color: #DDDDDDFF !important;
+}
+
+#header #decs{
+	position: absolute;
+	background-color: inherit;
+
+	left: 0;
+	top: 0;
+	height: 100%;
+	width: 50%;
+}
+#header #buts{
+	position: absolute;
+	background-color: inherit;
+
+	left: 50%;
+	top: 0;
+	height: 100%;
+	width: 50%;
+}
+
+#header{
+	position: absolute;
+	background-color: #9393EB;
+	left: 0;
+	top: 0;
+	height: 7%;
+	width: 100%;
+}
+
+.layui-tab{
+	position: absolute;
+	left: 0;
+	top: 7%;
+	height: 88%;
+	width: 100%;
+
+}
+
+#header p , #header a{
+	background-color: inherit;
+	color: inherit;
+}
+
+#header a:hover{
+	background-color: #D3D3F7;
+	color: #383838FF;
+}
+
+
+::selection
+{
+	background : #DDDDDD; 
+	color : #383838FF;
+}

@@ -1,6 +1,7 @@
 from ..sql_proxy import Experiment 		as Core_Experiment
 from ..sql_proxy import ExperimentGroup as Core_Group
 from .others import Variable
+from .paint import Painter
 from ..quit import add_quit_process
 
 this_experiment = None
@@ -33,6 +34,7 @@ class Experiment:
 		
 		self._get_core(group_id , group_name , project_id , project_name)
 		self.variables = {}
+		self.figures = {}
 		self.add_line = self.write_log
 		self.id = int(self.core.id)
 
@@ -72,6 +74,11 @@ class Experiment:
 		C = arg_prox.assign_from_cmd(args)
 		for arg in arg_prox.args:
 			self.new_variable(arg.name , arg.type , str(C.__dict__[arg.name]) , editable = arg.editable)
+
+	def new_figure(self , name):
+		fig = Painter(name , self)
+		self.figures[name] = Painter(name , self)
+		return fig
 
 	def __getitem__(self , name):
 		return self.variables[name]

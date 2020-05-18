@@ -4,6 +4,8 @@
 '''
 from .experi import Experiment , ExperimentGroup , Project
 from .variable import Variable , VariableTrack , SingleValue
+from .others import Figure
 
 from .experi import SQL_Experiment , SQL_ExperimentGroup , SQL_Project
 from .variable import SQL_Variable , SQL_VariableTrack , SQL_SingleValue
+from .others import SQL_Figure

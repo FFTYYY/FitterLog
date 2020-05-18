@@ -1,0 +1,45 @@
+{% load static %}
+
+<head>
+	<link rel = "stylesheet" href = {% static "/layui/css/layui.css" %} type = "text/css" />
+	<script src = {% static "/layui/layui.js" %}></script>
+
+	<link rel = "stylesheet" href = {% static "/experiment/css/experiment/figures.css" %} type = "text/css" />
+
+</head>
+
+<body>
+
+<div id = "header">
+	<div id = "decs">
+		<p> 【Experiment id】 {{experiment.id}}</p>
+	</div>
+
+	<div id = "buts">
+		<a class = "layui-icon" href = "/group/{{experiment.group.id}}" title = "返回"> &#xe65c;</a>
+	</div>
+</div>
+
+<div class="layui-tab">
+  <ul class="layui-tab-title">
+
+  	<!--li class = "layui-this tab-head">ALL</li-->
+	{% for name , fig in figs %}
+		<li class = "tab-head {%ifequal name first_name%} layui-this {%endifequal%}">{{name}}</li>
+	{% endfor %}
+  </ul>
+  <div class="layui-tab-content">
+
+  	{% for name , fig in figs %}
+		<div class = "layui-tab-item {%ifequal name first_name%} layui-show {%endifequal%}">
+			{{fig|safe}}
+		</div>
+	{% endfor %}
+  </div>
+</div>
+
+</body>
+
+<script>
+	layui.use('element', function(){});
+</script>

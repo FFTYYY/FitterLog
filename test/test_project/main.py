@@ -7,9 +7,10 @@ from YTools.universe.beautiful_str import beautiful_str
 import random
 from tqdm import tqdm
 import time
+import matplotlib.pyplot as plt
 
 with Timer("new experiment"):
-	E = new_or_load_experiment(project_name = "hahahaha" , group_name = "a very very very long group name hahahhahaha")
+	E = new_or_load_experiment(project_name = "hahahaha" , group_name = "default")
 
 with Timer("apply args"):
 	E.use_argument_proxy( get_arg_proxy() )
@@ -20,6 +21,16 @@ with Timer("new variable"):
 		return sum(x) / len(x)
 	E.new_variable("loss" , type = float , default = 0 , merge_func = avg_merge)
 	E.new_variable("metric" , type = float , default = 0 , merge_func = avg_merge)
+
+with Timer("paint"):
+	with E.new_figure("test figure"):
+		x = [1, 2, 3, 4]
+		y = [1.2, 2.5, 4.5, 7.3]
+		plt.plot(x, y) 
+	with E.new_figure("test figure 2"):
+		x = [1, 2, 3, 4]
+		y = [5.2, 2.5, 4.5, 7.3]
+		plt.plot(x, y) 
 
 E.add_line("hahaha E!")
 E.add_line("hello!")
@@ -35,8 +46,8 @@ E.new_variable("k" , type = int , default = k)
 E.new_variable("23333" , type = int , default = 2333)
 
 
-with Timer("updates"):
-	for i in range(k):
+for i in range(k):
+	with Timer("updates"):
 		E["loss"]["test loss"].update(0.01 * i)
 
 E["loss"]["train loss"].update(0)
@@ -55,8 +66,8 @@ for i in tqdm(range(10) , ncols = 100):
 	E["metric"]["test acc"].update((i*random.random()) * 100 , 1 + i * 20)
 
 
-time.sleep(20)
-sys.stderr.write("I'm awake!!!")
+# time.sleep(20)
+# sys.stderr.write("I'm awake!!!")
 
 E["loss"].update("23.4 ( 2.0 )")
 
