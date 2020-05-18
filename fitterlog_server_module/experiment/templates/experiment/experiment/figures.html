@@ -43,3 +43,19 @@
 <script>
 	layui.use('element', function(){});
 </script>
+
+<script>
+	var imgs = document.getElementsByTagName("img")
+	var the_wid = 0 //边框的宽度
+	for(var i = 0;i < imgs.length;i++)
+	{
+		var wid = imgs[i].parentElement.offsetWidth;
+		the_wid = Math.max(wid , the_wid)
+	}	
+	for(var i = 0;i < imgs.length;i++)
+	{
+		imgs[i].style.marginLeft = ((the_wid - imgs[i].width) / 2).toString() + "px"
+	}
+
+
+</script>

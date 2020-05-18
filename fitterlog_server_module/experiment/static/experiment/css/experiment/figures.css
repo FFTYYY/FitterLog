@@ -1,5 +1,5 @@
 *{
-	background-color: #D3D3F7;
+	background-color: #B3CBE9;
 	color: #2B2B2BFF;
 	margin: 0;
 	padding: 0;
@@ -10,7 +10,7 @@
 }
 
 .layui-tab-title , .layui-this::after{
-	border-color: #9393EB!important;
+	border-color: #829BCE!important;
 }
 
 .tab-head{
@@ -56,7 +56,7 @@
 
 #header{
 	position: absolute;
-	background-color: #9393EB;
+	background-color: #829BCE;
 	left: 0;
 	top: 0;
 	height: 7%;

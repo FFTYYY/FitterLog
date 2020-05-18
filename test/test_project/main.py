@@ -31,6 +31,22 @@ with Timer("paint"):
 		x = [1, 2, 3, 4]
 		y = [5.2, 2.5, 4.5, 7.3]
 		plt.plot(x, y) 
+	with E.new_figure("test figure 3"):
+		import numpy as np
+		plt.figure(figsize = (10 , 6) , dpi = 100)
+
+		t1 = np.arange(0, 5, 0.1)
+		t2 = np.arange(0, 5, 0.02)
+
+		plt.subplot(221)
+		plt.plot(t1, (t1 * 0.25), 'bo', t2, (t2 + 0.1), 'r--')
+
+		plt.subplot(333)
+		plt.plot(t2, np.cos(2 * np.pi * t2), 'r--')
+
+		plt.subplot(212)
+		plt.plot([1, 2, 3, 4], [1, 4, 9, 16])
+		plt.plot(x, y) 
 
 E.add_line("hahaha E!")
 E.add_line("hello!")
