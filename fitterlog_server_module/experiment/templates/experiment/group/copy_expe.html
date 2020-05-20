@@ -1,5 +1,11 @@
 <script>
 
+var configs = [
+	{% for config in config_files %}
+		"{{config}}",
+	{% endfor %}
+]
+
 //从configs列表，生成下拉菜单
 function get_config_manu()
 {
@@ -28,7 +34,7 @@ function go_new_expe()
 	the_create_form.submit()
 }
 
-function create_ask()
+function copy_expe(exp_id)
 {
 	layui.use("layer", function(){
 		var layer = layui.layer;
@@ -36,12 +42,12 @@ function create_ask()
 		layer.open({
 			title: "<p class='title-text'>新建实验</p>" , 
 			content: '																				\
-			<form action = "/project/{{project.id}}/create_experiment" id = "the_create_form" method = "post">				\
+			<form action = "/experiment/'+exp_id+'/copy" id = "the_create_form" method = "post">				\
 				{% csrf_token %}																	\
 			'
 			+ get_config_manu() + 
 			'<input type = "hidden" name = "config_name" value = "" id = "start_create_expe"/>\
-			<a class = "layui-icon" title = "创建" id = "create_button" \
+			<a class = "layui-icon" title = "创建实验" id = "create_button" \
 			href = "javascript:void(0)" onclick = "javascript:go_new_expe()">&#xe624;</a>	\
 			</form>	\
 			<a class = "layui-icon layui-layer-close layui-layer-close1 my-close" title = "关闭窗口">&#x1006;</a>\

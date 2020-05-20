@@ -38,6 +38,7 @@ def group(request , group_id):
 		"line_information" : line_information , 
 		"lens" : lens , 
 		"head_and_width_and_style": zip(heads , lens , min_lens , styles) , 
+		"config_files": seped_s2list(group.project.config_files) , 
 	}
 	return render(request , get_path("group/group") , context)
 

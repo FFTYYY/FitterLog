@@ -4,22 +4,26 @@
 
 
 <script>
+function add_save(for_saving , name , value)
+{
+	var opt = document.createElement("textarea");
+	opt.name = name;
+	opt.value = value;
+	for_saving.appendChild(opt)
+}
+
+
 function finish_create(){
 	values = document.getElementsByClassName("to_save")
 
 	var for_saving = document.getElementById("for_saving");
 
-	for (var i = 0;i < values.length;i++) {
-		var opt = document.createElement("textarea");
-		opt.name = values[i].name;
-		opt.value = values[i].value;
-		for_saving.appendChild(opt);
-	}
+	for (var i = 0;i < values.length;i++)
+		add_save(for_saving , values[i].name , values[i].value)
+	
+	add_save(for_saving , "__FITTERLOG__CONFIG__" , "{{config_name}}")
+	add_save(for_saving , "__last_page_path" , "{{last_page_path}}") //如果不以双下划线开头就会被以为是变量
 
-	var opt = document.createElement("textarea");
-	opt.name = "__FITTERLOG__CONFIG__";
-	opt.value = "{{config_name}}";
-	for_saving.appendChild(opt);
 
 	for_saving.submit();
 }

@@ -5,6 +5,7 @@
 <head>
 		<link rel = "stylesheet" href = {% static "/layui/css/layui.css" %} type = "text/css" />
 		<link rel = "stylesheet" href = {% static "/layui-soul-table/soulTable.css" %} type = "text/css" />
+		<link rel = "stylesheet" href = {% static "/experiment/css/layer-skin.css" %} type = "text/css" />
 
 		<link rel = "stylesheet" href = {% static "/experiment/css/group/main.css" %} type = "text/css" />
 		<link rel = "stylesheet" href = {% static "/experiment/css/group/header.css" %} type = "text/css" />
@@ -13,6 +14,8 @@
 		<link rel = "stylesheet" href = {% static "/experiment/css/scrollbar.css" %} type = "text/css" />
 		<link rel = "stylesheet" href = {% static "/experiment/css/group/toolbar.css" %} type = "text/css" />
 		<link rel = "stylesheet" href = {% static "/experiment/css/group/soultable.css" %} type = "text/css" />
+
+		<link rel = "stylesheet" href = {% static "/experiment/css/project/layer.css" %} type = "text/css" />
 
 </head>
 
@@ -66,6 +69,9 @@
 						<a class = "header_a" href = "/experiment/{{exp_id}}/figures">
 							<i class="layui-icon">&#xe64a;</i>
 						</a>
+						<a class = "header_a" href = "javascript:void(0)" onclick = "javascript:copy_expe({{exp_id}})">
+							<i class="layui-icon">&#xe656;</i>
+						</a>
 					</td>
 
 				</tr>
@@ -106,3 +112,6 @@ layui.config({
 <!--工具栏事件。比较适合在html里写因为可以方便的使用django模板语法-->
 {% include "experiment/group/toolbar_event.html" %}
 <script src = {% static "/experiment/js/group/group.js" %}></script>
+
+<!--创建新实验-->
+{% include "experiment/group/copy_expe.html" %}

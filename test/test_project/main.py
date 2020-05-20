@@ -82,8 +82,8 @@ for i in tqdm(range(10) , ncols = 100):
 	E["metric"]["test acc"].update((i*random.random()) * 100 , 1 + i * 20)
 
 
-# time.sleep(20)
-# sys.stderr.write("I'm awake!!!")
+time.sleep(20)
+sys.stderr.write("I'm awake!!!")
 
 E["loss"].update("23.4 ( 2.0 )")
 

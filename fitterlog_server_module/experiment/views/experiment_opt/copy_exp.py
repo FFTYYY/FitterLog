@@ -25,13 +25,26 @@ def type2str(type):
 		return "class"
 	return "others"
 
+def get_val(exp , name):
+	var = exp.variables.filter(name = name)
+	if len(var) <= 0:
+		return None
+	var = var[0]
 
-def experiment_to_create(request , project_id):
+	trk = var.tracks.filter(name = "default")
+	if len(trk) < 0:
+		return None
+	trk = trk[0]
+
+	return trk.values.latest("time_stamp").value
+
+def copy_exp(request , experiment_id):
 	'''新建实验的界面'''
 	if not check_permission(request):
 		return ask_login(request)
 
-	project = Project.objects.get(id = project_id)
+	experiment = Experiment.objects.get(id = experiment_id)
+	project = experiment.group.project
 
 	if request.POST:
 		config_name = request.POST.get("config_name")
@@ -49,45 +62,14 @@ def experiment_to_create(request , project_id):
 	exec(config_content , nspace)
 	argprox = nspace["get_arg_proxy"]()
 
-	args = [ [type2str(x.type) , x.name , x.default] for x in argprox.args]
+	args = [ [type2str(x.type) , x.name , get_val(experiment , x.name)] for x in argprox.args]
 
 	context = {
 		"args" : args , 
 		"project" : project , 
 		"config_file": target_file , 
 		"config_name": config_name , 
-		"last_page_path": "/project/{0}".format(project.id)
+		"last_page_path": "/group/{0}".format(experiment.group.id)
 	}
 
 	return render(request , get_path("project/create/experiment_create") , context)
-
-
-def new_experiment(request , project_id):
-	'''根据获得的各种信息来在命令行开始一个实验（运行代码）。'''	
-
-	if not check_permission(request):
-		return ask_login(request)
-
-	project = Project.objects.get(id = project_id)
-
-
-	values = {}
-	if request.POST:
-		for name in request.POST:
-			if name == "csrfmiddlewaretoken":
-				continue
-			if name.startswith(special_postfix):
-				continue
-			values[name] = str(request.POST[name])
-		config_name = request.POST[config_file_key]
-		last_page_path = request.POST["__last_page_path"]
-
-	run_a_experiment(
-		path 		= project.path , 
-		config_name = config_name , 
-		values 		= values, 
-		command 	= "python" , 
-		entry_file 	= "main.py"
-	)
-	
-	return HttpResponseRedirect(last_page_path)
