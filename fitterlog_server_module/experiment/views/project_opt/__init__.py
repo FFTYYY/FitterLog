@@ -6,6 +6,7 @@ from .utils import group_sort , get_num_exp
 from .create import *
 from ...utils.permission import check_permission
 from ..displays import ask_login
+from ...utils.str_opt import seped_s2list , seped_list2s
 
 def project(request , project_id):
 	if not check_permission(request):
@@ -20,6 +21,7 @@ def project(request , project_id):
 		"project": project , 
 		"groups" : groups, 
 		"inform" : inform, 
+		"config_files" : seped_s2list(project.config_files), 
 	}
 	return render(request , get_path("project/project") , context)
 
@@ -54,6 +56,8 @@ def project_save_config(request , project_id):
 				project.intro = content
 			if name == "path_inp":
 				project.path = content
+			if name == "config_files":
+				project.config_files = content
 			if name.startswith("group_intro_"):
 				grp_id = int(name.split("group_intro_")[1])
 				grp = ExperimentGroup.objects.get(id = grp_id)

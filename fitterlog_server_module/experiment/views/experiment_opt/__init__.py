@@ -32,6 +32,6 @@ def experiment_figure(request , experiment_id):
 	context = {
 		"experiment": experiment , 
 		"figs": figs ,
-		"first_name" : figs[0][0] ,  
+		"first_name" : figs[0][0] if len(figs) > 0 else "" ,  
 	}
 	return render(request , get_path("experiment/figures") , context)

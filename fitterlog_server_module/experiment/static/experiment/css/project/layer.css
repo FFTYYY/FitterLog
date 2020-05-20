@@ -1,12 +1,3 @@
-#config_name_input{
-	position: absolute;
-	color: #E5E5E5FF;
-	background-color: #333333FF;
-	left: 5%;
-	top: 30%;
-	width: 70%;
-	height: 30%;
-}
 
 #create_button{
 	position: relative;
@@ -20,4 +11,60 @@
 #create_button:hover{
 	color: #333333FF !important;
 	background-color: #E5E5E5FF !important;
+}
+#the_create_form{
+	left: 0;
+	top: 0;
+	width: 100%;
+	height: 100%;
+}
+#config_manu{
+	position: absolute;
+	color: #E5E5E5FF;
+	background-color: inherit;
+	left: 10%;
+	top: 30%;
+	width: 70%;
+	height: 30%;
+	padding: 0;
+	margin: 0;
+
+}
+#config_name_input{
+	position: relative;
+
+	left: 5%;
+	top: 30%;
+	width: 70%;
+	height: 70%;
+	font-size: 15px  !important;
+
+	color: #E5E5E5FF;
+	background-color: #333333FF;
+}
+#config_manu select{
+	background-color: #383838FF;
+	color: #E5E5E5FF;
+
+}
+#config_manu select:hover{
+	background-color: #161616FF;
+}
+
+option::-ms-expand{ display: none; }
+#config_manu option{
+	background-color: #5E5E5EFF;
+	color: #E5E5E5FF;
+	-moz-appearance:none !important; /* Firefox */
+    -webkit-appearance:none !important; /* Safari 和 Chrome */
+    appearance:none !important;
+}
+option:hover{
+    color:#fff;
+    background-color:#1E90FF;
+}
+}
+
+.my-skin *{
+	overflow: hidden !important;
 }

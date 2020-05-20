@@ -9,6 +9,7 @@ class Project(models.Model):
 	name = models.CharField(max_length = short_name_len , unique = True)
 	path = models.CharField(max_length = path_len)
 	intro = models.TextField(default = "")
+	config_files = models.TextField(default = "")
 
 	def __str__(self):
 		return self.name
