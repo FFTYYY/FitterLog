@@ -25,15 +25,15 @@ def type2str(type):
 		return "class"
 	return "others"
 
-def get_val(exp , name):
+def get_val(exp , name , default = ""):
 	var = exp.variables.filter(name = name)
 	if len(var) <= 0:
-		return None
+		return default
 	var = var[0]
 
 	trk = var.tracks.filter(name = "default")
 	if len(trk) < 0:
-		return None
+		return default
 	trk = trk[0]
 
 	return trk.values.latest("time_stamp").value
@@ -62,7 +62,7 @@ def copy_exp(request , experiment_id):
 	exec(config_content , nspace)
 	argprox = nspace["get_arg_proxy"]()
 
-	args = [ [type2str(x.type) , x.name , get_val(experiment , x.name).strip()] for x in argprox.args]
+	args = [ [type2str(x.type) , x.name , get_val(experiment , x.name , x.default).strip()] for x in argprox.args]
 
 	context = {
 		"args" : args , 
