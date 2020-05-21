@@ -131,3 +131,16 @@
 	color: #E0E0E0FF;
 	background-color: #4B4B57;
 }
+
+.left_inp{
+	position: relative;
+	left: 10%;
+	width: 80%;
+	height: 4%;
+	margin-top: 5%;
+	text-align: left;
+	overflow: auto;
+	color: #E0E0E0FF;
+	background-color: #4B4B57;
+
+}

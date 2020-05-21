@@ -82,12 +82,19 @@ def new_experiment(request , project_id):
 		config_name = request.POST[config_file_key]
 		last_page_path = request.POST["__last_page_path"]
 
+		prefix 	= request.POST["__prefix"]
+		command = request.POST["__command"]
+		file 	= request.POST["__file"]
+		suffix 	= request.POST["__suffix"]
+
 	run_a_experiment(
 		path 		= project.path , 
 		config_name = config_name , 
 		values 		= values, 
-		command 	= "python" , 
-		entry_file 	= "main.py"
+		command 	= command , 
+		entry_file 	= file , 
+		prefix 		= prefix , 
+		suffix 		= suffix , 
 	)
 	
 	return HttpResponseRedirect(last_page_path)

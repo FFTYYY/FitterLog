@@ -43,6 +43,10 @@
 	<div id = "content">
 
 		<div id = "left_part">
+			<input class = "left_inp to_save" name = "__prefix" value = "" placeholder = "前缀"></input>
+			<input class = "left_inp to_save" name = "__command" value = "python" placeholder = "命令"></input>
+			<input class = "left_inp to_save" name = "__file" value = "main.py" placeholder = "主文件"></input>
+			<input class = "left_inp to_save" name = "__suffix" value = "" placeholder = "后缀"></input>
 		</div>
 
 
@@ -72,3 +76,23 @@
 
 <script src = {% static "/layui/layui.js" %}></script>
 {% include "experiment/project/create/finish_create.html" %}
+
+<script>
+	var inner_defaults = document.getElementsByClassName("inner_default")
+
+	for(var i = 0;i < inner_defaults.length;i++)
+	{
+		var p = inner_defaults[i];
+		p["init_value"] = p.value
+		p["init_bgcolor"] = p.style.backgroundColor
+
+		p.onchange = function()
+		{
+			if(this.value == this["init_value"])
+				this.style.backgroundColor = this["init_bgcolor"]
+			else
+				this.style.backgroundColor = "#3D3D3DFF"
+		}
+	}
+
+</script>

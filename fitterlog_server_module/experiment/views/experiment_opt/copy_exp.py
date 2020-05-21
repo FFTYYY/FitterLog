@@ -62,7 +62,7 @@ def copy_exp(request , experiment_id):
 	exec(config_content , nspace)
 	argprox = nspace["get_arg_proxy"]()
 
-	args = [ [type2str(x.type) , x.name , get_val(experiment , x.name)] for x in argprox.args]
+	args = [ [type2str(x.type) , x.name , get_val(experiment , x.name).strip()] for x in argprox.args]
 
 	context = {
 		"args" : args , 

@@ -3,7 +3,8 @@ import os
 from subprocess import Popen , DEVNULL
 from contextlib import redirect_stdout
 
-def run_a_experiment(path , config_name , values , command = "python" , entry_file = "main.py"):
+def run_a_experiment(path , config_name , values , 
+		command = "python" , entry_file = "main.py" , prefix = "", suffix = ""):
 	from fitterlog.arg_proxy.types import Bool
 	'''
 		config_name: str。 对应的config文件的名。用于获得各个参数的类型。
@@ -31,8 +32,8 @@ def run_a_experiment(path , config_name , values , command = "python" , entry_fi
 
 		cmds.append(cmd)
 
-	cmd = "{command} {entry_file} {cmds}".format(
-		command = command , entry_file = entry_file , cmds = " ".join(cmds)
+	cmd = "{prefix} {command} {entry_file} {cmds} {suffix}".format(
+		prefix = prefix , command = command , entry_file = entry_file , cmds = " ".join(cmds) , suffix = suffix , 
 	)
 
 	# && is always acceptable while & is only for windows

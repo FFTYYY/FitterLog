@@ -16,14 +16,14 @@ function add_config_ask()
 		var layer = layui.layer;
 
 		layer.open({
-			title: "<p class='title-text'>新建设置</p>" , 
+			title: "<p class='title-text'>管理设置文件</p>" , 
 			content: '																				\
 			<textarea type = "text" id = "config_name_input" autocomplete = "off" placeholder = "config文件名"' + 
 			'style = "height:' + config_input_h + 'px;width:' + config_input_w + 'px;">'
 			 + config_str + '</textarea>	\
 			<a class = "layui-icon layui-layer-close layui-layer-close1 my-close" onclick= "javascript:update_configs()" title = "关闭窗口">&#xe605;</a>\
 			' , 
-			skin: "my-skin",
+			skin: "my-skin config_create_layer",
 			btn: [],
 			resize: false,
 			closeBtn: 0,
