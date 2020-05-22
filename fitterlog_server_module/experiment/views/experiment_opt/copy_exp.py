@@ -28,12 +28,12 @@ def type2str(type):
 def get_val(exp , name , default = ""):
 	var = exp.variables.filter(name = name)
 	if len(var) <= 0:
-		return default
+		return str(default)
 	var = var[0]
 
 	trk = var.tracks.filter(name = "default")
 	if len(trk) < 0:
-		return default
+		return str(default)
 	trk = trk[0]
 
 	return trk.values.latest("time_stamp").value

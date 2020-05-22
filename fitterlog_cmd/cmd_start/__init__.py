@@ -39,4 +39,4 @@ def run_a_experiment(path , config_name , values ,
 	# && is always acceptable while & is only for windows
 	full_cmd = "cd {path} && {cmd}".format(path = path , cmd = cmd) 
 
-	return Popen(full_cmd , shell = True , stdout = DEVNULL)
+	return Popen(full_cmd , shell = True , stdout = DEVNULL , stderr = DEVNULL)
