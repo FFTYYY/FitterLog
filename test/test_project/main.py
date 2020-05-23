@@ -10,7 +10,7 @@ import time
 import matplotlib.pyplot as plt
 
 with Timer("new experiment"):
-	E = new_or_load_experiment(project_name = "hahahaha" , group_name = "default")
+	E = new_or_load_experiment(project_name = "hahahaha" , group_name = "infotest")
 
 with Timer("apply args"):
 	E.use_argument_proxy( get_arg_proxy() )
@@ -82,8 +82,8 @@ for i in tqdm(range(10) , ncols = 100):
 	E["metric"]["test acc"].update((i*random.random()) * 100 , 1 + i * 20)
 
 
-time.sleep(20)
-sys.stderr.write("I'm awake!!!")
+# time.sleep(20)
+# sys.stderr.write("I'm awake!!!")
 
 E["loss"].update("23.4 ( 2.0 )")
 

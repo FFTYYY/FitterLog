@@ -78,7 +78,7 @@ function get_show_headers() {
 	return show_list
 }
 
-//添加id，在get_editable_values中使用
+//添加id，在ontabledone中调用，以便在get_editable_values中使用
 function add_cell_id() {	
 	var cells = document.getElementsByClassName("layui-table-cell")
 	for(var i = 0;i < cells.length;i++)
@@ -92,7 +92,6 @@ function add_cell_id() {
 
 
 function get_editable_values(){
-	add_cell_id()
 	
 	var cells = document.getElementsByTagName("td")
 

@@ -38,7 +38,8 @@ function ontabledone(){
 	move_tools()
 	remove_panel_title()
 	setInterval( process_state , 200)
-	
+	add_cell_id()
+
 	layui.soulTable.render(this)
 	the_this = this
 }
@@ -76,8 +77,9 @@ layui.use(["table" , "soulTable"] , function(){
 					icon: "layui-icon layui-icon-slider",
 
 					mouseup: function(obj) {
-						my_id = obj.elem.children()[0].children[0].getAttribute("my_id")
-						new_url = "/variable/" + String(my_id)
+						ooo = obj
+						var my_id = obj.elem.children()[0].parentElement.getAttribute("my_id")
+						var new_url = "/variable/" + String(my_id)
 						if(event.button == 1) // 中键
 						{
 							window.open(new_url , "_blank")
