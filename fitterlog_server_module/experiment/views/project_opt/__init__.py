@@ -52,14 +52,14 @@ def project_save_config(request , project_id):
 			content = request.POST[name]
 			name = name.strip()
 
-			if name == "project_intro":
+			if name == "project-intro":
 				project.intro = content
-			if name == "path_inp":
+			if name == "project-path":
 				project.path = content
-			if name == "config_files":
+			if name == "config-files":
 				project.config_files = content
-			if name.startswith("group_intro_"):
-				grp_id = int(name.split("group_intro_")[1])
+			if name.startswith("group-intro-"):
+				grp_id = int(name.split("group-intro-")[1])
 				grp = ExperimentGroup.objects.get(id = grp_id)
 				grp.intro = content
 				grp.save()

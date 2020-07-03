@@ -1,0 +1,17 @@
+<!--那些不得不放到html中（因为要使用django语法）的脚本-->
+
+<!--for save config-->
+<form id = "for-saving" class = "hidden"  action = "/project/{{project.id}}/save_config" method = "post">
+	{% csrf_token %}
+</form>
+
+
+<script>
+	app.configs = [
+		{% for config in config_files %}
+			"{{config}}",
+		{% endfor %}
+	]
+	app.config_str = app.configs.join("\n");
+
+</script>

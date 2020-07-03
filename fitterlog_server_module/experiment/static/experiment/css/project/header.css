@@ -1,4 +1,4 @@
-#left_header{
+.header .left-header{
 	position: absolute;
 	top: 0;
 	left: 0;
@@ -6,17 +6,14 @@
 	width: 20%;
 }
 
-#project_name{
+.header .left-header .project-name{
 	position: absolute;
 	top: 3%;
 	left: 0;
 	height: 20px;
 	width: 100%;
-
-	text-align: center;
-
 }
-#middle_header{
+.header .middle-header{
 	position: absolute;
 	top: 0;
 	left: 20%;
@@ -24,7 +21,7 @@
 	width: 50%;
 }
 
-#path_inp{
+.header .middle-header .path-input{
 	position: absolute;
 	top: 5%;
 	left: 5px;
@@ -34,11 +31,9 @@
 
 	background-color: inherit;
 	resize: none;
-
-	text-align: left;
 }
 
-#project_intro{
+.header .middle-header .project-intro-input{
 	position: absolute;
 	top: 30%;
 	left: 5px;
@@ -51,7 +46,7 @@
 	text-align: left;
 }
 
-#right_header{
+.header .right-header{
 	position: absolute;
 	top: 0;
 	left: 70%;
@@ -59,8 +54,7 @@
 	width: 30%;
 }
 
-#new_group_name_inp
-{
+.header .right-header .new-group-name-input{
 	position: absolute;
 	top: 5%;
 	height : 20%;
@@ -71,49 +65,42 @@
 	outline: none;
 }
 
-#new_group_button
-{
+
+.header .right-header .new-group-button{
 	position: absolute;
 	top: 5%;
 	width : 5%;
 	left : 90%;
 	height : 20%;
 	cursor : default;
-	background-color : #00000000;
 }
 
-.header_a{
+.header .right-header .button-box{
+	position: absolute;
+
+	top: 35%;
+	width : 90%;
+	left : 5%;
+	bottom : 10%;
+}
+
+.header .right-header .button-box .button{
 	position: relative;
 
 	margin-left: 	2px;
 	margin-right: 	3px;
 	margin-top: 	2px;
 	margin-bottom: 	3px;
+	height: 20px;
+	width : 20px;
 
 	cursor : default;
-	font-size : 15px;
-	text-align: center;
-	color: #D3D3D3FF;
-	background-color : #00000000;
-	text-decoration : none;
+	font-size : 14px;
 }
 
-#header_button_container{
-	position: absolute;
-
-	top: 55%;
-	width : 90%;
-	left : 5%;
-	height : 20%;
+.header .new-group-button,.header .button{
+	background-color: inherit;
 }
-
-#new_group_button:hover , .header_a:hover
-{
-	background-color : #8E8E8EFF !important;
-	color: #2B2B2BFF !important;
-}
-#new_group_button:active , .header_a:active
-{
-	color : #000000FF !important;
-	background-color : #D3D3D3FF !important;
+.header .new-group-button:hover,.header .button:hover{
+	background-color: #C1C1C1FF;
 }

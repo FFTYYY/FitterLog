@@ -2,129 +2,155 @@
 
 {%load static%}
 
-<head>		
-		<link rel = "stylesheet" href = {% static "/layui/css/layui.css" %} type = "text/css" />
-		<link rel = "stylesheet" href = {% static "/experiment/css/scrollbar.css" %} type = "text/css" />
-		<link rel = "stylesheet" href = {% static "/experiment/css/layer-skin.css" %} type = "text/css" />
+<head>
+	<!-- 外部库 -->
+	<script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+	<script src="https://cdn.bootcdn.net/ajax/libs/animejs/3.2.0/anime.min.js"></script>
+	<script src="https://cdn.bootcdn.net/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 
-		<script src = "{% static "Highcharts/highcharts.src.js" %} "></script>
-		<script src = "{% static "Highcharts/themes/grid-light.js" %} "></script>
+	<link rel = "stylesheet" href = {% static "/layui/css/layui.css" %} type = "text/css" />
+	<link rel = "stylesheet" href = {% static "/experiment/css/scrollbar.css" %} type = "text/css" />
 
-		<link rel = "stylesheet" href = {% static "/experiment/css/project/main.css" %} type = "text/css" />
-		<link rel = "stylesheet" href = {% static "/experiment/css/project/left_part.css" %} type = "text/css" />
-		<link rel = "stylesheet" href = {% static "/experiment/css/project/right_part.css" %} type = "text/css" />
-		<link rel = "stylesheet" href = {% static "/experiment/css/project/header.css" %} type = "text/css" />
-		<link rel = "stylesheet" href = {% static "/experiment/css/project/layer.css" %} type = "text/css" />
+	<!--high charts-->
+	<script src = "{% static "Highcharts/highcharts.src.js" %} "></script>
+	<script src = "{% static "Highcharts/themes/grid-light.js" %} "></script>
+
+	<!--YUI-->
+	<link rel = "stylesheet" href = {% static "YUI/css/YUI.css" %} type = "text/css" />
+	<script src="{% static "YUI/YUI.js" %}"></script>
+	<script src="{% static "YUI/YUI-components.js" %}"></script>
+	<script src="{% static "YUI/YUI-css-complement.js" %}"></script>
+
+	<!--speical css-->
+	<link rel = "stylesheet" href = {% static "/experiment/css/project/main.css" %} type = "text/css" />
+	<link rel = "stylesheet" href = {% static "/experiment/css/project/left_part.css" %} type = "text/css" />
+	<link rel = "stylesheet" href = {% static "/experiment/css/project/right_part.css" %} type = "text/css" />
+	<link rel = "stylesheet" href = {% static "/experiment/css/project/header.css" %} type = "text/css" />
+	<link rel = "stylesheet" href = {% static "/experiment/css/project/layer.css" %} type = "text/css" />
+	<link rel = "stylesheet" href = {% static "/experiment/css/layer-skin.css" %} type = "text/css" />
 
 </head>
 
-<body>
-	<div id = "header"> 
+<script>YUI_init()
+</script>
 
+<body> <div id = "main" @y-button-click = "header_button(0)">
 
-		<div id = "left_header">
-			<p id = "project_name">【项目】{{project.name}}</p>
+	<div class = "header"> 
+		<div class = "left-header">
+			<p class = "project-name Y-text-center Y-font-title">【项目】{{project.name}}</p>
 		</div>
 
-		<div id = "middle_header">
-			<input id = "path_inp" class = "to_save" name = "path_inp" placeholder = "项目位置" 
-			value = "{{project.path}}"></input>
-			<textarea class = "to_save" id = "project_intro" name = "project_intro" placeholder = "项目介绍"
+		<div class = "middle-header">
+			<input 
+				class 		= "path-input to-save" 
+				name 		= "project-path" 
+				placeholder = "项目位置" 
+				value 		= "{{project.path}}"
+			/>
+
+			<textarea 
+				class 		= "project-intro-input to-save" 
+				name 		= "project-intro" 
+				placeholder = "项目介绍"
 			>{{project.intro}}</textarea>
 		</div>
 		
-		<div id = "right_header">
+		<div class = "right-header">
 
 			<form action = "/project/{{project.id}}/new_group" method = "post">
 				{% csrf_token %}
 
-				<input type = "text" name = "name" id = "new_group_name_inp" autocomplete = "off" 
-					placeholder = "新实验组名"/>
-				<input type = "submit" class = "layui-icon "value = "&#xe624;" id = "new_group_button"
-					title = "新建">
+				<y-text-input
+					type 		= "text" 
+					name 		= "name" 
+					class 		= "new-group-name-input" 
+					placeholder = "新实验组名"
+				></y-text-input>
+				<y-button 
+					class 		= "new-group-button"
+					title 		= "新建" 
+				><i class = "layui-icon">&#xe624;</i></y-button>
 			</form>
 
-			<div id = "header_button_container">
-				<a class = "header_a" title = "返回" href = "/"><i class = "layui-icon">&#xe65c;</i></a>
-				<a class = "header_a" title = "保存" href = "javascript:void(0);" onclick = "javascript:save_config();"><i class = "layui-icon">&#xe681;</i></a>
-				<a class = "header_a" title = "新建实验" href = "javascript:void(0);" onclick = "javascript:create_ask()"><i class = "layui-icon">&#xe609;</i></a>
-				<a class = "header_a" title = "设置config文件" href = "javascript:void(0);" onclick = "javascript:add_config_ask()"><i class = "layui-icon">&#xe6b2;</i></a>
+			<div class = "button-box Y-stack-x">
+				<y-button class = "button Y-text-center layui-icon" @y-button-click.self = "header_button(0)"
+						  title = "返回">
+					&#xe65c;
+				</y-button>
+				<y-button class = "button Y-text-center layui-icon" @y-button-click.self = "save_config()"
+						  title = "保存">
+					&#xe681;
+				</y-button>
+				<y-button class = "button Y-text-center layui-icon" @y-button-click.self = ""
+						  title = "新建实验">
+					&#xe609;
+				</y-button>
+				<y-button class = "button Y-text-center layui-icon" @y-button-click.self = "layer_add_config()"
+						  title = "设置config文件">
+					&#xe6b2;
+				</y-button>
 
 			</div>
 		</div>
 	</div>
 
-	<div id = "content">
+	<div class = "content">
 
-		<div id = "left_part">
-			<div id = "left_title">
+		<div class = "left-part">
+			<div class = "left-title Y-font-title Y-text-center">
 				<p>实验组列表</p>
 			</div>
 
-			<ul id = "group_list_container">
+			<div class = "left-box Y-stack-y">
 			{% for group in groups %}
-				<li 
-					class = "group_list
+				<y-option 
+					class 		= "group-option Y-font-shorttitle"
+					href 		= "/group/{{group.id}}"
+					:group_id 	= "{{group.id}}"
+					@y-mouse-enter 	= "group_enter('{{group.id}}')"
+
 					{%if group.name == 'default' %} 
-						active_left 
-					{%endif%}" 
+						@y-created 	= "active_group_id = '{{group.id}}'" 
+					{%endif%}
 
-					id = "left_content_{{group.id}}"
+					:always_active 	= "active_group_id == '{{group.id}}'"
 
-					group_id = "{{group.id}}"
-				>
-					<a class = "group_list_a" href = "/group/{{group.id}}" >
-						{{group.name}}
-					</a>
-				</li>
+				>{{group.name}}
+				</y-option>
 			{% endfor %}
-			</ul>
+			</div>
 		</div>
 
 
-		<div id = "right_part">
+		<div class = "right-part">
 
 			{% for group in groups%}
 			<div 
-				class = "right_content 
-				{%if group.name != 'default' %} 
-					hidden 
-				{% else %}
-					default_right
-				{%endif%}" 
-				id = "right_content_{{group.id}}"
+				class = "right-content"
+				v-show = "active_group_id == '{{group.id}}'"
 			>
-				<p class = "group_name">【实验组】{{group.name}}</p>
-				<div class = "chart_container">
-					<div id = "container_{{group.id}}"></div>
+				<p class = "group-name Y-font-title Y-text-center">【实验组】{{group.name}}</p>
+
+				<div class = "chart-box">
+					<div id = "container-{{group.id}}"></div>
 				</div>
 
-				<textarea class = "group_intro to_save" name = "group_intro_{{group.id}}" placeholder = "实验组介绍">{{group.intro}}</textarea>
+				<textarea 
+					class = "group-intro to-save Y-font-default" 
+					name = "group-intro-{{group.id}}" 
+					placeholder = "实验组介绍"
+				>{{group.intro}}
+				</textarea>
+
 			</div>
 			{% endfor %}
 
 		</div>
 
 	</div>
-</body>
-
-<script>
-	var configs = [
-		{% for config in config_files %}
-			"{{config}}",
-		{% endfor %}
-	]
-	var config_str = configs.join("\n");
-
-</script>
-
+</div> </body>
 
 <script src = {% static "/layui/layui.js" %}></script>
-
-<!-- 鼠标放上按钮的行为 -->
-<script src = {% static "/experiment/js/project/project.js" %}></script>
-<script src = {% static "/experiment/js/project/create.js" %}></script>
-
-{% include "experiment/project/charts.html"%}
-{% include "experiment/project/save_config.html"%}
-{% include "experiment/project/create_new_experi.html" %}
+<script src = "{% static "experiment/js/project/project.js" %} "></script>
+{% include "./scripts.html" %}
