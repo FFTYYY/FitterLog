@@ -4,7 +4,7 @@
 	position: absolute;
 	top: 15%;
 	left: 5%;
-	width: 70%;
+	width: 80%;
 	height: 71%;
 
 	font-size: 15px;
@@ -35,7 +35,7 @@
 	position: absolute;
 	color: #E5E5E5FF;
 	background-color: inherit;
-	left: 75%;
+	left: 82%;
 	top: 20px;
 	width: 16px;
 	height: 16px;
@@ -51,9 +51,9 @@
 	position: absolute;
 	color: #E5E5E5FF;
 	background-color: inherit;
-	left: 10%;
+	left: 5%;
 	top: 20px;
-	width: 60%;
+	width: 70%;
 	height: 16px;
 	line-height: 16px;
 	padding: 0;

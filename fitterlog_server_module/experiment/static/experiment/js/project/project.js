@@ -70,7 +70,7 @@ var app = new Vue({
 					btn: [],
 					id: "layer-config",
 
-					area: ['250px' , '150px'],
+					area: ['300px' , '150px'],
 					//success : on_layer_done,
 				})
 			});
@@ -119,7 +119,7 @@ var app = new Vue({
 					closeBtn: 0,
 					shade: 0,
 					id: "layer-create",
-					area: ["200px" , "100px"],
+					area: ["300px" , "100px"],
 					minWidth: 0,
 
 					//success : on_layer_done,
