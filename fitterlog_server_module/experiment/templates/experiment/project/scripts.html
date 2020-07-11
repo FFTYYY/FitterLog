@@ -1,17 +1,29 @@
 <!--那些不得不放到html中（因为要使用django语法）的脚本-->
 
-<!--for save config-->
-<form id = "for-saving" class = "hidden"  action = "/project/{{project.id}}/save_config" method = "post">
-	{% csrf_token %}
-</form>
+<script>
+	var csrf_token = "{{csrf_token}}" //用于提交的密钥
+
+	var save_config_url = "/project/{{project.id}}/save_config" //保存config的地址
+	var create_expe_url = "/project/{{project.id}}/create_experiment"
+</script>
 
 
 <script>
-	app.configs = [
+	/*载入config文件列表*/
+	app.config_files = [
 		{% for config in config_files %}
 			"{{config}}",
 		{% endfor %}
 	]
-	app.config_str = app.configs.join("\n");
+	app.config_str = app.config_files.join("\n");
+</script>
 
+
+<script>
+	/*添加charts*/
+	{% for tot_num , state_num , group in inform%}
+		add_chart("chart-container-{{group.id}}" , {{tot_num}} , 
+			[{{state_num.0}} , {{state_num.1}} , {{state_num.2}} , {{state_num.3}}]
+		)
+	{% endfor %}
 </script>

@@ -34,7 +34,7 @@ def experiment_to_create(request , project_id):
 	project = Project.objects.get(id = project_id)
 
 	if request.POST:
-		config_name = request.POST.get("config_name")
+		config_name = request.POST.get("chosen-config")
 	else:
 		raise Http404
 	

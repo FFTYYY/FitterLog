@@ -1,59 +1,72 @@
 
-.create_button{
-	position: relative;
-	color: #E5E5E5FF;
-	background-color: inherit;
-	left: 85%;
-	top: 30%;
-	width: 10%;
-	height: 30%;
-}
-.create_button:hover{
-	color: #333333FF !important;
-	background-color: #E5E5E5FF !important;
-}
-.the_create_form{
-	left: 0;
-	top: 0;
-	width: 100%;
-	height: 100%;
-}
-.config_manu{
-	position: absolute;
-	color: #E5E5E5FF;
-	background-color: inherit;
-	left: 10%;
-	top: 30%;
-	width: 70%;
-	height: 30%;
-	padding: 0;
-	margin: 0;
-}
-
+/*** 输入设置文件名 ***/
 .config-name-input{
-	position: relative;
-	top: 5px;
-	left: 5px;
-	width: 200px;
-	height: 50px;
+	position: absolute;
+	top: 15%;
+	left: 5%;
+	width: 70%;
+	height: 71%;
 
 	font-size: 15px;
 
 	color: #E5E5E5FF;
 	background-color: #333333FF;
 	resize: none;
+
+	overflow: auto;
 }
 
-.config_manu select{
+/*** 创建实验 ***/
+
+/*新建实验页面里的关闭按钮*/
+.layui-layer-dialog{ /*这个也会影响到其他layer，不过没办法，因为没法选中特定layer的全体*/
+	min-width: 0px !important;
+}
+
+#layer-create .my-close{
+	top: 20px !important;
+
+}
+
+.create-button{
+	position: absolute;
+	color: #E5E5E5FF;
+	background-color: inherit;
+	left: 75%;
+	top: 20px;
+	width: 16px;
+	height: 16px;
+	line-height: 16px;
+}
+
+.create-button:hover{
+	color: #333333FF !important;
+	background-color: #E5E5E5FF !important;
+}
+
+.config-manu{
+	position: absolute;
+	color: #E5E5E5FF;
+	background-color: inherit;
+	left: 10%;
+	top: 20px;
+	width: 60%;
+	height: 16px;
+	line-height: 16px;
+	padding: 0;
+	margin: 0;
+}
+
+.config-manu select{
 	background-color: #383838FF;
 	color: #E5E5E5FF;
 
 }
-.config_manu select:hover{
+.config-manu select:hover{
 	background-color: #161616FF;
 }
 
-.config_manu option{
+.config-manu option{
 	background-color: #5E5E5EFF;
 	color: #E5E5E5FF;
 }

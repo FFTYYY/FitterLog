@@ -11,9 +11,9 @@
 	<link rel = "stylesheet" href = {% static "/layui/css/layui.css" %} type = "text/css" />
 	<link rel = "stylesheet" href = {% static "/experiment/css/scrollbar.css" %} type = "text/css" />
 
-	<!--high charts-->
 	<script src = "{% static "Highcharts/highcharts.src.js" %} "></script>
 	<script src = "{% static "Highcharts/themes/grid-light.js" %} "></script>
+
 
 	<!--YUI-->
 	<link rel = "stylesheet" href = {% static "YUI/css/YUI.css" %} type = "text/css" />
@@ -31,11 +31,13 @@
 
 </head>
 
-<script>YUI_init()
+<script>
+	YUI_init()
 </script>
 
 <body> <div id = "main" @y-button-click = "header_button(0)">
 
+	<!--顶部界面-->
 	<div class = "header"> 
 		<div class = "left-header">
 			<p class = "project-name Y-text-center Y-font-title">【项目】{{project.name}}</p>
@@ -47,6 +49,7 @@
 				name 		= "project-path" 
 				placeholder = "项目位置" 
 				value 		= "{{project.path}}"
+				autocomplete= "off"
 			/>
 
 			<textarea 
@@ -66,6 +69,7 @@
 					name 		= "name" 
 					class 		= "new-group-name-input" 
 					placeholder = "新实验组名"
+					autocomplete= "off"
 				></y-text-input>
 				<y-button 
 					class 		= "new-group-button"
@@ -74,7 +78,7 @@
 			</form>
 
 			<div class = "button-box Y-stack-x">
-				<y-button class = "button Y-text-center layui-icon" @y-button-click.self = "header_button(0)"
+				<y-button class = "button Y-text-center layui-icon" onclick = "javascript:window.location.href = '/'"
 						  title = "返回">
 					&#xe65c;
 				</y-button>
@@ -82,11 +86,11 @@
 						  title = "保存">
 					&#xe681;
 				</y-button>
-				<y-button class = "button Y-text-center layui-icon" @y-button-click.self = ""
+				<y-button class = "button Y-text-center layui-icon" @y-button-click.self = "layer_create_ask()"
 						  title = "新建实验">
 					&#xe609;
 				</y-button>
-				<y-button class = "button Y-text-center layui-icon" @y-button-click.self = "layer_add_config()"
+				<y-button class = "button Y-text-center layui-icon" @y-button-click.self = "layer_add_cfgfile()"
 						  title = "设置config文件">
 					&#xe6b2;
 				</y-button>
@@ -95,8 +99,10 @@
 		</div>
 	</div>
 
+	<!--下方界面-->
 	<div class = "content">
 
+		<!--左侧界面-->
 		<div class = "left-part">
 			<div class = "left-title Y-font-title Y-text-center">
 				<p>实验组列表</p>
@@ -111,7 +117,7 @@
 					@y-mouse-enter 	= "group_enter('{{group.id}}')"
 
 					{%if group.name == 'default' %} 
-						@y-created 	= "active_group_id = '{{group.id}}'" 
+						@y-created 	= "active_group_id = '{{group.id}}'"
 					{%endif%}
 
 					:always_active 	= "active_group_id == '{{group.id}}'"
@@ -122,7 +128,7 @@
 			</div>
 		</div>
 
-
+		<!--右侧界面-->
 		<div class = "right-part">
 
 			{% for group in groups%}
@@ -133,15 +139,15 @@
 				<p class = "group-name Y-font-title Y-text-center">【实验组】{{group.name}}</p>
 
 				<div class = "chart-box">
-					<div id = "container-{{group.id}}"></div>
+					<div id = "chart-container-{{group.id}}"></div>
 				</div>
 
 				<textarea 
 					class = "group-intro to-save Y-font-default" 
-					name = "group-intro-{{group.id}}" 
+					name  = "group-intro-{{group.id}}" 
 					placeholder = "实验组介绍"
-				>{{group.intro}}
-				</textarea>
+					autocomplete= "off"
+				>{{group.intro}}</textarea>
 
 			</div>
 			{% endfor %}
@@ -151,6 +157,10 @@
 	</div>
 </div> </body>
 
+<!--其他脚本-->
+<script src = "{% static "experiment/js/utils.js" %} "></script>
+
 <script src = {% static "/layui/layui.js" %}></script>
 <script src = "{% static "experiment/js/project/project.js" %} "></script>
+<script src = "{% static "experiment/js/project/make_chart.js" %} "></script>
 {% include "./scripts.html" %}
