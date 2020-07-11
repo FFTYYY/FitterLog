@@ -21,7 +21,6 @@ var app = new Vue({
 				data[$(this).attr("name")] = $(this).val()
 			})
 			data["config-files"] = this.config_files.join(sep_token) //添加项目设置文件config
-			data["csrfmiddlewaretoken"] = csrf_token //获得密钥
 
 			my_post(save_config_url , data)
 		},
@@ -64,7 +63,7 @@ var app = new Vue({
 							onclick = "javascript:app.layer_update_cfgfiles()" title = "关闭窗口"
 						>&#xe605;</a>
 					` , 
-					skin: "my-skin config-create-layer",
+					skin: "my-skin config-layer",
 					resize: false,
 					closeBtn: 0,
 					shade: 0,
@@ -80,13 +79,10 @@ var app = new Vue({
 		/*** 新建实验的弹出层 ***/
 		layer_submit_create: function (){
 			/*生成一次实验*/
-			var data = {}
-			var sep_token = "__FITTERLOG__SEP__"
 
-			data["chosen-config"] = $(".config-manu option:selected").val() //添加项目设置文件config
-			data["csrfmiddlewaretoken"] = csrf_token //获得密钥
-
-			my_post(create_expe_url , data)
+			my_post(create_expe_url , {
+				"chosen-config": $(".config-manu option:selected").val() //选中的设置文件
+			})
 		},
 
 		layer_get_config_manu: function(){
@@ -117,7 +113,7 @@ var app = new Vue({
 							title = "关闭窗口"
 						>&#x1006;</a>
 					` , 
-					skin: "my-skin",
+					skin: "my-skin create-layer",
 					btn: [],
 					resize: false,
 					closeBtn: 0,

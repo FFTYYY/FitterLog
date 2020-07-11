@@ -1,5 +1,5 @@
 
-/*** 输入设置文件名 ***/
+/*** 修改设置文件列表 ***/
 .config-name-input{
 	position: absolute;
 	top: 15%;
@@ -16,10 +16,13 @@
 	overflow: auto;
 }
 
+.config-layer .my-close{
+	top: 50px  !important;
+}
 /*** 创建实验 ***/
 
 /*新建实验页面里的关闭按钮*/
-.layui-layer-dialog{ /*这个也会影响到其他layer，不过没办法，因为没法选中特定layer的全体*/
+.create-layer{ /*设置最小宽度*/
 	min-width: 0px !important;
 }
 
