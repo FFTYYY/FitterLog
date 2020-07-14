@@ -1,0 +1,10 @@
+<!-- 一些要写在模板里的脚本 -->
+
+<script>
+	var csrf_token = "{{csrf_token}}" //用于提交的密钥
+
+	var config_name = "{{config_name}}"
+	var last_page_path = "{{last_page_path}}"
+
+	var finish_create_url = "/project/{{project.id}}/new_experiment"
+</script>

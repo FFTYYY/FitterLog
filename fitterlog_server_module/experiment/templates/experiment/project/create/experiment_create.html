@@ -3,96 +3,105 @@
 {%load static%}
 
 <head>		
-		<link rel = "stylesheet" href = {% static "/layui/css/layui.css" %} type = "text/css" />
-		<link rel = "stylesheet" href = {% static "/experiment/css/scrollbar.css" %} type = "text/css" />
+	<!-- 外部库 -->
+	<script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+	<script src="https://cdn.bootcdn.net/ajax/libs/animejs/3.2.0/anime.min.js"></script>
+	<script src="https://cdn.bootcdn.net/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 
-		<link rel = "stylesheet" href = {% static "/experiment/css/project/main.css" %} type = "text/css" />
-		<link rel = "stylesheet" href = {% static "/experiment/css/project/header.css" %} type = "text/css" />
-		
-		<link rel = "stylesheet" href = {% static "/experiment/css/project/create/main.css" %} type = "text/css" />
+	<link rel = "stylesheet" href = {% static "/layui/css/layui.css" %} type = "text/css" />
+	<link rel = "stylesheet" href = {% static "/experiment/css/scrollbar.css" %} type = "text/css" />
+
+	<!--YUI-->
+	<link rel = "stylesheet" href = {% static "YUI/css/YUI.css" %} type = "text/css" />
+	<script src="{% static "YUI/YUI.js" %}"></script>
+	<script src="{% static "YUI/YUI-components.js" %}"></script>
+	<script src="{% static "YUI/YUI-css-complement.js" %}"></script>
+
+	<!--speical css-->
+	<link rel = "stylesheet" href = {% static "/experiment/css/project/main.css" %} type = "text/css" />
+	<link rel = "stylesheet" href = {% static "/experiment/css/project/header.css" %} type = "text/css" />
+	<link rel = "stylesheet" href = {% static "/experiment/css/project/create/main.css" %} type = "text/css" />
 
 </head>
 
-<body>
-	<div id = "header"> 
-
-
-		<div id = "left_header">
-			<p id = "project_name">【项目】{{project.name}}</p>
+<body> <div id = "main">
+	<!--顶部界面-->
+	<div class = "header"> 
+		<div class = "left-header">
+			<p class = "project-name Y-text-center Y-font-title">【项目】{{project.name}}</p>
 		</div>
 
-		<div id = "middle_header">
-			<input id = "path_inp"  name = "path_inp" placeholder = "项目位置" 
-			value = "{{config_file}}" readonly="readonly"></input>
-			<textarea id = "project_intro" name = "project_intro" placeholder = "项目介绍"
-			 readonly="readonly">{{project.intro}}</textarea>
+		<div class = "middle-header">
+			<input 
+				class 		= "path-input" 
+				name 		= "project-path" 
+				placeholder = "项目位置" 
+				value 		= "{{project.path}}"
+				autocomplete= "off"
+				readonly 	="true" 
+			/>
+
+			<textarea 
+				class 		= "project-intro-input" 
+				name 		= "project-intro" 
+				placeholder = "项目介绍"				
+				readonly 	="true" 
+			>{{project.intro}}</textarea>
 		</div>
 		
-		<div id = "right_header">
+		<div class = "right-header">
 
-			<div id = "header_button_container">
-				<a class = "header_a" title = "返回" href = "{{last_page_path}}"><i class = "layui-icon">&#xe65c;</i></a>
-				<a class = "header_a" title = "建立实验" href = "javascript:void(0);" onclick = "javascript:finish_create()"><i class = "layui-icon">&#xe605;</i></a>
+			<div class = "button-box Y-stack-x">
+				<y-button class = "header-a Y-text-center layui-icon" title = "返回" 
+					onclick = "javascript:window.location.href = '{{last_page_path}}'">&#xe65c;</y-button>
+				<y-button class = "header-a Y-text-center layui-icon" title = "建立实验" 
+					@y-button-click.self = "finish_create()">&#xe605;</y-button>
+
 			</div>
 		</div>
 	</div>
-	<div id = "middle">
+
+
+	<div class = "middle">
 		<p>新建实验</p>
 	</div>
 
-	<div id = "content">
+	<div class = "content">
 
-		<div id = "left_part">
-			<input class = "left_inp to_save" name = "__prefix" value = "" placeholder = "前缀"></input>
-			<input class = "left_inp to_save" name = "__command" value = "python" placeholder = "命令"></input>
-			<input class = "left_inp to_save" name = "__file" value = "main.py" placeholder = "主文件"></input>
-			<input class = "left_inp to_save" name = "__suffix" value = "" placeholder = "后缀"></input>
+		<div class = "left-part">
+			<input class = "left-inp to-save" name = "__prefix"  value = "" placeholder = "前缀"></input>
+			<input class = "left-inp to-save" name = "__command" value = "python" placeholder = "命令"></input>
+			<input class = "left-inp to-save" name = "__file"    value = "main.py" placeholder = "主文件"></input>
+			<input class = "left-inp to-save" name = "__suffix"  value = "" placeholder = "后缀"></input>
 		</div>
 
 
-		<div id = "right_part">
-			<div class = "arg_line"> 
-				<p class = "title_type the_title">Type</p>
-				<p class = "title_name the_title">Name</p>
-				<p class = "title_default the_title">Value</p>
+		<div class = "right-part">
+			<div class = "arg-line"> 
+				<p class = "title-type the-title">Type</p>
+				<p class = "title-name the-title">Name</p>
+				<p class = "title-default the-title">Value</p>
 			</div>
-			<div class = "inner_line"> </div>
+			<div class = "inner-line"> </div>
 
 			{% for type , name , default in args%}
-			<div class = "arg_line"> 
-				<p class = "inner_type">{{type}}</p>
-				<p class = "inner_name">{{name}}</p>
-				<p class = "inner_eq">=</p>
-				<input class = "inner_default to_save" name = "{{name}}" value = "{{default}}"></input>
+			<div class = "arg-line"> 
+				<p class = "inner-type">{{type}}</p>
+				<p class = "inner-name">{{name}}</p>
+				<p class = "inner-eq">=</p>
+				<input class = "inner-default to-save" name = "{{name}}" value = "{{default}}"></input>
 			</div>
 			{% endfor %}
 		</div>
 
-		<div class = "outer_line"></div>
+		<div class = "outer-line"></div>
 
 	</div>
-</body>
+</div></body>
 	
+<!--其他脚本-->
+<script src = "{% static "experiment/js/utils.js" %} "></script>
 
 <script src = {% static "/layui/layui.js" %}></script>
-{% include "experiment/project/create/finish_create.html" %}
-
-<script>
-	var inner_defaults = document.getElementsByClassName("inner_default")
-
-	for(var i = 0;i < inner_defaults.length;i++)
-	{
-		var p = inner_defaults[i];
-		p["init_value"] = p.value
-		p["init_bgcolor"] = p.style.backgroundColor
-
-		p.onchange = function()
-		{
-			if(this.value == this["init_value"])
-				this.style.backgroundColor = this["init_bgcolor"]
-			else
-				this.style.backgroundColor = "#3D3D3DFF"
-		}
-	}
-
-</script>
+<script src = "{% static "experiment/js/project/create/create.js" %} "></script>
+{% include "./scripts.html" %}
