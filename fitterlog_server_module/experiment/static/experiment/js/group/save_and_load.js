@@ -87,7 +87,6 @@ function add_cell_id() {
 			continue
 		cells[i].parentElement.setAttribute("my_id" , cells[i].children[0].getAttribute("my_id"))
 	}
-
 }
 
 

@@ -1,11 +1,11 @@
 
-/*head部分，补充*/
-.button-box{
+/*** head部分，补充 ***/
+.header .button-box{
 	position: absolute;
 	top: 0 !important;
 }
 
-.header-a{
+.header .header-a{
 	position: relative;
 
 	margin-left: 	2px;
@@ -19,15 +19,15 @@
 	font-size : 14px;
 }
 
-.header-a{
+.header .header-a{
 	background-color: #00000000;
 }
-.header-a:hover{
+.header .header-a:hover{
 	background-color: #9393A3;
 }
 
 
-/*下方部分*/
+/*** 下方部分 ***/
 .middle{
 	position: absolute;
 	left: 0;
@@ -116,7 +116,6 @@
 	background-color: #FFFFFF;
 
 }
-
 
 .inner-name , .title-name{
 	position: absolute;

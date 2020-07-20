@@ -12,30 +12,27 @@ body{
 	cursor: default;
 
 }
-
-/*header 被放到了toolbar里面*/
-#header{
+.header{
 	position: absolute;
 
 	background-color: #00000000;
 	left: 0;
 	top: 0;
-	height: 100%;
-	width: 50%;
+	height: 15%;
+	width: 100%;
 }
 
-/*所以content就是整个页面*/
-#content{
+.content{
 	position: absolute;
 	left: 0;
-	top: 0;
-	height: 100%;
+	top: 15%;
+	height: 80%;
 	width: 100%;
 
 	background-color: #353535;
 
 	overflow-y: auto;
-	overflow-x: hidden !important;
+	overflow-x: auto !important;
 	
 }
 
@@ -49,16 +46,6 @@ body{
 	color : #383838FF;
 }
 
-/*
-.header_a[my_title]:hover:after{
-	content: attr(my_title);
-	position: absolute;
-	top : 105%;
-	left: 25px;
-	background : 0 !important; 
-	color : #D1D1D1FF !important;
-}
-*/
 
 *{
 	font-family: "STXiHei";

@@ -1,117 +1,91 @@
 <!DOCTYPE html>
 
+<!-- 这个页面使用layui作为框架，不使用vue，因为前者与后者不兼容 -->
+
 {%load static%}
 
 <head>
-		<link rel = "stylesheet" href = {% static "/layui/css/layui.css" %} type = "text/css" />
-		<link rel = "stylesheet" href = {% static "/layui-soul-table/soulTable.css" %} type = "text/css" />
-		<link rel = "stylesheet" href = {% static "/experiment/css/layer-skin.css" %} type = "text/css" />
+	<!-- 外部库 -->
+	<link rel = "stylesheet" href = {% static "/layui/css/layui.css" %} type = "text/css" />
+	<link rel = "stylesheet" href = {% static "/layui-soul-table/soulTable.css" %} type = "text/css" />
+	<link rel = "stylesheet" href = {% static "/experiment/css/layer-skin.css" %} type = "text/css" />
 
-		<link rel = "stylesheet" href = {% static "/experiment/css/group/main.css" %} type = "text/css" />
-		<link rel = "stylesheet" href = {% static "/experiment/css/group/header.css" %} type = "text/css" />
-		<link rel = "stylesheet" href = {% static "/experiment/css/group/content.css" %} type = "text/css" />
-		<link rel = "stylesheet" href = {% static "/experiment/css/group/content_inside_table.css" %} type = "text/css" />
-		<link rel = "stylesheet" href = {% static "/experiment/css/scrollbar.css" %} type = "text/css" />
-		<link rel = "stylesheet" href = {% static "/experiment/css/group/toolbar.css" %} type = "text/css" />
-		<link rel = "stylesheet" href = {% static "/experiment/css/group/soultable.css" %} type = "text/css" />
+	<script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+	<script src="https://cdn.bootcdn.net/ajax/libs/animejs/3.2.0/anime.min.js"></script>
+	<script src="https://cdn.bootcdn.net/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 
-		<link rel = "stylesheet" href = {% static "/experiment/css/project/layer.css" %} type = "text/css" />
+	<!--YUI-->
+	<link rel = "stylesheet" href = {% static "YUI/css/YUI.css" %} type = "text/css" />
+	<script src="{% static "YUI/YUI.js" %}"></script>
+	<script src="{% static "YUI/YUI-components.js" %}"></script>
+	<script src="{% static "YUI/YUI-css-complement.js" %}"></script>
+
+
+	<!-- 自定义样式 -->
+	<link rel = "stylesheet" href = {% static "/experiment/css/group/custom_table_around.css" %} type = "text/css" />
+	<link rel = "stylesheet" href = {% static "/experiment/css/group/custom_table_inside.css" %} type = "text/css" />
+	<link rel = "stylesheet" href = {% static "/experiment/css/group/custom_toolbar.css" %} type = "text/css" />
+	<link rel = "stylesheet" href = {% static "/experiment/css/group/custom_soultable.css" %} type = "text/css" />
+
+	<link rel = "stylesheet" href = {% static "/experiment/css/group/group.css" %} type = "text/css" />
+	<link rel = "stylesheet" href = {% static "/experiment/css/group/content.css" %} type = "text/css" />
+	<link rel = "stylesheet" href = {% static "/experiment/css/group/header.css" %} type = "text/css" />
+
+	<link rel = "stylesheet" href = {% static "/experiment/css/scrollbar.css" %} type = "text/css" />
+	<link rel = "stylesheet" href = {% static "/experiment/css/project/layer.css" %} type = "text/css" />
 
 </head>
 
-
-<body>
-	<div id = "header">
-		<p id = "group_name">【实验组】{{group.name}}</p>
-		<textarea id = "group_intro">{{group.intro}}</textarea>
-	</div>
-
-	<div id = "content">
-		<table lay-filter = "main_table" , id = "the_table" , lay-data = "{id:'the_table'}">
-			<thead>
-				<tr>
-					<th lay-data = "{
-						filed : '_checkbox' , 
-						type : 'checkbox' , 
-						width : 50 ,
-						fixed : 'left' ,
-						style: 'background-color: #363636; color: #AAAAAAFF;' , 
-					}"></th>
-
-					{% for h , w , mw, sty in head_and_width_and_style %}
-					<th lay-data = "{field:'{{h}}', width: {{w}} , minWidth:{{mw}}, sort:true ,align:'center', {{sty}}}">{{h}}</th>
-					{% endfor %}
-
-					<th lay-data = "{
-						field:'right', 
-						fixed:'right', 
-						width: 100, 
-						align: 'center' , 
-						style: 'background-color: #363636; color: #AAAAAAFF;' , 
-					}"></th>
-				</tr> 
-			</thead>
-			<tbody>
-
-				{% for state , exp_id , idx , line in line_information%}
-				<tr>
-					<td class = "{{idx}}"></td> <!--checkbox-->
-
-					{% for v_id , val in line %}
-					<td>{{val}}<div my_exp_id = {{exp_id}} my_id = {{v_id}} class = "hidden {% if state == 3 %}bad_experiment{% elif state == 0 %}running_experiment{% endif %}"></div>
-					</td>
-					{% endfor %}
-
-					<td>
-						<a class = "header_a" href = "/experiment/{{exp_id}}/logs">
-							<i class="layui-icon">&#xe621;</i>
-						</a>
-						<a class = "header_a" href = "/experiment/{{exp_id}}/figures">
-							<i class="layui-icon">&#xe64a;</i>
-						</a>
-						<a class = "header_a" href = "javascript:void(0)" onclick = "javascript:copy_expe({{exp_id}})">
-							<i class="layui-icon">&#xe656;</i>
-						</a>
-					</td>
-
-				</tr>
-				{% endfor %}
-
-			</tbody>
-		</table>
-	</div>
-
-
-</body>
-
-<script src = {% static "/layui/layui.js" %}></script>
-
-<script src = {% static "/layui-soul-table/soulTable.js" %}></script> 
-<script src = {% static "/layui-soul-table/tableFilter.js" %}></script> 
-<script src = {% static "/layui-soul-table/excel.js" %}></script> 
-<script src = {% static "/layui-soul-table/tableChild.js" %}></script>  
-<script src = {% static "/layui-soul-table/tableMerge.js" %}></script> 
-
-<script>
-layui.config({
-	base: "{% static "layui-soul-table/"%}"
-}).extend({
-	soulTable: "soulTable"  // 模块别名
-});
-
-</script>
-
-<script>
-	table = undefined
-	hide_bad_exp = {{hide_bad_exp}}
-</script>
-
-<script src = {% static "/experiment/js/group/process_state.js" %}></script>
-<script src = {% static "/experiment/js/group/save_and_load.js" %}></script>
-
-<!--工具栏事件。比较适合在html里写因为可以方便的使用django模板语法-->
-{% include "experiment/group/toolbar_event.html" %}
+<script src = {% static "/experiment/js/utils.js" %}></script>
 <script src = {% static "/experiment/js/group/group.js" %}></script>
+<script>
+	YUI_init()
+</script>
 
-<!--创建新实验-->
-{% include "experiment/group/copy_expe.html" %}
+<body> <div id = "main" class = "Y-full">
+
+	<div class = "header">
+		<p class = "group-name">【实验组】{{group.name}}</p>
+		<textarea class = "group-intro">{{group.intro}}</textarea>
+	</div>
+
+	<div class = "content">
+
+		<div class = "heads Y-stack-x">
+			<div v-for = "head in heads" :key = head>
+				<fitter-head-cell 
+					class = "head-cell"
+					:text = head 
+					@head-created = add_head($event)
+				>
+				</fitter-head-cell>
+
+				
+			</div>
+		</div>
+
+		<fitter-line-x :width = tot_width></fitter-line-x>
+
+		<div class = "lines Y-stack-y">
+			<div v-for = "line in lines" class = "line Y-stack-x">
+				<fitter-cell v-for = "val in line" 
+					:text = val.text 
+					:key  = val.id
+					:my_id   = val.id
+					:head_text = val.head
+					:tot_head_cps = head_cps
+					@cell-created = add_cell($event)
+				>
+				</fitter-cell>
+
+				<fitter-line-x :width = tot_width></fitter-line-x>
+			</div>
+		</div>
+
+
+	</div>
+
+
+</div> </body>
+
+{% include "./scripts.html" %}

@@ -18,11 +18,15 @@
 	<script src="{% static "YUI/YUI-css-complement.js" %}"></script>
 
 	<!--speical css-->
-	<link rel = "stylesheet" href = {% static "/experiment/css/project/main.css" %} type = "text/css" />
+	<link rel = "stylesheet" href = {% static "/experiment/css/project/create.css" %} type = "text/css" />
 	<link rel = "stylesheet" href = {% static "/experiment/css/project/header.css" %} type = "text/css" />
 	<link rel = "stylesheet" href = {% static "/experiment/css/project/create/main.css" %} type = "text/css" />
 
 </head>
+
+<script>
+	YUI_init()
+</script>
 
 <body> <div id = "main">
 	<!--顶部界面-->
@@ -100,8 +104,8 @@
 </div></body>
 	
 <!--其他脚本-->
-<script src = "{% static "experiment/js/utils.js" %} "></script>
-
 <script src = {% static "/layui/layui.js" %}></script>
+
+<script src = "{% static "experiment/js/utils.js" %} "></script>
 <script src = "{% static "experiment/js/project/create/create.js" %} "></script>
 {% include "./scripts.html" %}

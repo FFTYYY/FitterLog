@@ -1,0 +1,14 @@
+<script>
+	app = start_vue()
+	
+	app.heads = [{% for head in heads%}"{{head}}",{% endfor %}]
+	app.lines = [
+		{% for line in lines %}
+		[ 
+			{% for val in line%}
+			{id: {{val.0}} , text: "{{val.1}}" , head: "{{val.2}}"},
+			{% endfor %}
+		],
+		{% endfor %}
+	]
+</script>

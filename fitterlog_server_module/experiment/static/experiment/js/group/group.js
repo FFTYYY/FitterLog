@@ -1,106 +1,145 @@
+Vue.component("fitter-line-x", {
+	delimiters: ["[[", "]]"],
 
-function remove_panel_title()
-{
-	var tars = document.getElementsByClassName("layui-inline")
+	props: ["width"] , 
 
-	for(var _t = 0;_t < tars.length;_t ++)
-	{
-		let tar = tars[_t]
-		tar.onclick = function(){
+	data: function(){return {
+	}},
 
-			setTimeout(function(){
-				var lls = tar.children
+	template: `
+		<div 
+			:style = "{
+				position: 'absolute',
+				left: '0',
+				height: '1px',
+				width: width + 'px',
+				'background-color': 'white',
+			}"
+		>
+		</div>`
+	,
+})
 
-				for(var i = 0;i < lls.length;i++)
-				{
-					if(!lls[i].classList.contains("layui-table-tool-panel") )
-						continue
-					for(var j = 0;j < lls[i].children.length;j++)
-					{
-						lls[i].children[j].title = "" //把title删掉
-					}
-				}
-			} , 50)
+Vue.component("fitter-head-cell", {
+	delimiters: ["[[", "]]"],
+
+	props: ["text"] , 
+
+	data: function(){return {
+		height: 50,
+		width: 0,
+	}},
+
+	created: function(){
+		this.$emit("head-created" , this)
+
+		this.width = get_length(this.text) * 10 + 20
+	},
+
+	template: `
+		<div 
+			:style = "{
+				width : width + 'px' ,
+				height: height + 'px' ,
+				'flex-shrink': '0',
+
+			}"
+		>
+			<p 
+				class = "Y-text-center" 
+				:style = "{
+					height: '100%',
+					width: '100%',
+				}"
+			>[[text]]</p>
+		</div>`
+	,
+})
+
+
+Vue.component("fitter-cell", {
+	delimiters: ["[[", "]]"],
+
+	props: ["my_id" , "text" , "head_text" , "tot_head_cps"] , 
+
+	data: function(){return {
+		height: 50,
+		head_cp: this.tot_head_cps[this.head_text],
+	}},
+
+	computed: {
+		width: function(){
+			return this.head_cp.width
+		},
+	},
+
+	created: function(){
+		this.$emit("cell-created" , this)
+
+		this.head_cp.width = Math.max(this.head_cp.width , get_length(this.text)*10+20) //更新头部宽度
+	},
+
+	methods: {
+		cl: function(){
+			console.log(this.head_cp)
 		}
-	}
-}
+	},
 
-function move_tools(){
-	toolbar = document.getElementsByClassName("layui-table-tool")[0]
-	headbar = document.getElementById("header")
+	template: `
+		<div 
+			:style = "{
+				width : width + 'px' ,
+				height: height + 'px' ,
+				'flex-shrink': '0',
 
-	toolbar.appendChild(headbar)
-}
+			}"	
+			@click = "cl()"
 
-the_this = undefined
-inpus = []
-function ontabledone(){
-	move_tools()
-	remove_panel_title()
-	setInterval( process_state , 200)
-	add_cell_id()
+		>
+			<p 
+				class = "Y-text-center" 
+				:style = "{
+					height: '100%',
+					width: '100%',
+				}"
+			>[[text]]</p>
+		</div>`
+	,
+})
 
-	layui.soulTable.render(this)
-	the_this = this
-}
 
+function start_vue(){
+	var app = new Vue({
+		delimiters: ["[[", "]]"],
+		el: "#main" ,
 
-layui.use(["table" , "soulTable"] , function(){
-	table = layui.table
-	 
-	//转换静态表格
-	table.init("main_table", {
-		limits: [15,50,100,9999] , 
-		page: true , 
-		limit: 15 , 
-		skin: "row" , 
-		height: "full-0" , 
-		done: ontabledone , 
+		data: function(){return {
+			heads: [],
+			lines: [[]],
 
-		//工具栏
-		toolbar: true , 
-		defaultToolbar: [
-			{title: "隐藏异常终止的实验", layEvent: "hide-bad",icon: "layui-icon-menu-fill"} , 
-			{title: "返回", layEvent: "go-back",icon: "layui-icon-return",} , 
-			{title: "保存设置", layEvent: "save",icon: "layui-icon-upload",} , 
-			{title: "删除选中行", layEvent: "delete",icon: "layui-icon-close",} , 
-			"filter", 
-			{title: "导出", layEvent: "LAYTABLE_EXPORT",icon: "layui-icon-male",} , 
-		] ,
+			head_cps: {},
+			cell_cps: {},
+		}},
 
-		//右键菜单
-		contextmenu: {
-			//header: false , 
-			body: [
-				{
-					name: "细节",
-					icon: "layui-icon layui-icon-slider",
-
-					mouseup: function(obj) {
-						ooo = obj
-						var my_id = obj.elem.children()[0].parentElement.getAttribute("my_id")
-						var new_url = "/variable/" + String(my_id)
-						if(event.button == 1) // 中键
-						{
-							window.open(new_url , "_blank")
-						}
-						else if(event.button == 0) //左键
-						{
-							window.location.href = new_url
-						}
-					},
-					children: []
+		computed: {
+			tot_width: function(){
+				var w = 0
+				for(var x in this.head_cps){
+					w += this.head_cps[x].width
 				}
+				return w
+			},
+		},
 
-			],
+		methods:{	
+			add_head: function(h){
+				this.head_cps[h.text] = h
+			},
+			add_cell: function(c){
+				this.cell_cps[c.id] = c
+			},
 		},
 	})
 
-	//在toolbar_event.html里定义
-	table.on("toolbar", get_toolbar_event_func(table))
-
-	table.on("sort", function() {
-		layui.soulTable.render(the_this) //重新渲染soul-table，否则会失去右键菜单
-	})
-});
-
+	return app
+}

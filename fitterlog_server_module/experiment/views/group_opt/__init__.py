@@ -21,8 +21,8 @@ def group(request , group_id):
 	ids , heads , lines , styles = experiment_list_to_str_list( 
 					group.experiments.all() , hide_heads , hide_ids , show_order)
 	
-	lens = generate_len(heads , lines)
-	min_lens = [x//2 for x in lens]
+	#把head添加进每个单元格的信息
+	lines = [ [ [x[0] , x[1] , heads[i]] for i , x in enumerate(line) ] for line in lines ] 
 
 	# add line_index
 	line_information = zip(ids , list(range(len(lines))) , lines)
@@ -35,9 +35,8 @@ def group(request , group_id):
 		"group": group , 
 		"heads" : heads , 
 		"lines" : lines , 
-		"line_information" : line_information , 
-		"lens" : lens , 
-		"head_and_width_and_style": zip(heads , lens , min_lens , styles) , 
+		#"line_information" : line_information , 
+		#"head_and_style": zip(heads , styles) , 
 		"config_files": seped_s2list(group.project.config_files) , 
 	}
 	return render(request , get_path("group/group") , context)

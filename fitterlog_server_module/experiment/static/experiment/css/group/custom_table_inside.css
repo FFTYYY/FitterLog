@@ -1,3 +1,5 @@
+/*以custom开头的文件：对框架元素的重新定制*/
+
 .layui-table-view{
 	position: absolute;
 	left: 0;
@@ -10,7 +12,7 @@
 	padding: 0;
 }
 
-/*表头*/
+/*** 表头 ***/
 .layui-table thead tr{
 	background-color: #282828FF !important;
 	color: #D8D8D8FF!important;
@@ -25,29 +27,19 @@
 	background-color: #353535 !important;
 }
 
-/*表项*/
+/*** 表项 ***/
 .layui-table tbody tr{
 	background-color: #282828FF !important;
 	color: #D8D8D8FF!important;
 }
 
-.table_a {
-	color: #D8D8D8FF !important;
-}
-
-.table_a:hover {
-	background-color: #D8D8D8FF !important;
-	color: #4C4C4CFF !important;
-
-}
-
-/*查看详细值*/
+/*** 查看详细值 ***/
 .layui-table-grid-down {
 	background-color: #4C4C4CFF !important;
 	border: none !important; 
 }
 
-/*单元格*/
+/*** 单元格 ***/
 .layui-table-main td .layui-table-cell:hover::selection {
 	background-color: #7F7F7FFF !important;
 	color: #D8D8D8FF!important;
@@ -69,10 +61,21 @@
 
 }
 
-/*变量编辑框*/
+/*** 变量编辑框 ***/
 .layui-table-edit {
 	background-color: #135241FF !important;
 	color: #D8D8D8FF !important;
 	outline: none;
 	border: 1px solid #D8D8D8FF !important;
+}
+
+/*** 右侧按钮 ***/
+.content-a {
+	color: #D8D8D8FF !important;
+	top: 0;
+	height: 100%;
+	width: 7%;
+	margin-right: 1%;
+	margin-left: 1%;
+	text-align: center;
 }

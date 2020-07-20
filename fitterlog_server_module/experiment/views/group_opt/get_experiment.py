@@ -1,29 +1,24 @@
 from YTools.universe.strlen import max_len
 from ...models import Variable , VariableTrack , SingleValue
 from ...utils.str_opt import seped_s2list , seped_list2s , seped_s2list_allow_empty
+import random
 
-def generate_len(heads , lines):
-	'''为heads生成长度（根据字符串长度）用于前端'''
-	if len(lines) == 0:
-		return []
-	lens = [max_len(s) for s in heads]
-	lens = [max( lens[k] , max( [max_len(line[k][1]) for line in lines] )) for k in range(len((heads)))]
-	lens = [ min(50 + x*10 , 300) for x in lens]
+def rand_num():
+	return random.randint(-1e8 , 0)
 
-	return lens
-
-def append_ids(the_ids , heads , lines , styles , hidden_heads = [] , hidden_ids = []):
+def append_ids(the_ids , heads , lines):
 	'''为输出的表格添加id列'''
 	assert len(the_ids) == len(lines)
 
 	heads = ["id"] + heads
-	lines = [ [(-1 , the_ids[i])] + lines[i] for i in range(len(lines))]
-	styles = ["fixed: 'left', style: 'background-color: #363636; color: #AAAAAAFF;',"] + styles
+	lines = [ 
 
-	if "id" in hidden_heads:
-		styles[0] += "hide: true,"
+		[ ( rand_num() , the_ids[i] , "id") ] # (第一个元素是随便加的)
+		+ lines[i]  
+		for i in range(len(lines))
+	] 
 
-	return heads , lines , styles
+	return heads , lines
 
 def get_head_reorder(heads , show_order):
 	'''将head重排序为config中保存的顺序'''
@@ -79,9 +74,10 @@ def experiment_list_to_str_list(expe_lis , hidden_heads = [] , hidden_ids = [] ,
 			if len( track.values.all() ) <= 0: #如果track没有变量，也跳过
 				continue
 				
-			value_map[varia.name] = (
-				varia.id ,  # value的每个元素是 (变量id，变量的值)
+			value_map[varia.name] = ( # value的每个元素是 (变量id，变量的值，变量的名)
+				varia.id ,  
 				track.values.latest("time_stamp").value , #找到这个track最新的一个变量
+				varia.name ,
 			)
 
 			# 只要有一个元素可编辑，就整列可编辑
@@ -97,7 +93,7 @@ def experiment_list_to_str_list(expe_lis , hidden_heads = [] , hidden_ids = [] ,
 	for i , exp in enumerate(expe_lis):
 		this_line = []
 		for h in heads:
-			this_line.append(values[i].get(h , (-1 , "-") ))
+			this_line.append( values[i].get(h , (rand_num() , "-" , h) ) )
 		lines.append(this_line)
 
 	# 决定head的style
@@ -109,7 +105,7 @@ def experiment_list_to_str_list(expe_lis , hidden_heads = [] , hidden_ids = [] ,
 			styles[i] += "edit: 'text',"
 
 	ids = [exp.id for exp in expe_lis]
-	heads , lines , styles = append_ids(ids , heads , lines , styles , hidden_heads , hidden_ids)
+	heads , lines = append_ids(ids , heads , lines)
 
 	return ids , heads , lines , styles
 		
