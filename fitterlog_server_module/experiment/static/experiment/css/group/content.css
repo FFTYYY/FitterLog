@@ -1,8 +1,20 @@
-.content .lines{
-	overflow-x: visible !important;
-	overflow-y: visible !important;
+.content-a {
+	color: #D8D8D8FF !important;
+	top: 0;
+	height: 100%;
+	width: 7%;
+	margin-right: 1%;
+	margin-left: 1%;
+	text-align: center;
 }
 
-.content .fixed{
-	position: fixed;
+
+.content-a:hover , .content-a:hover i {
+	background-color: #B2B2B2FF !important;
+	color: #333333FF !important;
+
+}
+.content-a:active , .content-a:active i{
+	background-color: #EAEAEAFF !important;
+	color: #000000FF !important;
 }

@@ -1,14 +1,12 @@
+
 <script>
-	app = start_vue()
-	
-	app.heads = [{% for head in heads%}"{{head}}",{% endfor %}]
-	app.lines = [
-		{% for line in lines %}
-		[ 
-			{% for val in line%}
-			{id: {{val.0}} , text: "{{val.1}}" , head: "{{val.2}}"},
-			{% endfor %}
-		],
-		{% endfor %}
-	]
+	var table = undefined
+	var hide_bad_exp = {{hide_bad_exp}}
+</script>
+
+<script>
+	var csrf_token = "{{csrf_token}}" //用于提交的密钥
+
+	var my_project_id = {{group.project.id}}
+	var save_config_url = "/group/{{group.id}}/save_config"
 </script>

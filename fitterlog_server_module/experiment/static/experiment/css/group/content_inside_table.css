@@ -1,0 +1,78 @@
+.layui-table-view{
+	position: absolute;
+	left: 0;
+	top: 0;
+	height: 100%;
+	width: 100%;
+
+	border: 0;
+	margin: 0;
+	padding: 0;
+}
+
+/*表头*/
+.layui-table thead tr{
+	background-color: #282828FF !important;
+	color: #D8D8D8FF!important;
+}
+.layui-table-patch{
+	background-color: #353535 !important;
+}
+.layui-table-mend{
+	background-color: #353535 !important;
+}
+.layui-table-header{
+	background-color: #353535 !important;
+}
+
+/*表项*/
+.layui-table tbody tr{
+	background-color: #282828FF !important;
+	color: #D8D8D8FF!important;
+}
+
+.table_a {
+	color: #D8D8D8FF !important;
+}
+
+.table_a:hover {
+	background-color: #D8D8D8FF !important;
+	color: #4C4C4CFF !important;
+
+}
+
+/*查看详细值*/
+.layui-table-grid-down {
+	background-color: #4C4C4CFF !important;
+	border: none !important; 
+}
+
+/*单元格*/
+.layui-table-main td .layui-table-cell:hover::selection {
+	background-color: #7F7F7FFF !important;
+	color: #D8D8D8FF!important;
+}
+
+.layui-table-main td .layui-table-cell:hover {
+	background-color: #D8D8D8FF !important;
+	color: #4C4C4CFF!important;
+
+	transition: 1s !important;
+	transition-timing-function: ease-out !important;
+}
+.layui-table-main td .layui-table-cell {
+	background-color: inherit !important;
+	color: inherit !important;
+
+	transition: 0.5s !important;	
+	transition-timing-function: ease-out !important;
+
+}
+
+/*变量编辑框*/
+.layui-table-edit {
+	background-color: #135241FF !important;
+	color: #D8D8D8FF !important;
+	outline: none;
+	border: 1px solid #D8D8D8FF !important;
+}

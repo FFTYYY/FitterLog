@@ -1,12 +1,8 @@
-from YTools.universe.strlen import max_len
 from ...models import Variable , VariableTrack , SingleValue
 from ...utils.str_opt import seped_s2list , seped_list2s , seped_s2list_allow_empty
-import random
+from .utils import *
 
-def rand_num():
-	return random.randint(-1e8 , 0)
-
-def append_ids(the_ids , heads , lines):
+def append_ids(the_ids , heads , lines , styles , hidden_heads = []):
 	'''为输出的表格添加id列'''
 	assert len(the_ids) == len(lines)
 
@@ -17,8 +13,12 @@ def append_ids(the_ids , heads , lines):
 		+ lines[i]  
 		for i in range(len(lines))
 	] 
+	styles = ["fixed: 'left', style: 'background-color: #363636; color: #AAAAAAFF;',"] + styles
 
-	return heads , lines
+	if "id" in hidden_heads:
+		styles[0] += "hide: true,"
+
+	return heads , lines , styles
 
 def get_head_reorder(heads , show_order):
 	'''将head重排序为config中保存的顺序'''
@@ -57,8 +57,10 @@ def experiment_list_to_str_list(expe_lis , hidden_heads = [] , hidden_ids = [] ,
 	styles = []
 	editable = {}
 
+	# 获得要显示的实验列表
 	expe_lis = get_expe_reorder(expe_lis , hidden_ids)
 
+	# 获得表格的全部基本信息，包括表格头和表格值
 	for exp in expe_lis:
 		
 		value_map = {}
@@ -104,8 +106,9 @@ def experiment_list_to_str_list(expe_lis , hidden_heads = [] , hidden_ids = [] ,
 		if editable.get(heads[i] , False):
 			styles[i] += "edit: 'text',"
 
+	# 把id列添加进去
 	ids = [exp.id for exp in expe_lis]
-	heads , lines = append_ids(ids , heads , lines)
+	heads , lines , styles = append_ids(ids , heads , lines , styles , hidden_heads)
 
 	return ids , heads , lines , styles
 		

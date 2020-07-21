@@ -1,249 +1,88 @@
-Vue.component("fitter-container", {
-	delimiters: ["[[", "]]"],
 
-	template: `
-		<div class = "content">
-		<slot></slot>
-		</div>`
-	,
-})
-
-Vue.component("fitter-line-x", {
-	delimiters: ["[[", "]]"],
-
-	props: ["width" , "top"] , 
-
-	template: `
-		<div 
-			:style = "{
-				position: 'absolute',
-				top: top + 'px',
-				left: '0',
-				height: '1px',
-				width: width + 'px',
-				border: '0',
-				'background-color': '#B2B2B2FF',
-			}"
-		>
-		</div>`
-	,
-})
-
-Vue.component("fitter-line-y", {
-	delimiters: ["[[", "]]"],
-
-	props: {
-		height:{} , 
-		left:{default: 0} , 
-	} , 
-
-	template: `
-		<div 
-			:style = "{
-				position: 'absolute',
-				top: '0',
-				width: '1px',
-				border: '0',
-				height: height + 'px',
-				left: left + 'px',
-				'background-color': '#B2B2B2FF',
-			}"
-		>
-		</div>`
-	,
-})
+function process_state(){//æ ¹æ®çŠ¶æ€åˆ’åˆ†ä¸åŒçš„è¡Œé¢œè‰²
+	
+	//å…ˆæ‰¾åˆ°bad-expï¼Œç„¶åå‘ä¸Šæ‰¾åˆ°å¯¹åº”çš„trï¼ŒæŠŠä¸­é—´ä¸€ä¸²å…ƒç´ çš„é¢œè‰²å…¨éƒ¨æ”¹æ‰
+	$(".bad-experiment").parentsUntil("tr").css("cssText" , "background-color: #9C0B56FC !important")
+	$(".running-experiment").parentsUntil("tr").css("cssText" , "background-color: #3D3D3D !important")
+}
 
 
-Vue.component("fitter-head", {
-	delimiters: ["[[", "]]"],
+function remove_panel_title(){ //å»æ‰å¯¼å‡ºæ¡†çš„ä¸­title
 
-	props: ["text" , "idx"] , 
+	$(".layui-inline").click(function(){ //ç‚¹å‡»çš„æ—¶å€™æ¶ˆé™¤å¼¹å‡ºæ¡†ä¸­çš„æ‰€æœ‰å…ƒç´ çš„title
+		let me = this
+		setTimeout(function(){
+			$(me).find(".layui-table-tool-panel *").attr("title" , "")
+		} , 50) //åœç•™ä¸€ä¸‹
+	})
+}
 
-	data: function(){return {
-		height: 50,
-		width: 0,
-		tot_height: 50,
+function move_tools(){ //æŠŠheaderçš„ä½ç½®ç§»åˆ°toolbaré‡Œé¢
+	$(".layui-table-tool").append($(".header"))
+}
 
-		cell_cps: [] , //±¾ÁĞµÄÈ«Ìåcell£¬°´´ÓÉÏµ½ÏÂÅÅÁĞ
-	}},
+the_table = undefined
+function ontabledone(){
+	move_tools()
+	remove_panel_title()
+	process_state()
 
-	created: function(){
-		this.$emit("head-created" , this)
-		this.width = get_length(this.text) * 10 + 20
-	},
+	setInterval( process_state , 200) //åå¤å˜æ¢é¢œè‰²
 
-	computed: {
-		left_cp:function(){ //×Ô¼º×ó±ßµÄÄÇ¸öÔªËØ¡£Ïàµ±ÓÚÒ»¸öÁ´±í
-			if(this.idx == 0)
-				return undefined
-			return this.$parent.h_idx2cp(this.idx - 1)
-		},
-
-		x: function(){ //ÕæÊµµÄºá×ø±ê
-			if(this.left_cp == undefined) //×Ô¼º¾ÍÊÇ×î×ó±ßÔªËØ
-				return 0
-			return this.left_cp.x + this.left_cp.width
-		}
-	},
-
-	methods: {
-		add_cell: function(c){ //Ìí¼ÓÒ»¸ö±¾ÁĞµÄcell
-			this.$set(this.cell_cps , c.idx , c)
-		},
-		c_idx2cp: function(idx){ //Ñ¯ÎÊÕâÒ»ÁĞµÚidx¸öÔªËØÊÇË­
-			return this.cell_cps[idx]
-		},
-
-	},
-
-	template: `
-		<div 
-			:style = "{
-				width : width + 'px' ,
-				height: height + 'px' ,
-				'flex-shrink': '0',
-
-			}"
-		>
-			<p 
-				class = "Y-text-center" 
-				:style = "{
-					height: '100%',
-					width: '100%',
-				}"
-			>[[text]]</p>
-		</div>`
-	,
-})
+	layui.soulTable.render(this)
+	the_table = this
+}
 
 
-Vue.component("fitter-cell", {
-	delimiters: ["[[", "]]"],
+layui.use(["table" , "soulTable"] , function(){
+	table = layui.table
+	 
+	//è½¬æ¢é™æ€è¡¨æ ¼
+	table.init("main-table", {
+		limits: [15,50,100,9999] , 
+		page: true , 
+		limit: 15 , 
+		skin: "row" , 
+		height: "full-0" , 
+		done: ontabledone , 
 
-	props: [
-		"my_id" 		, // Õâ¸ö¸ñ×ÓµÄid
-		"text" 			, // Õâ¸ö¸ñ×ÓµÄÄÚÈİ
-		"head_text" 	, // Õâ¸ö¸ñ×ÓµÄÍ·²¿µÄiÄÚÈİ
-		"tot_head_cps" 	, // È«ÌåÍ·²¿ÔªËØ
-		"idx" 			, // Õâ¸ö¸ñ×ÓµÄĞĞºÅ
-	] , 
+		//å·¥å…·æ 
+		toolbar: true , 
+		defaultToolbar: [
+			{title: "è¿”å›", layEvent: "go-back",icon: "layui-icon-return",} , 
+			{title: "ä¿å­˜è®¾ç½®", layEvent: "save",icon: "layui-icon-upload",} , 
+			{title: "åˆ é™¤é€‰ä¸­è¡Œ", layEvent: "delete",icon: "layui-icon-close",} , 
+			"filter", 
+			{title: "å¯¼å‡º", layEvent: "LAYTABLE_EXPORT",icon: "layui-icon-male",} , 
+		] ,
 
-	data: function(){return {
-		height: 50,
-		head_cp: this.tot_head_cps[this.head_text], //×Ô¼ºÍ·²¿µÄÄÇ¸öÔªËØ
-	}},
+		//å³é”®èœå•
+		contextmenu: {
+			body: [
+				{
+					name: "ç»†èŠ‚",
+					icon: "layui-icon layui-icon-slider",
 
-	computed: {
-		width: function(){ //±¾¸ñ×ÓµÄ¿í¶È
-			return this.head_cp.width
-		},
-		up_cp: function(){ //×Ô¼ºÉÏ·½µÄÔªËØ£¬µÄidÁĞ
-			if(this.idx == 0) //×Ô¼º¾ÍÊÇ×îÉÏÃæµÄ
-				return undefined
-			return this.head_cp.c_idx2cp(this.idx - 1)
-		},
-		x: function(){ //x×ø±ê
-			return this.head_cp.x
-		},
-		y: function(){ //ÕæÊµµÄy×ø±ê£¨top£©
-			if(this.up_cp == undefined) //×Ô¼º¾ÍÊÇ×îÉÏ±ßµÄÔªËØ
-				return this.head_cp.height
-			return this.up_cp.y + this.up_cp.height
-		},
-
-	},
-
-	created: function(){
-		this.$emit("cell-created" , this)
-
-		this.head_cp.width = Math.max(this.head_cp.width , get_length(this.text)*10+20) //¸üĞÂÍ·²¿¿í¶È
-		this.head_cp.tot_height += this.height
-	},
-
-	methods: {
-		cl: function(){
-			console.log(this.head_cp)
-		},
-	},
-
-	template: `
-		<div 
-			:style = "{
-				width : width + 'px' ,
-				height: height + 'px' ,
-				'flex-shrink': '0',
-
-			}"	
-			@click = "cl()"
-
-		>
-			<p 
-				class = "Y-text-center" 
-				:style = "{
-					height: '100%',
-					width: '100%',
-				}"
-			>[[text]]</p>
-		</div>`
-	,
-})
-
-
-function start_vue(){
-	var app = new Vue({
-		delimiters: ["[[", "]]"],
-		el: "#main" ,
-
-		data: function(){return {
-			heads: [],
-			lines: [[]],
-
-			head_cps: {},
-			cell_cps: {},
-		}},
-
-		computed: {
-			tot_width: function(){ //Õû¸ö±í¸ñµÄ³¤¶È
-				var w = 0
-				for(var x in this.head_cps){ //¶ÔËùÓĞÍ·²¿µÄ¿í¶ÈÇóºÍ
-					w += this.head_cps[x].width
+					mouseup: function(obj) {
+						var my_id = obj.elem.find(".id-teller").attr("my-id")
+						var new_url = "/variable/" + String(my_id)
+						if(event.button == 1) // ä¸­é”®ï¼Œæ‰“å¼€æ–°é¡µé¢
+							window.open(new_url , "_blank")
+						else if(event.button == 0) //å·¦é”®ï¼Œæœ¬é¡µé¢è·³è½¬
+							window.location.href = new_url
+					},
+					children: []
 				}
-				return w
-			},
-			tot_height: function(){ //Õû¸ö±í¸ñµÄ¸ß¶È
-				if(this.head_cps.id == undefined)
-					return 0 //»¹Ã»³õÊ¼»¯ºÃ
-				return this.head_cps.id.tot_height //ÓÃidÁĞµÄ¸ß¶È×÷Îª×Ü¸ß¶È£¬ÒòÎªµÀÀíÉÏËûÃÇµÄ¸ß¶ÈÓ¦¸ÃÊÇÒ»ÑùµÄ
-			},
-		},
 
-		methods:{
-			h_idx2x: function(idx){ //Ñ¯ÎÊµÚidx¸öheadµÄ×ó²àºá×ø±ê
-				return this.h_idx2cp(idx) == undefined ? 0 : this.h_idx2cp(idx).x
-			},
-			h_idx2cp: function(idx){ //Ñ¯ÎÊµÚidx¸öheadµÄÔªËØÊÇË­
-				return this.head_cps[this.heads[idx]]
-			},
-			c_idx2y: function(idx){ //Ñ¯ÎÊµÚidxĞĞµÄtop
-				let h = this.head_cps.id
-				let x = h == undefined ? undefined : h.c_idx2cp(idx)
-				return x == undefined ? 0 : x.y
-			},
-
-
-			add_head: function(h){ //Ò»¸öhead´´½¨³É¹¦ÁË
-				this.$set(this.head_cps , h.text , h)
-			},
-			add_cell: function(c){ //Ò»¸ö¸ñ×Ó´´½¨³É¹¦ÁË
-				this.$set(this.cell_cps , c.id , c)
-				c.head_cp.add_cell(c) //¸æÖª¶ÔÓ¦Í·²¿
-			},
-			cl: function(e){
-				console.log(this.$el.scrollLeft)
-			},
-
+			],
 		},
 	})
 
-	return app
-}
+	//åœ¨toolbar_event.htmlé‡Œå®šä¹‰
+	table.on("toolbar", get_toolbar_event_func(table))
+
+	table.on("sort", function() {
+		layui.soulTable.render(the_table) //é‡æ–°æ¸²æŸ“soul-tableï¼Œå¦åˆ™ä¼šå¤±å»å³é”®èœå•
+	})
+});
+

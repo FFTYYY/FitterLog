@@ -1,17 +1,17 @@
-.header .group-name{
+.group-name{
 	position : absolute;
-	left 	: 1px;
-	width 	: 20%;
+	left 	: 0;
+	width 	: 100%;
 	top 	: 3%;
 	height 	: 25%;
 	text-align: center;
 	line-height: 100%;
 }
-.header .group-intro{
+.group-intro{
 
 	position : absolute;
-	left 	: 1px;
-	width 	: 20%;
+	left 	: 0;
+	width 	: 100%;
 	top 	: 30%;
 	height 	: 70%;
 	text-align : left;

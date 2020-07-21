@@ -6,6 +6,7 @@ from ..base import get_path
 from ...utils.str_opt import seped_s2list , seped_list2s
 from .get_experiment import *
 from .editable import save_editables
+from .utils import *
 
 def group(request , group_id):
 
@@ -21,8 +22,8 @@ def group(request , group_id):
 	ids , heads , lines , styles = experiment_list_to_str_list( 
 					group.experiments.all() , hide_heads , hide_ids , show_order)
 	
-	#把head添加进每个单元格的信息
-	lines = [ [ [x[0] , x[1] , heads[i]] for i , x in enumerate(line) ] for line in lines ] 
+	lens = generate_len(heads , lines)
+	min_lens = [x//2 for x in lens]
 
 	# add line_index
 	line_information = zip(ids , list(range(len(lines))) , lines)
@@ -33,10 +34,8 @@ def group(request , group_id):
 	context = {
 		"hide_bad_exp" : "true" if group.config.hide_bad_exp else "false", 
 		"group": group , 
-		"heads" : heads , 
-		"lines" : lines , 
-		#"line_information" : line_information , 
-		#"head_and_style": zip(heads , styles) , 
+		"line_information" : line_information , 
+		"head_information": zip(heads , lens , min_lens , styles) , 
 		"config_files": seped_s2list(group.project.config_files) , 
 	}
 	return render(request , get_path("group/group") , context)
