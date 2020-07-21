@@ -1,19 +1,8 @@
-.content .table-line-x{
-	position: absolute;
-	left: 0;
-	height: 1px;
-	width: 100%;
-	background-color: white;
-    display: inline-block;
+.content .lines{
+	overflow-x: visible !important;
+	overflow-y: visible !important;
 }
 
-.content .table-line-y{
-	position: absolute;
-	top: 0;
-	height: 100%;
-	width: 1px;
-	background-color: white;
-}
-
-.content .head-cell{
+.content .fixed{
+	position: fixed;
 }

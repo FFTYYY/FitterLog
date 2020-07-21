@@ -49,37 +49,52 @@
 		<textarea class = "group-intro">{{group.intro}}</textarea>
 	</div>
 
-	<div class = "content">
+	<div class = "content" 
+		:style = "{
+		}"
+	>
+
+		<fitter-line-x :width = tot_width></fitter-line-x>
 
 		<div class = "heads Y-stack-x">
-			<div v-for = "head in heads" :key = head>
-				<fitter-head-cell 
+			<div v-for = "(head,idx) in heads" :key = head>
+				<fitter-head 
 					class = "head-cell"
-					:text = head 
+					:text = head
+					:idx = idx
 					@head-created = add_head($event)
 				>
-				</fitter-head-cell>
+				</fitter-head>
 
-				
+				<fitter-line-y :height = tot_height :left = "h_idx2x(idx)"></fitter-line-y>
+
 			</div>
+
+			<fitter-line-y :height = tot_height :left = tot_width></fitter-line-y>
 		</div>
 
 		<fitter-line-x :width = tot_width></fitter-line-x>
 
-		<div class = "lines Y-stack-y">
-			<div v-for = "line in lines" class = "line Y-stack-x">
+		<div class = "lines Y-stack-y" 
+			:style = "{
+			}"
+		>
+			<div v-for = "(line , idx) in lines" class = "line Y-stack-x">
+				<fitter-line-x :width = tot_width :top = c_idx2y(idx)></fitter-line-x>
+
 				<fitter-cell v-for = "val in line" 
 					:text = val.text 
 					:key  = val.id
 					:my_id   = val.id
 					:head_text = val.head
+					:idx = idx
 					:tot_head_cps = head_cps
 					@cell-created = add_cell($event)
 				>
 				</fitter-cell>
 
-				<fitter-line-x :width = tot_width></fitter-line-x>
 			</div>
+			<fitter-line-x :width = tot_width :top = tot_height></fitter-line-x>
 		</div>
 
 
