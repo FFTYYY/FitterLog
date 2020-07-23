@@ -7,8 +7,9 @@ var YUI_style_functions = {
 	},
 }
 
-
-$(document).ready(function(){
-	for(let x in YUI_style_functions)
-		YUI_style_functions[x]( $("."+x) )
-})
+if($ != undefined){
+	$(document).ready(function(){
+		for(let x in YUI_style_functions)
+			YUI_style_functions[x]( $("."+x) )
+	})
+}

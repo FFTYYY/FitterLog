@@ -1,4 +1,3 @@
-
 function process_state(){//根据状态划分不同的行颜色
 	
 	//先找到bad-exp，然后向上找到对应的tr，把中间一串元素的颜色全部改掉
@@ -58,6 +57,7 @@ layui.use(["table" , "soulTable"] , function(){
 
 		//右键菜单
 		contextmenu: {
+			head: [],
 			body: [
 				{
 					name: "细节",
@@ -71,7 +71,7 @@ layui.use(["table" , "soulTable"] , function(){
 						else if(event.button == 0) //左键，本页面跳转
 							window.location.href = new_url
 					},
-					children: []
+					children: [],
 				}
 
 			],
