@@ -1,3 +1,5 @@
+/*** 全局样式 ***/
+
 *{
 	background-color: #B3CBE9;
 	color: #2B2B2BFF;
@@ -8,6 +10,8 @@
 *{
 	font-family: "STXiHei";
 }
+
+/*** layui样式定制 ***/
 
 .layui-tab-title , .layui-this::after{
 	border-color: #829BCE!important;
@@ -35,34 +39,6 @@
 	color: #DDDDDDFF !important;
 }
 
-#header #decs{
-	position: absolute;
-	background-color: inherit;
-
-	left: 0;
-	top: 0;
-	height: 100%;
-	width: 50%;
-}
-#header #buts{
-	position: absolute;
-	background-color: inherit;
-
-	left: 50%;
-	top: 0;
-	height: 100%;
-	width: 50%;
-}
-
-#header{
-	position: absolute;
-	background-color: #829BCE;
-	left: 0;
-	top: 0;
-	height: 7%;
-	width: 100%;
-}
-
 .layui-tab{
 	position: absolute;
 	left: 0;
@@ -72,12 +48,43 @@
 
 }
 
-#header p , #header a{
+/*** 其他样式 ***/
+
+.header .decs{
+	position: absolute;
+	background-color: inherit;
+
+	left: 0;
+	top: 0;
+	height: 100%;
+	width: 50%;
+}
+.header .buts{
+	position: absolute;
+	background-color: inherit;
+
+	left: 50%;
+	top: 0;
+	height: 100%;
+	width: 50%;
+}
+
+.header{
+	position: absolute;
+	background-color: #829BCE;
+	left: 0;
+	top: 0;
+	height: 7%;
+	width: 100%;
+}
+
+
+.header p , .header a{
 	background-color: inherit;
 	color: inherit;
 }
 
-#header a:hover{
+.header a:hover{
 	background-color: #D3D3F7;
 	color: #383838FF;
 }

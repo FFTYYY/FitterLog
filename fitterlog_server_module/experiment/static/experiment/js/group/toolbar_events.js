@@ -1,4 +1,4 @@
-function save_config() 
+function save_config(table) 
 {
 	var got = get_editable_values()
 	var editable_id = got[0]
@@ -22,9 +22,9 @@ function save_config()
 	my_post(save_config_url , data)
 }
 
-/* 这里修改的全局变量deleted_ids定义在save_and_load,js中 */
+/* 这里修改的全局变量deleted_ids定义在save_and_load.js中 */
 /* 当点击delete按钮时，更新deleted_ids，并事实上隐藏他们 */
-function hide_checked_rows() {
+function hide_checked_rows(table) {
 	var checked_data = table.checkStatus("the-table").data //当前那些行是选中的
 
 	//把它们添加进集合
@@ -48,10 +48,10 @@ function get_toolbar_event_func(table){
 				window.location.href = "/project/" + my_project_id
 			break
 			case "save": //保存按钮，保存设置
-				save_config()
+				save_config(table)
 			break
 			case "delete": //删除按钮，删除选中的行
-				hide_checked_rows()
+				hide_checked_rows(table)
 			break
 		}
 	}

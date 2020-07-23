@@ -1,8 +1,10 @@
 {% load static %}
 
 <head>
-	<link rel = "stylesheet" href = {% static "/layui/css/layui.css" %} type = "text/css" />
 	<script src = {% static "/layui/layui.js" %}></script>
+	<script src="https://cdn.bootcdn.net/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+
+	<link rel = "stylesheet" href = {% static "/layui/css/layui.css" %} type = "text/css" />
 
 	<link rel = "stylesheet" href = {% static "/experiment/css/experiment/figures.css" %} type = "text/css" />
 
@@ -10,25 +12,25 @@
 
 <body>
 
-<div id = "header">
-	<div id = "decs">
+<div class = "header">
+	<div class = "decs">
 		<p> 【Experiment id】 {{experiment.id}}</p>
 	</div>
 
-	<div id = "buts">
+	<div class = "buts">
 		<a class = "layui-icon" href = "/group/{{experiment.group.id}}" title = "返回"> &#xe65c;</a>
 	</div>
 </div>
 
-<div class="layui-tab">
-  <ul class="layui-tab-title">
+<div class = "layui-tab">
+  <ul class = "layui-tab-title">
 
   	<!--li class = "layui-this tab-head">ALL</li-->
 	{% for name , fig in figs %}
 		<li class = "tab-head {%ifequal name first_name%} layui-this {%endifequal%}">{{name}}</li>
 	{% endfor %}
   </ul>
-  <div class="layui-tab-content">
+  <div class = "layui-tab-content">
 
   	{% for name , fig in figs %}
 		<div class = "layui-tab-item {%ifequal name first_name%} layui-show {%endifequal%}">
@@ -45,17 +47,16 @@
 </script>
 
 <script>
-	var imgs = document.getElementsByTagName("img")
-	var the_wid = 0 //边框的宽度
-	for(var i = 0;i < imgs.length;i++)
-	{
-		var wid = imgs[i].parentElement.offsetWidth;
-		the_wid = Math.max(wid , the_wid)
-	}	
-	for(var i = 0;i < imgs.length;i++)
-	{
-		imgs[i].style.marginLeft = ((the_wid - imgs[i].width) / 2).toString() + "px"
+
+	function adapt_position() { //动态调整位置
+		$("img").each(function(){
+			//注意没有显示的元素，$(this).width()是不准确的，这里要用element.width
+			$(this).css("margin-left" , (($(".layui-show").width() - $(this)[0].width) / 2).toString() + "px")
+		})
 	}
+
+	adapt_position()
+	setInterval(adapt_position , 100) //不断调整位置
 
 
 </script>

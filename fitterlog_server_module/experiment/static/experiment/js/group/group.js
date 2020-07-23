@@ -1,3 +1,11 @@
+
+/*** utils ***/
+function copy_expe(exp_id){ //创建新实验
+	var copy_expe_url = `/experiment/${exp_id}/copy`
+
+	layer_create_ask(config_files , copy_expe_url)
+}
+
 function process_state(){//根据状态划分不同的行颜色
 	
 	//先找到bad-exp，然后向上找到对应的tr，把中间一串元素的颜色全部改掉
@@ -20,6 +28,8 @@ function move_tools(){ //把header的位置移到toolbar里面
 	$(".layui-table-tool").append($(".header"))
 }
 
+/*** 创建layui table ***/
+
 the_table = undefined
 function ontabledone(){
 	move_tools()
@@ -34,7 +44,7 @@ function ontabledone(){
 
 
 layui.use(["table" , "soulTable"] , function(){
-	table = layui.table
+	var table = layui.table
 	 
 	//转换静态表格
 	table.init("main-table", {

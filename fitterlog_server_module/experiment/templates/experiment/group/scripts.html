@@ -1,12 +1,19 @@
 
 <script>
-	var table = undefined
-	var hide_bad_exp = {{hide_bad_exp}}
 </script>
 
-<script>
+<script> // for 保存界面设置
 	var csrf_token = "{{csrf_token}}" //用于提交的密钥
 
 	var my_project_id = {{group.project.id}}
 	var save_config_url = "/group/{{group.id}}/save_config"
+</script>
+
+<script> // for 新建实验
+	var config_files = [
+		{% for config in config_files %}
+			"{{config}}",
+		{% endfor %}
+	]
+
 </script>

@@ -1,8 +1,8 @@
 {% load static %}
 
 
-<script id = "charts_all">
-var chart = Highcharts.chart("all_container", {
+<script id = "charts-all">
+var chart = Highcharts.chart("all-container", {
 	title: {
 		text: "All Tracks of Variable 【{{variable.name}}】"
 	},
@@ -57,7 +57,7 @@ var chart = Highcharts.chart("all_container", {
 
 {% for tra , lis in tracks_and_values %}
 <script>
-var chart = Highcharts.chart("container_{{tra.id}}", {
+var chart = Highcharts.chart("container-{{tra.id}}", {
 	title: {
 		text: "Tracks 【{{tra.name}}】 of Variable 【{{variable.name}}】"
 	},

@@ -47,7 +47,7 @@ def copy_exp(request , experiment_id):
 	project = experiment.group.project
 
 	if request.POST:
-		config_name = request.POST.get("config_name")
+		config_name = request.POST.get("chosen-config")
 	else:
 		raise Http404
 	

@@ -123,7 +123,7 @@
 				<td>
 					<a class = "content-a layui-icon" href = "/experiment/{{exp_id}}/logs">&#xe621;</a>
 					<a class = "content-a layui-icon" href = "/experiment/{{exp_id}}/figures">&#xe64a;</a>
-					<a class = "content-a layui-icon" href = "javascript:void(0)" onclick = "javascript:copy_expe({{exp_id}})">&#xe656;</a>
+					<a class = "content-a layui-icon" href = "javascript:void(0)" onclick = "javascript:copy_expe('{{exp_id}}')">&#xe656;</a>
 					<div 
 						my-exp-id = {{exp_id}}
 						class = "
@@ -165,10 +165,12 @@
 <script src = {% static "/experiment/js/utils.js" %}></script>
 <script src = {% static "/experiment/js/group/save_and_load.js" %}></script>
 <script src = {% static "/experiment/js/group/toolbar_events.js" %}></script>
+<script src = {% static "/experiment/js/group/copy_experiment.js" %}></script>
 
 <script src = {% static "/experiment/js/group/group.js" %}></script>
 
+
+
 <!--创建新实验-->
 <!--
-{% include "experiment/group/copy_expe.html" %}
 -->

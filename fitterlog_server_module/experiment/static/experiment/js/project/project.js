@@ -75,57 +75,8 @@ var app = new Vue({
 				})
 			});
 		},
-
-		/*** 新建实验的弹出层 ***/
-		layer_submit_create: function (){
-			/*生成一次实验*/
-
-			my_post(create_expe_url , {
-				"chosen-config": $(".config-manu option:selected").val() //选中的设置文件
-			})
-		},
-
-		layer_get_config_manu: function(){
-			//从configs列表，生成下拉菜单
-			var s = ""
-			for(let f of this.config_files)
-				s += `<option value = "${f}">${f}</option>`
-
-			return `<div class = "layui-input-block config-manu"><select>${s}</select></div>`
-		},
-
-		layer_create_ask: function(){
-			let me = this
-			layui.use("layer", function(){
-				var layer = layui.layer;
-
-				layer.open({
-					title: "<p class='title-text'>新建实验</p>" , 
-					content: `
-						${me.layer_get_config_manu()}
-						<a 
-							class = "layui-icon create-button" title = "创建"
-							href = "javascript:void(0)" onclick = "javascript:app.layer_submit_create()"
-						>&#xe624;</a>	
-
-						<a 
-							class = "layui-icon layui-layer-close layui-layer-close1 my-close" 
-							title = "关闭窗口"
-						>&#x1006;</a>
-					` , 
-					skin: "my-skin create-layer",
-					btn: [],
-					resize: false,
-					closeBtn: 0,
-					shade: 0,
-					id: "layer-create",
-					area: ["300px" , "100px"],
-					minWidth: 0,
-
-					//success : on_layer_done,
-				});
-			});
-
+		layer_create_expe: function(){
+			return layer_create_ask(this.config_files , create_expe_url) //在utils里面定义的新建实验功能
 		},
 	},
 })
