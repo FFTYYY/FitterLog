@@ -9,39 +9,53 @@ from ...utils.permission import check_permission
 from ..displays import ask_login
 
 def type2str(type):
-	base_types = {
-		int : "int" , 
-		str : "str" , 
-		float : "float" , 
-		list : "list" , 
-		dict : "dict" , 
-	}
-	if type in base_types:
-		return base_types[type]
+	if hasattr(type , "name"):
+		return type.name
+	return "unknown"
 
-	if "function" in str(type):
-		return "function"
-	if "class" in str(type):
-		return "class"
-	return "others"
+def get_val(exp , name , default = ""):
+	var = exp.variables.filter(name = name)
+	if len(var) <= 0:
+		return str(default)
+	var = var[0]
 
+	trk = var.tracks.filter(name = "default")
+	if len(trk) < 0:
+		return str(default)
+	trk = trk[0]
 
-def experiment_to_create(request , project_id):
+	return trk.values.latest("time_stamp").value
+
+def experiment_to_create(request , project_id = None, experiment_id = None):
 	'''新建实验的界面'''
+
+	# 要求权限
 	if not check_permission(request):
 		return ask_login(request)
 
-	project = Project.objects.get(id = project_id)
+	# 至少要有一个参数
+	if project_id is None and experiment_id is None:
+		raise Http404
 
+	# 获取对象
+	if experiment_id is not None:
+		experiment = Experiment.objects.get(id = experiment_id)
+		project = experiment.group.project
+	else:
+		project = Project.objects.get(id = project_id)
+
+	# 获取config文件名
 	if request.POST:
 		config_name = request.POST.get("chosen-config")
 	else:
 		raise Http404
 	
+	# 获取config文件
 	target_file = os.path.join(project.path , config_name)
 	if not os.path.exists(target_file):
 		raise Http404
 
+	# 运行config文件，获取argprox对象
 	nspace = {}
 	with open(target_file , "r") as fil:
 		config_content = fil.read()
@@ -49,14 +63,22 @@ def experiment_to_create(request , project_id):
 	exec(config_content , nspace)
 	argprox = nspace["get_arg_proxy"]()
 
-	args = [ [type2str(x.type) , x.name , x.default] for x in argprox.args]
+	# 决定各种参数
+	if experiment_id is not None: # 复制实验
+		args = [ [type2str(x.type) , x.name , get_val(experiment , x.name , x.default).strip()] 
+					for x in argprox.args]
+		last_page_path = "/group/{0}".format(experiment.group.id)
+	else: #使用默认值
+		args = [ [type2str(x.type) , x.name , x.default] for x in argprox.args]
+		last_page_path = "/project/{0}".format(project.id)
 
+	# 返回的上下文
 	context = {
 		"args" : args , 
 		"project" : project , 
 		"config_file": target_file , 
 		"config_name": config_name , 
-		"last_page_path": "/project/{0}".format(project.id)
+		"last_page_path": last_page_path,
 	}
 
 	return render(request , get_path("project/create/experiment_create") , context)

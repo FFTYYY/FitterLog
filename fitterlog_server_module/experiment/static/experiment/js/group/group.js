@@ -36,7 +36,7 @@ function ontabledone(){
 	remove_panel_title()
 	process_state()
 
-	setInterval( process_state , 200) //反复变换颜色
+	//setInterval( process_state , 200) //反复变换颜色
 
 	layui.soulTable.render(this)
 	the_table = this

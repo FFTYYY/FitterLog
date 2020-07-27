@@ -8,8 +8,6 @@ function save_config(table)
 		if(editable_val[i] == "")
 			editable_val[i] = " "
 	}
-	console.log(editable_id)
-	console.log(editable_val)
 	var sep_token = "__FITTERLOG__SEP__"
 	data = {
 		hide_columns: get_hide_headers().join(sep_token) , 
