@@ -9,7 +9,7 @@ def append_ids(the_ids , heads , lines , styles , hidden_heads = []):
 	heads = ["id"] + heads
 	lines = [ 
 
-		[ ( rand_num() , the_ids[i] , "id") ] # (第一个元素是随便加的)
+		[ ( rand_num() , the_ids[i] , 0) ] # (第一个元素是随便加的)
 		+ lines[i]  
 		for i in range(len(lines))
 	] 
@@ -76,17 +76,22 @@ def experiment_list_to_str_list(expe_lis , hidden_heads = [] , hidden_ids = [] ,
 			if len( track.values.all() ) <= 0: #如果track没有变量，也跳过
 				continue
 				
-			value_map[varia.name] = ( # value的每个元素是 (变量id，变量的值，变量的名)
+			value_map[varia.name] = [ # value的每个元素是 (变量id，变量的值，变量的名)
 				varia.id ,  
 				track.values.latest("time_stamp").value , #找到这个track最新的一个变量
-				varia.name ,
-			)
+				0 , 	#是否可编辑
+			]
 
 			# 只要有一个元素可编辑，就整列可编辑
 			if varia.editable:
-				editable[varia.name] = True
+				editable[varia.name] = 1
 		heads.update(value_map)
 		values.append(value_map)
+
+	# 修改可编辑属性
+	for value_map in values:
+		for h in value_map:
+			value_map[h][2] = editable.get(h , 0)
 
 	# 获得 head 的排列顺序
 	heads = get_head_reorder(list(heads) , show_order)
@@ -95,7 +100,7 @@ def experiment_list_to_str_list(expe_lis , hidden_heads = [] , hidden_ids = [] ,
 	for i , exp in enumerate(expe_lis):
 		this_line = []
 		for h in heads:
-			this_line.append( values[i].get(h , (rand_num() , "-" , h) ) )
+			this_line.append( values[i].get(h , (rand_num() , "-" , editable.get(h , 0))))
 		lines.append(this_line)
 
 	# 决定head的style
@@ -103,8 +108,8 @@ def experiment_list_to_str_list(expe_lis , hidden_heads = [] , hidden_ids = [] ,
 	for i in range(len(heads)):
 		if heads[i] in hidden_heads: # 前端点击隐藏的
 			styles[i] += "hide: true,"
-		if editable.get(heads[i] , False):
-			styles[i] += "edit: 'text',"
+		# if editable.get(heads[i] , False):
+		# 	styles[i] += "edit: 'text',"
 
 	# 把id列添加进去
 	ids = [exp.id for exp in expe_lis]

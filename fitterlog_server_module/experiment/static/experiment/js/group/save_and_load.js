@@ -25,8 +25,8 @@ function get_show_headers() {
 function get_editable_values(){
 	editable_ids = []
 	editable_vals = []
-	$("td[data-edit='text']").each(function(){
-		var my_id = $(this).find(".id-teller").attr("my-id")
+	$(".layui-table-cell .editable-input").each(function(){
+		var my_id = $(this).siblings(".id-teller").attr("my-id")
 		var my_val = $(this).val()
 		editable_ids.push(my_id)
 		editable_vals.push(my_val)

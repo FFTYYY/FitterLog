@@ -55,11 +55,16 @@
 .layui-table-main td .layui-table-cell {
 	background-color: inherit !important;
 	color: inherit !important;
+	padding: 0 !important;
 
 	transition: 0.5s !important;	
 	transition-timing-function: ease-out !important;
-
 }
+
+.layui-table-main td span {
+	color: inherit !important;
+}
+
 
 /*** 变量编辑框 ***/
 .layui-table-edit {
@@ -69,13 +74,3 @@
 	border: 1px solid #D8D8D8FF !important;
 }
 
-/*** 右侧按钮 ***/
-.content-a {
-	color: #D8D8D8FF !important;
-	top: 0;
-	height: 100%;
-	width: 7%;
-	margin-right: 1%;
-	margin-left: 1%;
-	text-align: center;
-}

@@ -94,5 +94,5 @@ layui.use(["table" , "soulTable"] , function(){
 	table.on("sort", function() {
 		layui.soulTable.render(the_table) //重新渲染soul-table，否则会失去右键菜单
 	})
-});
+})
 

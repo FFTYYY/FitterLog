@@ -1,3 +1,14 @@
+.editable-input{
+	width: 96%;
+	left: 2%;
+	text-align: center;
+	color: inherit;
+	background-color: inherit;
+
+}
+
+
+/*** 右侧按钮 ***/
 .content-a {
 	color: #D8D8D8FF !important;
 	top: 0;
