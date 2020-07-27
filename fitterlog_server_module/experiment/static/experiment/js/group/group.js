@@ -9,8 +9,8 @@ function copy_expe(exp_id){ //创建新实验
 function process_state(){//根据状态划分不同的行颜色
 	
 	//先找到bad-exp，然后向上找到对应的tr，把中间一串元素的颜色全部改掉
-	$(".bad-experiment").parentsUntil("tr").css("cssText" , "background-color: #9C0B56FC !important")
-	$(".running-experiment").parentsUntil("tr").css("cssText" , "background-color: #3D3D3D !important")
+	$(".bad-experiment").parentsUntil("tr").css("cssText" , "background-color: #9C0B56FC")
+	$(".running-experiment").parentsUntil("tr").css("cssText" , "background-color: #3D3D3D")
 }
 
 
@@ -36,8 +36,6 @@ function ontabledone(){
 	remove_panel_title()
 	process_state()
 
-	//setInterval( process_state , 200) //反复变换颜色
-
 	layui.soulTable.render(this)
 	the_table = this
 }
@@ -54,6 +52,7 @@ layui.use(["table" , "soulTable"] , function(){
 		skin: "row" , 
 		height: "full-0" , 
 		done: ontabledone , 
+		drag: "simple",
 
 		//工具栏
 		toolbar: true , 
@@ -93,6 +92,7 @@ layui.use(["table" , "soulTable"] , function(){
 
 	table.on("sort", function() {
 		layui.soulTable.render(the_table) //重新渲染soul-table，否则会失去右键菜单
+		process_state() //重新修改行的颜色
 	})
 })
 
