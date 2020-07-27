@@ -1,0 +1,22 @@
+
+<script>
+	var series = [
+		{% for tra , lis in tracks_and_values%}
+		{
+			tra_id: "{{tra.id}}" , 
+			name: "{{tra.name}}",
+			data: [
+				{% for t , v in lis %}
+					[{{t}} , {{v}}] , 
+				{% endfor %}
+			]
+		} , 
+		{% endfor %}
+	]
+
+	make_all_cont("{{variable.name}}" , series)
+	for(var g of series){
+		make_chart(g.tra_id , g.name , "{{variable.name}}" , g.data)
+	}
+
+</script>

@@ -1,11 +1,14 @@
 {% load static %}
 
 <head>
+	<!-- Layui -->
 	<script src = {% static "/layui/layui.js" %}></script>
-	<script src="https://cdn.bootcdn.net/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-
 	<link rel = "stylesheet" href = {% static "/layui/css/layui.css" %} type = "text/css" />
 
+	<!-- 其他库 -->
+	<script src="https://cdn.bootcdn.net/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+
+	<!-- 样式 -->
 	<link rel = "stylesheet" href = {% static "/experiment/css/experiment/figures.css" %} type = "text/css" />
 
 </head>
@@ -42,11 +45,12 @@
 
 </body>
 
+<!-- 启用tab栏扩展 -->
 <script>
-	layui.use('element', function(){});
+	layui.use("element", function(){});
 </script>
 
-<script>
+<script> //决定图片位置位置
 
 	function adapt_position() { //动态调整位置
 		$("img").each(function(){
@@ -57,6 +61,4 @@
 
 	adapt_position()
 	setInterval(adapt_position , 100) //不断调整位置
-
-
 </script>

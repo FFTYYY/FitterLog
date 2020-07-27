@@ -1,12 +1,15 @@
 {% load static %}
 
 <head>
+	<!-- Layui -->
 	<link rel = "stylesheet" href = {% static "/layui/css/layui.css" %} type = "text/css" />
 	<script src = {% static "/layui/layui.js" %}></script>
 
+	<!-- highcharts -->
 	<script src = "{% static "Highcharts/highcharts.src.js" %} "></script>
 	<script src = "{% static "Highcharts/themes/dark-unica.js" %} "></script>
 
+	<!-- 样式 -->
 	<link rel = "stylesheet" href = {% static "/experiment/css/variable/variable.css" %} type = "text/css" />
 
 </head>
@@ -46,8 +49,12 @@
 
 </body>
 
-{% include "experiment/variable/charts.html" %}
 
+<!-- 启用layui的tab栏 -->
 <script>
-	layui.use('element', function(){});
+	layui.use("element", function(){});
 </script>
+
+<!-- 脚本 -->
+<script src = "{% static "experiment/js/variable/charts.js" %} "></script>
+{% include "./scripts.html" %}
