@@ -26,6 +26,27 @@ def new_or_load_experiment(group_id = None, group_name = None, project_id = None
 
 	return new_exp
 
+def new_or_load_expr_from_cmd(arg_prx , args = None , force_new = False):
+	'''从命令行参数直接创建实验。如果已经创建过，就直接返回刚刚创建的那个实验
+	
+	参数：
+		arg_prx：超参数代理
+		args：命令行参数列表。默认使用sys.args
+		force_new：如果为True，则强制创建新实验。默认为False。
+	'''
+	global this_experiment
+	if this_experiment is not None:
+		if not force_new:
+			return this_experiment
+
+	C = arg_prx.assign_from_cmd(args)
+
+	new_exp = Experiment(group_name = C.fitter_group, project_name = C.fitter_project)
+	new_exp.use_argument_proxy(arg_prx , args)
+	this_experiment = new_exp
+
+	return new_exp
+
 
 class Experiment:
 	def __init__(self , group_id = None, group_name = None, project_id = None, project_name = None):

@@ -16,10 +16,13 @@ class ArgProxy:
 		self.args = []
 		self.name2arg = {}
 
+		self.add_argument("fitter_project" , String , default = "default")
+		self.add_argument("fitter_group" , String , default = "default")
+
 	def process_name(self , name):
 		return name.strip().replace(" " , "_")
 
-	def add_argument(self , name , type = str , default = None , editable = False):
+	def add_argument(self , name , type = String , default = None , editable = False):
 		name = self.process_name(name)
 		arg = Argument(name , type , default , editable = editable)
 		self.args.append(arg)
