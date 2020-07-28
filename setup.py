@@ -29,6 +29,7 @@ setup(
 	install_requires				 	= reqs.strip().split("\n"),
 	entry_points			= {"console_scripts": [
 		"fitterlog-start-server=fitterlog_server_module.start_server:run" ,
+		"fitterlog-init=fitterlog_server_module.start_server:migrate" ,
 	]},
 
 	include_package_data = True ,
