@@ -73,10 +73,10 @@
 	<div class = "content">
 
 		<div class = "left-part">
-			<input class = "left-inp to-save" name = "__prefix"  value = "" placeholder = "前缀"></input>
-			<input class = "left-inp to-save" name = "__command" value = "python" placeholder = "命令"></input>
-			<input class = "left-inp to-save" name = "__file"    value = "main.py" placeholder = "主文件"></input>
-			<input class = "left-inp to-save" name = "__suffix"  value = "" placeholder = "后缀"></input>
+			<input class = "left-inp to-save" name = "__prefix"  value = "{{project.config.cmd_pref}}" placeholder = "前缀"></input>
+			<input class = "left-inp to-save" name = "__command" value = "{{project.config.cmd_comm}}" placeholder = "命令"></input>
+			<input class = "left-inp to-save" name = "__file"    value = "{{project.config.cmd_entr}}" placeholder = "主文件"></input>
+			<input class = "left-inp to-save" name = "__suffix"  value = "{{project.config.cmd_suff}}" placeholder = "后缀"></input>
 		</div>
 
 

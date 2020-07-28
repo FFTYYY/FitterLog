@@ -14,6 +14,7 @@ def project(request , project_id):
 		return ask_login(request)
 
 	project = Project.objects.get(id = project_id)
+	project.checkconfig()
 
 	groups = group_sort(project.groups.all())
 	inform = get_num_exp(groups) 
@@ -45,8 +46,8 @@ def project_save_config(request , project_id):
 	if not check_permission(request):
 		return ask_login(request)
 
-
 	project = Project.objects.get(id = project_id)
+	project.checkconfig()
 
 	if request.POST:
 		for name in request.POST:
@@ -58,7 +59,17 @@ def project_save_config(request , project_id):
 			if name == "project-path":
 				project.path = content
 			if name == "config-files":
-				project.config_files = content
+				project.config.config_files = content
+
+			if name == "cmd-pref":
+				project.config.cmd_pref = content
+			if name == "cmd-comm":
+				project.config.cmd_comm = content
+			if name == "cmd-entr":
+				project.config.cmd_entr = content
+			if name == "cmd-suff":
+				project.config.cmd_suff = content
+
 			if name.startswith("group-intro-"):
 				grp_id = int(name.split("group-intro-")[1])
 				grp = ExperimentGroup.objects.get(id = grp_id)

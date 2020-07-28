@@ -14,6 +14,11 @@ var app = new Vue({
 
 		config_files: [],
 		config_str: "",
+
+		cmd_pref: "",
+		cmd_comm: "",
+		cmd_entr: "",
+		cmd_suff: "",
 	}},
 
 	methods:{
@@ -26,7 +31,10 @@ var app = new Vue({
 				data[$(this).attr("name")] = $(this).val()
 			})
 			data["config-files"] = this.config_files.join(sep_token) //添加项目设置文件config
-
+			data["cmd-pref"] = this.cmd_pref
+			data["cmd-comm"] = this.cmd_comm
+			data["cmd-entr"] = this.cmd_entr
+			data["cmd-suff"] = this.cmd_suff
 			my_post(save_config_url , data)
 		},
 
@@ -86,7 +94,6 @@ var app = new Vue({
 		},
 		/*** 超参数搜索的弹出层 ***/
 		layer_search: function(){
-			let me = this
 			layui.use("layer", function(){
 				var layer = layui.layer
 
@@ -120,6 +127,54 @@ var app = new Vue({
 					//success : on_layer_done,
 				})
 			})
+		},
+		/*** 设置默认命令的弹出层 ***/
+		layer_update_cmd: function(){
+			this.cmd_pref = $(".pref-input").val()
+			this.cmd_comm = $(".comm-input").val()
+			this.cmd_entr = $(".entr-input").val()
+			this.cmd_suff = $(".suff-input").val()
+			console.log(this.cmd_pref)
+		},
+
+		layer_set_cmd: function(){
+			let me = this
+			layui.use("layer", function(){
+				var layer = layui.layer
+
+				layer.open({
+					title: "<p class='title-text'>设置默认命令</p>" , 
+					content: `
+						<input class = "set-cmd-input Y-color-dark pref-input"  type = "text" autocomplete = "off"
+							  placeholder = "前缀" value = "${me.cmd_pref}"
+						/>
+						<input class = "set-cmd-input Y-color-dark comm-input"  type = "text" autocomplete = "off"
+							  placeholder = "命令" value = "${me.cmd_comm}"
+						/>
+						<input class = "set-cmd-input Y-color-dark entr-input"  type = "text" autocomplete = "off"
+							  placeholder = "入口" value = "${me.cmd_entr}"
+						/>
+						<input class = "set-cmd-input Y-color-dark suff-input"  type = "text" autocomplete = "off"
+							  placeholder = "后缀" value = "${me.cmd_suff}"
+						/>
+
+						<a 
+							class = "layui-icon layui-layer-close layui-layer-close1 my-close" 
+							onclick = "javascript:app.layer_update_cmd()" title = "关闭窗口"
+						>&#x1006;</a>
+					` , 
+					skin: "my-skin set-cmd-layer",
+					resize: false,
+					closeBtn: 0,
+					shade: 0,
+					btn: [],
+					id: "layer-set-cmd",
+
+					area: ["300px" , "130px"],
+					//success : on_layer_done,
+				})
+			})
+
 		},
 
 	},

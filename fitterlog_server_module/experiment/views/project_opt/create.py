@@ -43,6 +43,7 @@ def experiment_to_create(request , project_id = None, experiment_id = None):
 		project = experiment.group.project
 	else:
 		project = Project.objects.get(id = project_id)
+	project.checkconfig()
 
 	# 获取config文件名
 	if request.POST:

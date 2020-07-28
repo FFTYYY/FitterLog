@@ -48,3 +48,15 @@
 	color: #333333FF !important;
 	background-color: #E5E5E5FF !important;
 }
+
+/*** 设置默认命令 ***/
+.set-cmd-layer .set-cmd-input{
+	position: relative;
+	color: #E5E5E5FF;
+	left: 5%;
+	margin-top: 5px !important;
+	width: 70%;
+	height: 16px;
+	line-height: 16px;
+	padding: 0;
+}

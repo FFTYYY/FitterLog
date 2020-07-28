@@ -16,7 +16,12 @@
 			"{{config}}",
 		{% endfor %}
 	]
-	app.config_str = app.config_files.join("\n");
+	app.config_str = app.config_files.join("\n")
+
+	app.cmd_pref = "{{project.config.cmd_pref}}"
+	app.cmd_comm = "{{project.config.cmd_comm}}"
+	app.cmd_entr = "{{project.config.cmd_entr}}"
+	app.cmd_suff = "{{project.config.cmd_suff}}"
 </script>
 
 

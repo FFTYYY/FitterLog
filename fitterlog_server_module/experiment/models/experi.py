@@ -1,7 +1,7 @@
 from django.db import models
 from ..utils.constants import short_name_len , path_len
 from ..utils.str_opt import seped_list2s , seped_s2list
-from .configs import GroupConfig
+from .configs import GroupConfig , ProjectConfig
 
 class Project(models.Model):
 	'''一个项目
@@ -9,10 +9,32 @@ class Project(models.Model):
 	name = models.CharField(max_length = short_name_len , unique = True)
 	path = models.CharField(max_length = path_len)
 	intro = models.TextField(default = "")
-	config_files = models.TextField(default = "")
+	config = models.OneToOneField(ProjectConfig , on_delete = models.SET_NULL , null = True)
 
 	def __str__(self):
 		return self.name
+
+	def checkconfig(self):
+		if self.config is None:
+			self.config = ProjectConfig()
+			self.config.save()
+			self.save()
+
+	def save(self):
+		self.checkconfig()
+		self.config.save()
+		return super().save()
+
+	@property
+	def config_files(self):
+		self.checkconfig()
+		return self.config.config_files
+
+	@config_files.setter
+	def config_files(self , v):
+		self.checkconfig()
+		self.config.config_files = v
+	
 
 class Experiment(models.Model):
 	'''一次实验
