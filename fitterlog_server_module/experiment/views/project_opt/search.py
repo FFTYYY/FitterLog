@@ -4,6 +4,7 @@ from ...models import Project
 from ..base import get_path
 import os
 from fitterlog_cmd.cmd_start import run_a_experiment
+from fitterlog_cmd.experiment_prox import expe_prox_cpu , expe_prox_torch
 from ...utils.permission import check_permission
 from ..displays import ask_login
 import copy
@@ -47,14 +48,23 @@ def hyper_search(request , project_id):
 		search_content = fil.read()
 
 	exec(search_content , nspace)
-	comm ,  main_file , cfg_file , search_space = nspace["get_search_space"]()
+	d = nspace["get_search_space"]()
+	comm 		= d["command"]
+	main_file	= d["entry_file"]
+	cfg_file 	= d["config_file"]
+	is_torch 	= d["is_torch"]
+	space 		= d["space"]
 
 	#遍历搜索空间
-	namelist = list(search_space)
-	args = dfs(search_space , namelist , 0 , {})
+	args = dfs(space , list(space) , 0 , {})
+
+	if is_torch:
+		prox = expe_prox_torch
+	else:
+		prox = expe_prox_cpu
 
 	for arg in args:
-		run_a_experiment(
+		prox.add_task(
 			path 		= project.path , 
 			config_name = cfg_file , 
 			values 		= arg, 

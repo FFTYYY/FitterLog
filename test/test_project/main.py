@@ -98,3 +98,5 @@ E.add_line("----after finish----")
 E.add_line("start  : {0}".format(E.core.start_time))
 E.add_line("end    : {0}".format(E.core.end_time))
 E.add_line("state  : {0}".format(E.core.sql_obj.state))
+
+sys.stderr.write("Im done.\n")

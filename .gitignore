@@ -7,3 +7,4 @@ fitterlog.egg-info/*
 *.lnk
 dist/*
 fitterlog_server_module-old/
+sftp-config.json

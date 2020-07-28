@@ -161,7 +161,7 @@ var app = new Vue({
 						<a 
 							class = "layui-icon layui-layer-close layui-layer-close1 my-close" 
 							onclick = "javascript:app.layer_update_cmd()" title = "关闭窗口"
-						>&#x1006;</a>
+						>&#xe605;</a>
 					` , 
 					skin: "my-skin set-cmd-layer",
 					resize: false,
