@@ -27,6 +27,7 @@
 	<link rel = "stylesheet" href = {% static "/experiment/css/project/header.css" %} type = "text/css" />
 	<link rel = "stylesheet" href = {% static "/experiment/css/project/layer.css" %} type = "text/css" />
 	<link rel = "stylesheet" href = {% static "/experiment/css/layer-skin.css" %} type = "text/css" />
+	<link rel = "stylesheet" href = {% static "/experiment/css/utils.css" %} type = "text/css" />
 
 </head>
 
@@ -92,6 +93,10 @@
 				<y-button class = "button Y-text-center layui-icon" @y-button-click.self = "layer_add_cfgfile()"
 						  title = "设置config文件">
 					&#xe6b2;
+				</y-button>
+				<y-button class = "button Y-text-center layui-icon" @y-button-click.self = "layer_search()"
+						  title = "超参数搜索">
+					&#xe714;
 				</y-button>
 
 			</div>

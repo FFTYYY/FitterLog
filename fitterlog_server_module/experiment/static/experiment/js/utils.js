@@ -56,7 +56,7 @@ function layer_create_ask(config_files , create_url){
 				<a 
 					class = "layui-icon create-button" title = "创建"
 					href = "javascript:void(0)" onclick = "javascript:layer_submit_create('${create_url}')"
-				>&#xe624;</a>	
+				>&#xe624;</a>
 
 				<a 
 					class = "layui-icon layui-layer-close layui-layer-close1 my-close" 

@@ -52,7 +52,10 @@ layui.use(["table" , "soulTable"] , function(){
 		skin: "row" , 
 		height: "full-0" , 
 		done: ontabledone , 
-		drag: "simple",
+		drag: {
+			type: "simple" , 
+			toolbar: true , 
+		},
 
 		//工具栏
 		toolbar: true , 

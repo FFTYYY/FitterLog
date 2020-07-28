@@ -1,0 +1,58 @@
+/*** 创建实验的layer样式 ***/
+
+/*新建实验页面里的关闭按钮*/
+.create-layer{ /*设置最小宽度*/
+	min-width: 0px !important;
+}
+
+#layer-create .my-close{
+	top: 20px !important;
+
+}
+
+.create-button{
+	position: absolute;
+	color: #E5E5E5FF;
+	background-color: inherit;
+	left: 82%;
+	top: 20px;
+	width: 16px;
+	height: 16px;
+	line-height: 16px;
+}
+
+.create-button:hover{
+	color: #333333FF !important;
+	background-color: #E5E5E5FF !important;
+}
+
+.config-manu{
+	position: absolute;
+	color: #E5E5E5FF;
+	background-color: inherit;
+	left: 5%;
+	top: 20px;
+	width: 70%;
+	height: 16px;
+	line-height: 16px;
+	padding: 0;
+	margin: 0;
+}
+
+.config-manu select{
+	background-color: #383838FF;
+	color: #E5E5E5FF;
+
+}
+.config-manu select:hover{
+	background-color: #161616FF;
+}
+
+.config-manu option{
+	background-color: #5E5E5EFF;
+	color: #E5E5E5FF;
+}
+
+.my-skin .layui-layer-content{
+	overflow: hidden !important;
+}

@@ -9,8 +9,10 @@ from tqdm import tqdm
 import time
 import matplotlib.pyplot as plt
 
+C = get_arg_proxy().assign_from_cmd()
+
 with Timer("new experiment"):
-	E = new_or_load_experiment(project_name = "hahahaha" , group_name = "infotest")
+	E = new_or_load_experiment(project_name = "hahahaha" , group_name = C.group)
 
 with Timer("apply args"):
 	E.use_argument_proxy( get_arg_proxy() )

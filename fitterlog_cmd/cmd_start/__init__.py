@@ -11,7 +11,6 @@ def run_a_experiment(path , config_name , values ,
 		values: dict。 名-值字典。
 	'''
 
-	print (os.path.join(path , config_name))
 	argprox = read_config(os.path.join(path , config_name))
 
 	cmds = []

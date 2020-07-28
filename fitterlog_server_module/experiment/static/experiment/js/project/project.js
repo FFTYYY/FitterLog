@@ -1,5 +1,10 @@
 /*project页面主程序*/
 
+function start_search(){
+	var search_file = $(".search-name-input").val()
+	my_post(hyper_search_url , {"search-space" : search_file})
+}
+
 var app = new Vue({
 	delimiters: ["[[", "]]"],
 	el: "#main",
@@ -70,13 +75,52 @@ var app = new Vue({
 					btn: [],
 					id: "layer-config",
 
-					area: ['300px' , '150px'],
+					area: ["300px" , "150px"],
 					//success : on_layer_done,
 				})
-			});
+			})
 		},
+		/*** 新建实验的弹出层 ***/
 		layer_create_expe: function(){
 			return layer_create_ask(this.config_files , create_expe_url) //在utils里面定义的新建实验功能
 		},
+		/*** 超参数搜索的弹出层 ***/
+		layer_search: function(){
+			let me = this
+			layui.use("layer", function(){
+				var layer = layui.layer
+
+				layer.open({
+					title: "<p class='title-text'>输入搜索空间文件</p>" , 
+					content: `
+						<input 
+							type 			= "text" 
+							class 			= "search-name-input Y-color-dark" 
+							placeholder 	= "空间定义文件名"
+							autocomplete 	= "off"
+						/>
+						<a 
+							class = "layui-icon search-button" title = "开始"
+							href = "javascript:void(0)" onclick = "javascript:start_search()"
+						>&#xe624;</a>	
+
+						<a 
+							class = "layui-icon layui-layer-close layui-layer-close1 my-close" 
+							title = "关闭窗口"
+						>&#x1006;</a>
+					` , 
+					skin: "my-skin search-layer",
+					resize: false,
+					closeBtn: 0,
+					shade: 0,
+					btn: [],
+					id: "layer-search",
+
+					area: ["300px" , "100px"],
+					//success : on_layer_done,
+				})
+			})
+		},
+
 	},
 })

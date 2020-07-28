@@ -12,6 +12,7 @@ urlpatterns = [
 	path("project/<int:project_id>/save_config" 			, views.project_save_config),
 	path("project/<int:project_id>/create_experiment" 		, partial(views.experiment_to_create , experiment_id = None) ),
 	path("project/<int:project_id>/new_experiment" 			, views.new_experiment),
+	path("project/<int:project_id>/hyper_search" 			, views.hyper_search),
 
 	path("group/<int:group_id>" 							, views.group),
 	path("group/<int:group_id>/save_config" 				, views.group_save_config),
