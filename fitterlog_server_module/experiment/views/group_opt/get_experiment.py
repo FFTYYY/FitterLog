@@ -48,7 +48,14 @@ def get_expe_reorder(expe_lis , hidden_ids):
 
 	return expe_good + expe_bad
 
-def experiment_list_to_str_list(expe_lis , hidden_heads = [] , hidden_ids = [] , show_order = []):
+def experiment_list_to_str_list(
+		expe_lis , 
+		hidden_heads 	= [] , 
+		hidden_ids 		= [] , 
+		show_order 		= [] , 
+		fixed_left 		= [] , 
+		fixed_right 	= [] , 
+	):
 	'''输出前端需要的表格的各种信息
 	'''
 	heads = {}
@@ -108,6 +115,10 @@ def experiment_list_to_str_list(expe_lis , hidden_heads = [] , hidden_ids = [] ,
 	for i in range(len(heads)):
 		if heads[i] in hidden_heads: # 前端点击隐藏的
 			styles[i] += "hide: true,"
+		if heads[i] in fixed_left:
+			styles[i] += "fixed: 'left'"
+		if heads[i] in fixed_right:
+			styles[i] += "fixed: 'right'"
 		# if editable.get(heads[i] , False):
 		# 	styles[i] += "edit: 'text',"
 

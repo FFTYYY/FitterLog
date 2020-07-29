@@ -1,13 +1,24 @@
-function save_config(table) 
-{
+function save_config(table) {
+
+	/* 可编辑的值 */
 	var got = get_editable_values()
 	var editable_id = got[0]
 	var editable_val = got[1]
-	for(var i = 0;i < editable_val.length;i++)
-	{
+	for(var i = 0;i < editable_val.length;i++) {
 		if(editable_val[i] == "")
 			editable_val[i] = " "
 	}
+
+	var fixed_left = []
+	var fixed_right = []
+	/* 左右两侧的固定列 */
+	$(".layui-table-fixed-l .layui-table-header th span:not(.layui-table-sort)").each(function(){
+		fixed_left.push($(this).text()) //左侧固定
+	})
+	$(".layui-table-fixed-r .layui-table-header th span:not(.layui-table-sort)").each(function(){
+		fixed_right.push($(this).text()) //右侧固定
+	})
+
 	var sep_token = "__FITTERLOG__SEP__"
 	data = {
 		hide_columns: get_hide_headers().join(sep_token) , 
@@ -16,6 +27,8 @@ function save_config(table)
 		intro       : $(".group-intro").val() , 
 		editable_id : editable_id.join(sep_token) , 
 		editable_val: editable_val.join(sep_token) , 
+		fixed_left 	: fixed_left.join(sep_token) , 
+		fixed_right : fixed_right.join(sep_token) , 
 	}
 
 	my_post(save_config_url , data)

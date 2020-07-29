@@ -88,11 +88,6 @@ class ExperimentGroup(models.Model):
 		hide_ids = list(set(hide_ids))
 		self.config.hidden_ids = seped_list2s(hide_ids)
 
-	def add_show_order(self , s):
-		self.checkconfig()
-
-		self.config.show_order = s
-
 
 __all__ = [
 	"Project" , 

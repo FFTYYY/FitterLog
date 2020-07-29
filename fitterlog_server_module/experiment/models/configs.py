@@ -6,6 +6,8 @@ class GroupConfig(models.Model):
 	hidden_ids 	 = models.TextField(default = "")
 	show_order 	 = models.TextField(default = "")
 	hide_bad_exp = models.BooleanField(default = False)
+	fixed_left 	 = models.TextField(default = "" , null = True)
+	fixed_right  = models.TextField(default = "" , null = True)
 
 class ProjectConfig(models.Model):
 	config_files = models.TextField(default = "")

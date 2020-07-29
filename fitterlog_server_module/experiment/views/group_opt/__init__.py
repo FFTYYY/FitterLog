@@ -17,10 +17,12 @@ def group(request , group_id):
 	hide_heads = seped_s2list(group.config.hidden_heads)
 	hide_ids = [int(x) for x in seped_s2list(group.config.hidden_ids)]
 	show_order = seped_s2list(group.config.show_order)
+	fixed_left = seped_s2list(group.config.fixed_left)
+	fixed_right= seped_s2list(group.config.fixed_right)
 
 	# generate heads and rows
 	ids , heads , lines , styles = experiment_list_to_str_list( 
-					group.experiments.all() , hide_heads , hide_ids , show_order)
+					group.experiments.all() , hide_heads , hide_ids , show_order , fixed_left , fixed_right)
 	
 	lens = generate_len(heads , lines)
 	min_lens = [x//2 for x in lens]
@@ -61,6 +63,8 @@ def group_save_config(request , group_id):
 		hide_bad_exp = request.POST.get("hide_bad_exp")
 		editable_id  = request.POST.get("editable_id") 
 		editable_val = request.POST.get("editable_val") 
+		fixed_left	 = request.POST.get("fixed_left") 
+		fixed_right	 = request.POST.get("fixed_right") 
 
 		save_editables(editable_id , editable_val)
 
@@ -72,8 +76,10 @@ def group_save_config(request , group_id):
 		group.config.hide_bad_exp = hide_bad_exp
 		group.add_hide_cols(hide_columns)
 		group.add_hide_ids(hide_ids)
-		group.add_show_order(show_order)
 		group.intro = intro
+		group.config.show_order = show_order
+		group.config.fixed_left = fixed_left
+		group.config.fixed_right = fixed_right
 		group.save()
 
 	return HttpResponseRedirect("/group/%s" % (str(group_id)))
