@@ -40,19 +40,19 @@
 }
 
 /*** 单元格 ***/
-.layui-table-main td .layui-table-cell:hover::selection {
+td[data-field ^= "inner-"] .layui-table-cell:hover::selection {
 	background-color: #7F7F7FFF !important;
 	color: #D8D8D8FF!important;
 }
 
-.layui-table-main td .layui-table-cell:hover {
+td[data-field ^= "inner-"] .layui-table-cell:hover {
 	background-color: #D8D8D8FF !important;
 	color: #4C4C4CFF!important;
 
 	transition: 1s !important;
 	transition-timing-function: ease-out !important;
 }
-.layui-table-main td .layui-table-cell {
+td[data-field ^= "inner-"] .layui-table-cell {
 	background-color: inherit !important;
 	color: inherit !important;
 	padding: 0 !important;
@@ -61,7 +61,7 @@
 	transition-timing-function: ease-out !important;
 }
 
-.layui-table-main td span {
+td span {
 	color: inherit !important;
 }
 
