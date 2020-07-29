@@ -40,9 +40,11 @@
 }
 
 /*** 单元格 ***/
-td[data-field ^= "inner-"] .layui-table-cell:hover::selection {
+td[data-field ^= "inner-"] .layui-table-cell:hover *::selection {
 	background-color: #7F7F7FFF !important;
 	color: #D8D8D8FF!important;
+	transition: 1s !important;
+	transition-timing-function: ease-out !important;
 }
 
 td[data-field ^= "inner-"] .layui-table-cell:hover {
