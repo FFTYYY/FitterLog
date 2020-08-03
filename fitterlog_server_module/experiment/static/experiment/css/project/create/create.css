@@ -35,7 +35,7 @@
 	height: 5%;
 	width: 100%;
 
-	background-color: #666679;
+	/*background-color: #142536;*/
 }
 .middle p{
 	text-align: center;
@@ -51,7 +51,7 @@
 	height: 80%;
 	width: 100%;
 
-	background-color: #666679;
+	/*background-color: #666679;*/
 	
 }
 
@@ -101,7 +101,7 @@
 	height: 98%;
 	width: 1px;
 	text-align: center;
-	background-color: #FFFFFF;
+	background-color: #899999;
 
 }
 /*一条分隔线，把type和name分开。也不是行内元素，但是right_part内的元素*/
@@ -113,7 +113,7 @@
 	margin-top: 1%;
 	margin-bottom: : 1%;
 	text-align: center;
-	background-color: #FFFFFF;
+	background-color: #899999;
 
 }
 
@@ -150,7 +150,7 @@
 	width: 45%;
 	text-align: left;
 	color: #E0E0E0FF;
-	background-color: #4B4B57;
+	background-color: #414D56;
 }
 
 .left-inp{
@@ -162,6 +162,6 @@
 	text-align: left;
 	overflow: auto;
 	color: #E0E0E0FF;
-	background-color: #4B4B57;
+	background-color: #414D56;
 
 }

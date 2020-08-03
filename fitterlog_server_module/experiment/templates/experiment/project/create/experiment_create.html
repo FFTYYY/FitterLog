@@ -89,12 +89,18 @@
 			<div class = "inner-line"> </div>
 
 			{% for type , name , default in args%}
-			<div class = "arg-line"> 
-				<p class = "inner-type">{{type}}</p>
-				<p class = "inner-name">{{name}}</p>
-				<p class = "inner-eq">=</p>
-				<input class = "inner-default to-save" name = "{{name}}" value = "{{default}}"></input>
-			</div>
+
+			{% if type == "_FITTER_SPLITTER" %}
+				<div class = "inner-line"> </div>
+			{% else %}
+				<div class = "arg-line"> 
+					<p class = "inner-type">{{type}}</p>
+					<p class = "inner-name">{{name}}</p>
+					<p class = "inner-eq">=</p>
+					<input class = "inner-default to-save" name = "{{name}}" value = "{{default}}"></input>
+				</div>
+			{% endif %}
+
 			{% endfor %}
 		</div>
 

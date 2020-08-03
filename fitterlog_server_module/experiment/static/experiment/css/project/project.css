@@ -15,7 +15,7 @@ body{
 .header{
 	position: absolute;
 
-	background-color: #44444F;
+	background-color: #202930;
 	left: 0;
 	top: 0;
 	height: 15%;
@@ -29,7 +29,7 @@ body{
 	height: 85%;
 	width: 100%;
 
-	background-color: #666679;
+	background-color: #131E27;
 }
 
 .hidden{
@@ -48,5 +48,5 @@ p , input , textarea{
 
 ::-webkit-scrollbar-thumb:hover,
 ::-webkit-scrollbar-thumb:vertical:hover {
-	background-color: #52CB7CFF  !important;
+	background-color: #5E75AA  !important;
 }

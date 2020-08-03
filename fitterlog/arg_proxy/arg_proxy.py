@@ -4,7 +4,7 @@ from .types import *
 from YTools.universe import beautiful_str
 
 class Argument:
-	def __init__(self , name , type , default , editable):
+	def __init__(self , name , type , default , editable = False):
 		self.name = name
 		self.type = type 
 		self.default = default
@@ -18,9 +18,13 @@ class ArgProxy:
 
 		self.add_argument("fitter_project" , String , default = "default")
 		self.add_argument("fitter_group" , String , default = "default")
+		self.add_splitter()
 
 	def process_name(self , name):
 		return name.strip().replace(" " , "_")
+
+	def add_splitter(self , _ = ""):
+		self.args.append( Argument("" , FITTER_SPLITTER , None) )
 
 	def add_argument(self , name , type = String , default = None , editable = False):
 		name = self.process_name(name)
@@ -38,6 +42,9 @@ class ArgProxy:
 		C = argparse.ArgumentParser()
 
 		for arg in self.args:
+			if arg.type.name == "_FITTER_SPLITTER":
+				continue 
+
 			if arg.type == Bool:
 				C.add_argument("--%s" % arg.name , action = "store_true" , default = False)
 			else:

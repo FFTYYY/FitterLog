@@ -1,6 +1,6 @@
 class FitterType:
 
-	def __init__(self , name , func):
+	def __init__(self , func , name):
 		self.name = name
 		self.func = func
 
@@ -12,7 +12,10 @@ class FitterType:
 		return self.name
 
 
-Int 	= FitterType("Int" 		, int)
-Float 	= FitterType("Float" 	, lambda x: round(float(x) , 6))
-String 	= FitterType("String" 	, str)
-Bool 	= FitterType("Bool" 	, lambda x: x == "True" or x == "1" or x == "true")
+Int 	= FitterType(int 												, "Int"   )
+Float 	= FitterType(lambda x: round(float(x) , 6) 						, "Float" )
+String 	= FitterType(str 												, "String")
+Bool 	= FitterType(lambda x: x == "True" or x == "1" or x == "true" 	, "Bool"  )
+
+# 特殊类型，表示在前端放一根分隔线
+FITTER_SPLITTER = FitterType(lambda x: print("You should not see this."), "_FITTER_SPLITTER")

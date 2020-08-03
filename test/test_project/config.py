@@ -8,6 +8,8 @@ def get_arg_proxy():
 	arg_proxy.add_argument("n" , type = Int , default = 10)
 	arg_proxy.add_argument("info" , type = String , default = "" , editable = True)
 	arg_proxy.add_argument("lr" , type = Float , default = 0.1)
+	arg_proxy.add_splitter("-----------------------------------------------------------")
+
 	arg_proxy.add_argument("batch size" , type = Int , default = 32)
 	arg_proxy.add_argument("num_steps" , type = Float , default = 1000)
 	arg_proxy.add_argument("yyy" , type = Float , default = 0.23333)
