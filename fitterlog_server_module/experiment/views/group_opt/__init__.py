@@ -15,7 +15,7 @@ def group(request , group_id):
 	
 	# generate hiddens
 	hide_heads = seped_s2list(group.config.hidden_heads)
-	hide_ids = [int(x) for x in seped_s2list(group.config.hidden_ids)]
+	hide_ids = [int(x) for x in seped_s2list(group.config.hidden_ids) if x.isdigit()]
 	show_order = seped_s2list(group.config.show_order)
 	fixed_left = seped_s2list(group.config.fixed_left)
 	fixed_right= seped_s2list(group.config.fixed_right)

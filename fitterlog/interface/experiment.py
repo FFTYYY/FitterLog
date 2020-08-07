@@ -94,6 +94,8 @@ class Experiment:
 		'''
 		C = arg_prox.assign_from_cmd(args)
 		for arg in arg_prox.args:
+			if arg.type.name == "_FITTER_SPLITTER":
+				continue
 			self.new_variable(arg.name , arg.type , str(C.__dict__[arg.name]) , editable = arg.editable)
 
 	def new_figure(self , name):

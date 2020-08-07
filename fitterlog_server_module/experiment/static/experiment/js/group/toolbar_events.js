@@ -41,7 +41,7 @@ function hide_checked_rows(table) {
 
 	//把它们添加进集合
 	for(var x of checked_data)
-		deleted_ids.add( parseInt(x.id).toString())
+		deleted_ids.add( $(x["inner-id"]).filter(".id-teller").attr("my-exp-id") )
 
 	$("tr").each(function(){
 		var my_id = $(this).find(".id-teller").attr("my-exp-id") //找到id列对应的exp id
