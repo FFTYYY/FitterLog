@@ -61,7 +61,106 @@
 	</div>
 
 	<!-- 内容（表格）部分 -->
-	<div class = "content"><table lay-filter = "main-table" , id = "the-table" , lay-data = "{id:'the-table'}">		
+	<div class = "content"><table lay-filter = "main-table" , id = "the-table" , lay-data = "{id:'the-table'}">
+
+		<!-- 表格头部 -->
+		<thead>
+			<tr>
+				<th lay-data = "{
+					filed 	: '_checkbox' , 
+					type 	: 'checkbox' , 
+					width 	: 50 ,
+					fixed 	: 'left' ,
+					style: 'background-color: #363636; color: #AAAAAAFF;' , 
+				}"></th>
+
+				{% for head , width , min_width , ex_style in head_information %}
+				<th lay-data = "{
+					field	:'inner-{{head}}', 
+					width 	: {{width}} , 
+					minWidth: {{min_width}}, 
+					sort 	: true ,
+					align 	:'center', 
+					{{ex_style}}
+				}">{{head}}</th>
+
+				{% endfor %}
+
+				<th lay-data = "{
+					field 	: 'right', 
+					fixed 	: 'right', 
+					width 	: 100, 
+					align 	: 'center' , 
+					style 	: 'background-color: #363636; color: #AAAAAAFF;' , 
+				}"></th>
+			</tr> 
+		</thead>
+
+		<!-- 表格内容 -->
+		<tbody>
+
+			{% for state , exp_id , idx , line in line_information%}
+			<tr>
+				<td class = "{{idx}}"></td> <!--checkbox-->
+
+				{% for v_id , val , editable in line %}
+				<td>
+					{% if editable == 1 %}
+						<input 
+							class = "
+								Y-font-short
+								editable-input
+							"
+							value = "{{val}}"
+						/>
+					{% else %}
+						<span>{{val}}</span>
+					{% endif %}
+					<div 
+					my-exp-id = {{exp_id}} 
+					my-id = {{v_id}} 
+					class = "
+						id-teller
+						hidden 
+
+						{% if state == 3 %}
+							bad-experiment
+						{% elif state == 0 %}
+							running-experiment
+						{% endif %}
+
+						{% if editable == 1 %}
+							editable
+						{% endif %}
+					"
+					></div>
+				</td>
+				{% endfor %}
+
+				<td>
+					<a class = "content-a layui-icon" href = "/experiment/{{exp_id}}/logs">&#xe621;</a>
+					<a class = "content-a layui-icon" href = "/experiment/{{exp_id}}/figures">&#xe64a;</a>
+					<a class = "content-a layui-icon" href = "javascript:void(0)" onclick = "javascript:copy_expe('{{exp_id}}')">&#xe656;</a>
+					<div 
+						my-exp-id = {{exp_id}}
+						class = "
+							id-teller
+							hidden 
+
+							{% if state == 3 %}
+								bad-experiment
+							{% elif state == 0 %}
+								running-experiment
+							{% endif %}
+						"
+					></div>
+				</td>
+
+			</tr>
+			{% endfor %}
+
+		</tbody>
+		
 	</table></div>
 
 

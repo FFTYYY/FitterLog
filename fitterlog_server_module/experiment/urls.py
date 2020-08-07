@@ -16,6 +16,7 @@ urlpatterns = [
 
 	path("group/<int:group_id>" 							, views.group),
 	path("group/<int:group_id>/save_config" 				, views.group_save_config),
+	path("group/<int:group_id>/get_data" 					, views.get_data),
 
 	path("experiment/<int:experiment_id>" 					, views.experiment),
 	path("experiment/<int:experiment_id>/new_variable" 		, views.new_variable),
