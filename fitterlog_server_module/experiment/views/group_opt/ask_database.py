@@ -1,24 +1,24 @@
 from ...models import Variable , VariableTrack , SingleValue
 from ...utils.str_opt import seped_s2list , seped_list2s , seped_s2list_allow_empty
-from .utils import *
+from .utils import rand_num
 
-def append_ids(the_ids , heads , lines , styles , hidden_heads = []):
+def append_ids(the_ids , heads , lines , extras , hidden_heads = []):
 	'''为输出的表格添加id列'''
 	assert len(the_ids) == len(lines)
 
 	heads = ["id"] + heads
 	lines = [ 
 
-		[ ( rand_num() , the_ids[i] , 0) ] # (第一个元素是随便加的)
+		[ ( rand_num() , the_ids[i]) ] # (第一个元素是随便加的)
 		+ lines[i]  
 		for i in range(len(lines))
 	] 
-	styles = ["fixed: 'left', style: 'background-color: #363636; color: #AAAAAAFF;',"] + styles
+	extras = [{"fixed": "left"}] + extras
 
 	if "id" in hidden_heads:
-		styles[0] += "hide: true,"
+		extras["hide"] =  True
 
-	return heads , lines , styles
+	return heads , lines , extras
 
 def get_head_reorder(heads , show_order):
 	'''将head重排序为config中保存的顺序'''
@@ -58,11 +58,11 @@ def experiment_list_to_str_list(
 	):
 	'''输出前端需要的表格的各种信息
 	'''
-	heads = {}
-	values = []
-	lines = []
-	styles = []
-	editable = {}
+	heads 	= {}
+	values 	= []
+	lines 	= []
+	extras 	= []
+	editable = set()
 
 	# 获得要显示的实验列表
 	expe_lis = get_expe_reorder(expe_lis , hidden_ids)
@@ -86,19 +86,14 @@ def experiment_list_to_str_list(
 			value_map[varia.name] = [ # value的每个元素是 (变量id，变量的值，变量的名)
 				varia.id ,  
 				track.values.latest("time_stamp").value , #找到这个track最新的一个变量
-				0 , 	#是否可编辑
 			]
 
 			# 只要有一个元素可编辑，就整列可编辑
 			if varia.editable:
-				editable[varia.name] = 1
+				editable.add(varia.name)
+
 		heads.update(value_map)
 		values.append(value_map)
-
-	# 修改可编辑属性
-	for value_map in values:
-		for h in value_map:
-			value_map[h][2] = editable.get(h , 0)
 
 	# 获得 head 的排列顺序
 	heads = get_head_reorder(list(heads) , show_order)
@@ -107,26 +102,26 @@ def experiment_list_to_str_list(
 	for i , exp in enumerate(expe_lis):
 		this_line = []
 		for h in heads:
-			this_line.append( values[i].get(h , (rand_num() , "-" , editable.get(h , 0))))
+			this_line.append( values[i].get(h , (rand_num() , "-")))
 		lines.append(this_line)
 
-	# 决定head的style
-	styles = ["" for _ in range(len(heads))]
+	# 决定head的其余选项
+	extras = [{} for _ in range(len(heads))]
 	for i in range(len(heads)):
 		if heads[i] in hidden_heads: # 前端点击隐藏的
-			styles[i] += "hide: true,"
-		if heads[i] in fixed_left:
-			styles[i] += "fixed: 'left'"
-		if heads[i] in fixed_right:
-			styles[i] += "fixed: 'right'"
-		# if editable.get(heads[i] , False):
-		# 	styles[i] += "edit: 'text',"
+			extras[i]["hide"] = True
+		if heads[i] in fixed_left: # 固定左侧的
+			extras[i]["fixed"] = "left"
+		if heads[i] in fixed_right: # 固定右侧的
+			extras[i]["fixed"] = "right"
+		if heads[i] in editable:
+		 	extras[i]["editable"] = True
 
 	# 把id列添加进去
 	ids = [exp.id for exp in expe_lis]
-	heads , lines , styles = append_ids(ids , heads , lines , styles , hidden_heads)
+	heads , lines , extras = append_ids(ids , heads , lines , extras , hidden_heads)
 
-	return ids , heads , lines , styles
+	return ids , heads , lines , extras
 		
 
 

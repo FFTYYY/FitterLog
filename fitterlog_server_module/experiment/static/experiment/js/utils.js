@@ -13,6 +13,15 @@ function my_post(url , data){ //jqury居然只能ajax提交，气死我了
 	form.submit()
 }
 
+function my_get(url){
+	$.ajaxSettings.async = false
+	var got = ""
+	$.get(url, function(ret){
+		got = ret
+	})
+	$.ajaxSettings.async = true
+	return got
+}
 
 function get_length(text){ //获取一段文本的长度（中文算两个字符）
 	var len = 0

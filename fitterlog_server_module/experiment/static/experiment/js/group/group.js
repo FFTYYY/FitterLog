@@ -1,34 +1,4 @@
-
-/*** utils ***/
-function copy_expe(exp_id){ //´´½¨ĞÂÊµÑé
-	var copy_expe_url = `/experiment/${exp_id}/copy`
-
-	layer_create_ask(config_files , copy_expe_url)
-}
-
-function process_state(){//¸ù¾İ×´Ì¬»®·Ö²»Í¬µÄĞĞÑÕÉ«
-	
-	//ÏÈÕÒµ½bad-exp£¬È»ºóÏòÉÏÕÒµ½¶ÔÓ¦µÄtr£¬°ÑÖĞ¼äÒ»´®ÔªËØµÄÑÕÉ«È«²¿¸Äµô
-	$(".bad-experiment").parentsUntil("tr").css("cssText" , "background-color: #9C0B56FC")
-	$(".running-experiment").parentsUntil("tr").css("cssText" , "background-color: #3D3D3D")
-}
-
-
-function remove_panel_title(){ //È¥µôµ¼³ö¿òµÄÖĞtitle
-
-	$(".layui-inline").click(function(){ //µã»÷µÄÊ±ºòÏû³ıµ¯³ö¿òÖĞµÄËùÓĞÔªËØµÄtitle
-		let me = this
-		setTimeout(function(){
-			$(me).find(".layui-table-tool-panel *").attr("title" , "")
-		} , 50) //Í£ÁôÒ»ÏÂ
-	})
-}
-
-function move_tools(){ //°ÑheaderµÄÎ»ÖÃÒÆµ½toolbarÀïÃæ
-	$(".layui-table-tool").append($(".header"))
-}
-
-/*** ´´½¨layui table ***/
+/*** åˆ›å»ºlayui table ***/
 
 the_table = undefined
 function ontabledone(){
@@ -41,25 +11,18 @@ function ontabledone(){
 }
 
 
-layui.use(["table"] , function(){
+layui.use(["table" , "soulTable"] , function(){
 	var table = layui.table
-	 
+	
+	var ret = get_table_data()
+	var data = ret[0]
+	var cols = ret[1]
+
 	table.render({
 		elem: '#the-table',
 		height: 315,
-		url: get_data_url,
-		cols: table_cols,
-		contentType: "application/json",
-		parseData: function(res){ //res ¼´ÎªÔ­Ê¼·µ»ØµÄÊı¾İ
-			console.log(res.data)
-			return {
-			  "code" 	: res.code,
-			  "msg" 	: res.msg,
-			  "count" 	: res.count,
-			  "data" 	: res.data
-			}
-		},
-
+		cols: cols,
+		data: data,
 		limits: [15,50,100,9999] , 
 		page: true , 
 		limit: 15 , 
@@ -71,30 +34,30 @@ layui.use(["table"] , function(){
 			toolbar: true , 
 		},
 
-		//¹¤¾ßÀ¸
+		//å·¥å…·æ 
 		toolbar: true , 
 		defaultToolbar: [
-			{title: "·µ»Ø", layEvent: "go-back",icon: "layui-icon-return",} , 
-			{title: "±£´æÉèÖÃ", layEvent: "save",icon: "layui-icon-upload",} , 
-			{title: "É¾³ıÑ¡ÖĞĞĞ", layEvent: "delete",icon: "layui-icon-close",} , 
+			{title: "è¿”å›", layEvent: "go-back",icon: "layui-icon-return",} , 
+			{title: "ä¿å­˜è®¾ç½®", layEvent: "save",icon: "layui-icon-upload",} , 
+			{title: "åˆ é™¤é€‰ä¸­è¡Œ", layEvent: "delete",icon: "layui-icon-close",} , 
 			"filter", 
-			{title: "µ¼³ö", layEvent: "LAYTABLE_EXPORT",icon: "layui-icon-male",} , 
+			{title: "å¯¼å‡º", layEvent: "LAYTABLE_EXPORT",icon: "layui-icon-male",} , 
 		] ,
 
-		//ÓÒ¼ü²Ëµ¥
+		//å³é”®èœå•
 		contextmenu: {
 			head: [],
 			body: [
 				{
-					name: "Ï¸½Ú",
+					name: "ç»†èŠ‚",
 					icon: "layui-icon layui-icon-slider",
 
 					mouseup: function(obj) {
 						var my_id = obj.elem.find(".id-teller").attr("my-id")
 						var new_url = "/variable/" + String(my_id)
-						if(event.button == 1) // ÖĞ¼ü£¬´ò¿ªĞÂÒ³Ãæ
+						if(event.button == 1) // ä¸­é”®ï¼Œæ‰“å¼€æ–°é¡µé¢
 							window.open(new_url , "_blank")
-						else if(event.button == 0) //×ó¼ü£¬±¾Ò³ÃæÌø×ª
+						else if(event.button == 0) //å·¦é”®ï¼Œæœ¬é¡µé¢è·³è½¬
 							window.location.href = new_url
 					},
 					children: [],
@@ -104,12 +67,12 @@ layui.use(["table"] , function(){
 		},
 	})
 
-	//ÔÚtoolbar_event.htmlÀï¶¨Òå
+	//åœ¨toolbar_event.htmlé‡Œå®šä¹‰
 	table.on("toolbar", get_toolbar_event_func(table))
 
 	table.on("sort", function() {
-		layui.soulTable.render(the_table) //ÖØĞÂäÖÈ¾soul-table£¬·ñÔò»áÊ§È¥ÓÒ¼ü²Ëµ¥
-		process_state() //ÖØĞÂĞŞ¸ÄĞĞµÄÑÕÉ«
+		layui.soulTable.render(the_table) //é‡æ–°æ¸²æŸ“soul-tableï¼Œå¦åˆ™ä¼šå¤±å»å³é”®èœå•
+		process_state() //é‡æ–°ä¿®æ”¹è¡Œçš„é¢œè‰²
 	})
 })
 
