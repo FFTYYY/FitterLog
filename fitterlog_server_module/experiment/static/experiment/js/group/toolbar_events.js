@@ -52,19 +52,16 @@ function hide_checked_rows(table) {
 	})
 }
 
-function get_toolbar_event_func(table){
-	return function(obj) {
-
-		switch(obj.event){
-			case "go-back": //返回按钮，跳转
-				window.location.href = "/project/" + my_project_id
-			break
-			case "save": //保存按钮，保存设置
-				save_config(table)
-			break
-			case "delete": //删除按钮，删除选中的行
-				hide_checked_rows(table)
-			break
-		}
+function toolbar_events(obj , table){
+	switch(obj.event){
+		case "go-back": //返回按钮，跳转
+			window.location.href = "/project/" + my_project_id
+		break
+		case "save": //保存按钮，保存设置
+			save_config(table)
+		break
+		case "delete": //删除按钮，删除选中的行
+			hide_checked_rows(table)
+		break
 	}
 }

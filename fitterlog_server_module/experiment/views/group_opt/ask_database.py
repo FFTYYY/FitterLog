@@ -34,14 +34,10 @@ def get_head_reorder(heads , show_order):
 
 	return heads
 
-def get_expe_reorder(expe_lis , hidden_ids):
+def get_expe_reorder(expe_lis):
 	'''重排序实验
-	1）去掉删除的行
-	2）异常退出的实验一定排在后面
-	3）按开始时间降序排列
+		异常退出的实验一定排在后面
 	'''
-	expe_lis = expe_lis.order_by("-start_time") # 按开始时间降序排序
-	expe_lis = [exp for exp in expe_lis if not (int(exp.id) in hidden_ids)] # 不显示删除的行
 
 	expe_good = [exp for exp in expe_lis if exp.state != 3]
 	expe_bad  = [exp for exp in expe_lis if exp.state == 3]
@@ -51,7 +47,6 @@ def get_expe_reorder(expe_lis , hidden_ids):
 def experiment_list_to_str_list(
 		expe_lis , 
 		hidden_heads 	= [] , 
-		hidden_ids 		= [] , 
 		show_order 		= [] , 
 		fixed_left 		= [] , 
 		fixed_right 	= [] , 
@@ -65,7 +60,7 @@ def experiment_list_to_str_list(
 	editable = set()
 
 	# 获得要显示的实验列表
-	expe_lis = get_expe_reorder(expe_lis , hidden_ids)
+	expe_lis = get_expe_reorder(expe_lis)
 
 	# 获得表格的全部基本信息，包括表格头和表格值
 	for exp in expe_lis:

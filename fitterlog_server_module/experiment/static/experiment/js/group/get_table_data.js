@@ -66,8 +66,8 @@ function right_temp(d){ //右侧工具栏的模板
 	`
 }
 
-function get_table_data(){
-	var ret = JSON.parse( my_get(get_data_url) )
+function get_table_data(ret){
+	// var ret = JSON.parse( my_get(get_data_url) )
 	var data = ret["data"]
 	var cols = ret["cols"]
 	var extr = ret["extr"]
@@ -98,5 +98,5 @@ function get_table_data(){
 	})
 
 
-	return [ data , [cols] ]
+	return [ data , [cols] , extr]
 }
