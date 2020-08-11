@@ -8,7 +8,9 @@ from .editable import save_editables
 from .ask_database import experiment_list_to_str_list
 from .fake_frontface import cols_from_data
 import json
-
+from django.db.models.functions import Floor
+from django.db.models import F
+import django
 
 def find_range_explist(group , page , limit , hide_ids):
 	'''获取某一个特定范围的实验列表，而不是全部'''
@@ -17,7 +19,9 @@ def find_range_explist(group , page , limit , hide_ids):
 	r = page * limit
 
 	# 先排除删除的id，再排序，再取区间
-	return group.experiments.order_by("-start_time").exclude(id__in = hide_ids)[l : r]
+	# 第一个排序把先运行的实验放到后面
+	# 第二个排序把异常终止的实验（state=3）放到后面
+	return group.experiments.exclude(id__in = hide_ids).order_by( Floor(F("state") / 3) , "-start_time")[l : r]
 
 
 def get_data(request , group_id):

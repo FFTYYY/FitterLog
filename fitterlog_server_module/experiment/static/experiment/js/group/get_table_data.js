@@ -48,9 +48,9 @@ function right_temp(d){ //右侧工具栏的模板
 
 	return `
 		<a class = "content-a layui-icon" href = "/experiment/${d.exp_id}/logs">&#xe621;</a>
-		<a class = "content-a layui-icon" href = "/experiment//${d.exp_id}/figures">&#xe64a;</a>
+		<a class = "content-a layui-icon" href = "/experiment/${d.exp_id}/figures">&#xe64a;</a>
 		<a class = "content-a layui-icon" href = "javascript:void(0)" 
-						onclick = "javascript:copy_expe('/${d.exp_id}')">&#xe656;</a>
+						onclick = "javascript:copy_expe('${d.exp_id}')">&#xe656;</a>
 		<div 
 			my-exp-id = ${d.exp_id}
 			class = "

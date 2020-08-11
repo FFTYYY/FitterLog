@@ -49,12 +49,9 @@ class ExperimentProxer_Torch(threading.Thread):
 
 		self.closed = False
 
-		self._cnt = 0
 
 	def good_gpu(self , k):
 		if pynvml_failed:
-			return self._cnt < self.max_process
-
 			raise "PYNVML not useable"
 		handle = pynvml.nvmlDeviceGetHandleByIndex(k)
 		process = pynvml.nvmlDeviceGetComputeRunningProcesses(handle)
@@ -66,7 +63,6 @@ class ExperimentProxer_Torch(threading.Thread):
 		self.tasks.append( [path , config_name , values , command , entry_file , prefix, suffix] )
 
 	def start_task_on_device(self , task , device):
-		self._cnt += 1
 		task[-2] = "CUDA_VISIBLE_DEVICES={0}".format(device) #前缀
 		run_a_experiment(*task)
 
