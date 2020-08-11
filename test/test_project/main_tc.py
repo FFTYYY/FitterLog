@@ -15,9 +15,9 @@ E.use_argument_proxy( get_arg_proxy() )
 
 import torch
 
-a = torch.rand(5000 , 5000).cuda()
-b = torch.rand(5000 , 5000).cuda()
-time.sleep(60) #等待60s
+a = torch.rand(5 , 5).cuda()
+b = torch.rand(5 , 5).cuda()
+time.sleep(3) #等待60s
 c = a.matmul(b)
 E.new_variable("C sum")
 E["C sum"].update(float(c.sum()))
