@@ -34,7 +34,7 @@ layui.use(["table" , "soulTable"] , function(){
 			// 如果返回的跟上次的不一样，就说明翻了一页，需要重新加载列
 			if( (extr.page != this._last_page) || (extr.limit != this._last_limit))
 			{
-				this.cols = cols //需要先赋为空值，不然reload会出错
+				this.cols = [] //需要先赋值，不然reload会出错
 				the_table_obj.reload({
 					"cols": cols, //通过reload函数来重新加载列
 

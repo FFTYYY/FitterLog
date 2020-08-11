@@ -20,10 +20,7 @@ function inner_temp(d , head_name , extr){ //中间格子的模板
 	/* 根据可编辑与否决定格子的内容 */
 	var content = ""
 	if (extr.editable[head_name]) //可编辑格子，放一个input上去
-		content = `<input 
-						class = "Y-font-short editable-input"
-						value = "${ d.val[head_name] }"
-					/>`
+		content = `<input class = "Y-font-short editable-input" value = "${ d.val[head_name] }"/>`
 	else //普通格子
 		content = `<span>${ d.val[head_name] }</span>`
 
