@@ -1,5 +1,49 @@
 from YTools.universe.extra_type import Struct
 from .utils import find_or_new , make_obj_list
+import time
+import queue
+import threading
+from ..quit import add_quit_process
+
+class SaveThread (threading.Thread):
+	def __init__(self):
+		threading.Thread.__init__(self)
+		self.setDaemon(True)
+		self.queue = queue.Queue(maxsize = 5000)
+
+		self.wait = False
+		self.closed = False
+
+	def run(self):
+		while not self.closed:
+			if (not self.wait) and not self.queue.empty():
+				obj = self.queue.get()
+				obj.save()
+			time.sleep(0.01)
+
+	def close(self):
+		self.closed = True
+				
+
+nohurry_save_server = SaveThread()
+nohurry_save_server.start()
+def on_quit_kill_thread():
+	while not nohurry_save_server.queue.empty():
+		pass
+	nohurry_save_server.close()
+
+# add_quit_process(on_quit_kill_thread)
+
+
+def save_sql_obj(obj , hurry = False):
+	if hurry:
+		nohurry_save_server.wait = True #hurry的人优先
+		obj.save()
+		nohurry_save_server.wait = False
+		return
+
+	nohurry_save_server.queue.put(obj)
+
 
 def make_get(name):	
 	'''Object类对象的定制属性的get函数，在访问对应属性的时候查找数据库对象
@@ -14,12 +58,12 @@ def make_set(name):
 	'''
 	def sets(self , val):
 		setattr( self.sql_obj , self.name_map[name] , val )
-		self.sql_obj.save()
+		save_sql_obj(self.sql_obj , hurry = self.hurry)
 	return sets
 
 class Object(Struct):
 
-	def __init__(self , sql_class , from_obj , force_new = False , **kwargs):
+	def __init__(self , sql_class , from_obj , force_new = False , no_hurry = False , **kwargs):
 		'''
 		
 		参数：
@@ -36,7 +80,8 @@ class Object(Struct):
 			if from_obj is None:
 				self.sql_obj = find_or_new(sql_class , **kwargs)
 
-		self.sql_obj.save()
+		self.hurry = not no_hurry
+		save_sql_obj(self.sql_obj , hurry = self.hurry)
 
 	def set_name_map(self , **kwargs):
 		self.name_map = kwargs
@@ -48,4 +93,4 @@ class Object(Struct):
 			)
 
 	def save(self):
-		self.sql_obj.save()
+		save_sql_obj(self.sql_obj , hurry = self.hurry)

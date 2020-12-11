@@ -3,6 +3,7 @@ from ..sql_proxy import ExperimentGroup as Core_Group
 from .others import Variable
 from .paint import Painter
 from ..quit import add_quit_process
+import time
 
 this_experiment = None
 
@@ -59,6 +60,9 @@ class Experiment:
 		self.add_line = self.write_log
 		self.id = int(self.core.id)
 
+		self.log_cache = self.core.log or ""
+		self.last_save_log = time.time()
+
 	def _get_core(self , group_id = None, group_name = None, project_id = None, project_name = None):
 
 		if (group_id is None) and (group_name is None):
@@ -69,14 +73,29 @@ class Experiment:
 
 	def finish(self):
 		'''结束实验。在实验正常结束时调用'''
+
+		from ..sql_proxy.base import on_quit_kill_thread
+		on_quit_kill_thread()
+
+		self._save_log()
+
 		from django.utils import timezone
 		self.core.state = 1
 		self.core.end_time = timezone.now()
 
+	def _save_log(self):
+		self.core.logs = self.log_cache
+		self.core.save()
+
 	def write_log(self , content = ""):
 		'''写一行文字log'''
 		content = str(content) + "\n"
-		self.core.logs = self.core.logs + content
+		self.log_cache = self.log_cache + content
+
+		# 每秒保存一次log
+		if time.time() - self.last_save_log > 1:
+			self._save_log()
+			self.last_save_log = time.time()
 
 	def new_variable(self , name , type = str , default = "None" , merge_func = None , editable = False):
 		'''新建一个变量

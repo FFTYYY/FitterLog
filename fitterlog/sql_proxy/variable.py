@@ -38,7 +38,7 @@ class SingleValue(Object):
 
 	def __init__(self , value = None, timestamp = None , track = None , from_obj = None):
 
-		super().__init__(SQL_SingleValue , from_obj , value = value, time_stamp = timestamp , track_id = none_or_id(track))
+		super().__init__(SQL_SingleValue , from_obj , value = value, time_stamp = timestamp , track_id = none_or_id(track) , no_hurry = False)
 		self.set_name_map(
 			value 		= "value" , 
 			timestamp 	= "time_stamp" ,
