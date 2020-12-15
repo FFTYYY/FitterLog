@@ -1,0 +1,1 @@
+from .static_list import StaticList

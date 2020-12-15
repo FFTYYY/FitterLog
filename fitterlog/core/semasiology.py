@@ -1,9 +1,10 @@
 from fitterdb.static_list import StaticList
 
 class Value:
-	persister = StaticList(name = "fitterlog-value")
 
 	def __init__(self , noun , predicate):
+		self.persister = StaticList(filename = "fitterlog-value")
+		
 		self.noun 		= noun
 		self.predicate 	= predicate
 
@@ -11,7 +12,7 @@ class Value:
 		self.save_point = 0
 
 	def value(self):
-		return self.persister.last()
+		return self.persister.last()[1]
 
 	def update(self , value , time_stamp = None):
 		if time_stamp is None: #自动设置时间戳

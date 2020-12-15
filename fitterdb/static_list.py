@@ -2,7 +2,7 @@ from YTools.network.protocol import Protocol
 from YTools.network.protocol import int2bytes , bytes2int , str2bytes , bytes2str
 from YTools.system.fakepath import new_fakefolder
 from YTools.system.locker import Locker
-from YTools.system.onexit import add_quit_methods
+from YTools.universe.onexit import add_quit_methods
 from YTools.system.filewrite import write_file , read_file , get_filesize
 from functools import partial
 import pickle
@@ -26,18 +26,18 @@ class StaticList_FileManager:
 	FOLDER_NAME = "Fitterlog_Static_List"
 	LOCKER_FOLDER = "fitterlog/static_list/"
 
-	def __init__(self , name):
+	def __init__(self , filename):
 
 		# 获取文件名
 		self.save_file_name = os.path.abspath(new_fakefolder(self.FOLDER_NAME))
-		self.save_file_name = os.path.join(self.save_file_name , name)
+		self.save_file_name = os.path.join(self.save_file_name , filename)
 
 		open(self.save_file_name , "ab+").close() 		#确保文件存在
 		self.file = open(self.save_file_name , "rb+") 	#以读写模式打开，这个模式下可以随意写，无视文件大小
 		add_quit_methods(self.close) 					#保证文件关闭
 
 		self.locker = Locker()
-		self.locker_name = self.LOCKER_FOLDER + name + "/" #在lokcer中使用的键的前缀
+		self.locker_name = self.LOCKER_FOLDER + filename + "/" #在lokcer中使用的键的前缀
 		self.key_filesize = self.locker_name + "filesize/"
 
 	def close(self):
@@ -97,11 +97,11 @@ class StaticList_FileManager:
 class StaticList(list , StaticList_FileManager):
 	'''这个类结合list的特性'''
 
-	def __init__(self , name , init_list = [] , last_pos = None):
-		StaticList_FileManager.__init__(self , name)
+	def __init__(self , filename , init_list = [] , last_pos = None):
+		StaticList_FileManager.__init__(self , filename)
 		list.__init__(self , init_list)
 
-		self.remember_last = None #清空后，依然记得之前的最后一个元素
+		self.remember_last = (None , None) #清空后，依然记得之前的最后一个元素
 		self.saved_last = -1 #上一块保存的位置
 		self.saved_size = 0  #已经保存了前多少个
 
