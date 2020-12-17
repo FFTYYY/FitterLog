@@ -2,8 +2,10 @@ from fitterdb.static_list import StaticList
 
 class Value:
 
+	FILENAME = "fitterlog-value"
+
 	def __init__(self , noun , predicate):
-		self.persister = StaticList(filename = "fitterlog-value")
+		self.persister = StaticList(filename = self.FILENAME)
 		
 		self.noun 		= noun
 		self.predicate 	= predicate

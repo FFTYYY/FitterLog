@@ -40,6 +40,11 @@ class StaticList_FileManager:
 		self.locker_name = self.LOCKER_FOLDER + filename + "/" #在lokcer中使用的键的前缀
 		self.key_filesize = self.locker_name + "filesize/"
 
+	def __enter__(self):
+		return self
+	def __exit__(self , *args , **kwargs):
+		self.close()
+
 	def close(self):
 		self.file.close()
 
@@ -57,7 +62,7 @@ class StaticList_FileManager:
 
 		#跳过bo，直接读dy
 		dy_data = read_file(self.file , save_pos + self.proto.headsize + head["bo_size"] , head["dy_size"]) 
-		dy = self.proto.body["dy"][3](dy_data) # dy的解码函数
+		dy = self.proto.body[-1][3](dy_data) # dy的解码函数
 
 		return dy
 

@@ -3,7 +3,7 @@ from ..core.semasiology import Value
 from .syntax import Clause
 
 class CoreSentence:
-	'''大体来说，这个类私有继承 Predicate , Noun ，公有继承 Value , Clause
+	'''概念上说，这个类私有继承 Predicate , Noun ，公有继承 Value , Clause
 		但是写成多重继承很不方便，所以就手动写了一些接口
 	'''
 	def __init__(self , noun , predicate , clause , default = None , **kwargs):
@@ -49,6 +49,8 @@ class CoreSentence:
 	def __getitem__(self , key):
 		return self._sons[key]
 
+
+	# 补充结构
 	def new_clause(self , name , sons = [] , **kwargs):
 		self._sons[name] = CoreSentence(
 			noun 		= self._noun , 
@@ -69,6 +71,19 @@ class CoreSentence:
 	def append_clauses(self , clauses):
 		self._create_tree(name_struct = clauses)
 
+	# 存取
+	@property
+	def noun(self):
+		return self._noun
+
+	def flush(self):
+		self._value.dump()
+
+	def flush_all(self):
+		self.flush()
+		for x in self._sons:
+			x.flush_all()
+
 class Sentence(CoreSentence):
 
 	ROOT_PRED = "_fitterlog_root"
@@ -78,3 +93,4 @@ class Sentence(CoreSentence):
 			noun = Noun.new()
 
 		super().__init__(noun , Predicate(self.ROOT_PRED) , predicate_struct)
+
