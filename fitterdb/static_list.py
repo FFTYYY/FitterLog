@@ -107,11 +107,17 @@ class StaticList(list , StaticList_FileManager):
 		list.__init__(self , init_list)
 
 		self.remember_last = (None , None) #清空后，依然记得之前的最后一个元素
-		self.saved_last = -1 #上一块保存的位置
+		self.save_point = -1 #上一块保存的位置
 		self.saved_size = 0  #已经保存了前多少个
 
 		if last_pos is not None:
-			self.saved_last = last_pos
+			self.save_point = last_pos
+
+	def set_last(self , last_pos , last_val):
+		'''重新读取最后一次存的值'''
+		self.clear()
+		self.remember_last = last_val
+		self.save_point = last_pos
 
 	def clear(self):
 		self.remember_last = self.last() #记住之前的最后一个元素
@@ -143,7 +149,7 @@ class StaticList(list , StaticList_FileManager):
 		if self.active_size == 0:
 			return None
 		if last_pos is None:
-			last_pos = self.saved_last
+			last_pos = self.save_point
 		return self.proto.encode(last_pos = last_pos , bo = self.active_nonlast() , dy = self.last())
 
 	def save(self , last_pos = None):
@@ -164,8 +170,8 @@ class StaticList(list , StaticList_FileManager):
 		end_point = self.locker.plus(self.key_filesize , len(data)) #仅在这一步执行同步
 		start_point = end_point - len(data) 						#算出开头位置
 		write_file(self.file , start_point , data)
-
-		self.saved_last = start_point
+		
+		self.save_point = start_point
 		self.saved_size = len(self)
 
 		return start_point

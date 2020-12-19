@@ -22,6 +22,9 @@ class Noun:
 	def new():
 		return Noun(Noun.get_new_id())
 
+	def __str__(self):
+		return "<Noun: {0}>".format(self.id)
+
 class Predicate:
 
 	persister = DoubleHash(name = "fitterlog-predicate") #查询谓词的名称和值
@@ -31,14 +34,14 @@ class Predicate:
 		self.name = name
 
 		self.ensure_id()
-		self.id = self.persister.get(key = self.name)
+		self.id = self.persister.ask_val(key = self.name)
 
 	def ensure_id(self):
 		'''确保自身id存在'''
 
 		self.persister.ensure(self.COUTER , 0) #如果counter不存在，就设为0
 
-		if self.persister.get(self.name) is None:
+		if self.persister.ask_val(self.name) is None:
 			counter = self.persister.plus(self.COUTER , 1)
 			self.persister.ensure(self.name , counter - 1)
 
@@ -46,7 +49,10 @@ class Predicate:
 		# 但是可以保证所有线程得到的id是一致的
 
 	def get_name(id):
-		return Predicate.persister.get(val = id)
+		return Predicate.persister.ask_key(val = id)
 
 	def from_id(id):
-		return Predicate(name = Predicate.get_name(id))
+		return Predicate(name = Predicate.get_name(id))	
+
+	def __str__(self):
+		return "<Predicate: id = {0} , name = {1}>".format(self.id , self.name)

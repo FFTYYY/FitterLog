@@ -1,2 +1,2 @@
 from .sentence import Sentence
-from .syntax import Clause
+from ..core.syntax import Clause
