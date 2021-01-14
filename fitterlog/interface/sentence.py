@@ -14,9 +14,8 @@ class _CoreSentence_Syntax:
 		self._sons[son_clause.name] = CoreSentence(
 			noun 		= self._noun , 
 			clause 		= son_clause , 
-			**son_clause.kwargs
+			attrs 		= son_clause.attrs , 
 		)
-
 
 	def _init_syntax(self):
 		'''根据给定的子句，初始化自身的树结构
@@ -28,20 +27,19 @@ class _CoreSentence_Syntax:
 	def append_son(self , new_clause):
 		'''添加一个子子句，自动新建子结构'''
 
-		self._syntax.add_son(new_clause)
+		self._clause.add_son(new_clause)
 		self._syntax_newson(new_clause)
 
-	def new_son(self , name , sons = [] , **kwargs):
+	def new_clause(self , name , sons = [] , **kwargs):
 		'''根据名和其他要素，新建一个子句，自动新建子结构
 		'''
 		new_clause = Clause(name , sons , **kwargs)
 		self.append_son(new_clause)
 	
-
 	def new_clauses_from_dict(self , dic):
 
 		for name , value in dic.items():
-			self.new_son(name = name , default = value)
+			self.new_clause(name = name , default = value)
 
 	def append_clauses(self , clauses):
 		for clause in clauses:
@@ -61,10 +59,11 @@ class _CoreSentence_Persist:
 	def _init_from_noun(self , noun):
 		'''给定一个历史名词，读取这个名词保存的信息来初始化'''
 		self._noun 		= noun
-		self._clause 	= Clause.load_clause_struct(noun) #读取句法结构
+		self._clause 	= Clause.load_clauses(noun) #读取句法结构
 		self._predicate = self._clause.predicate
 		self._value 	= Value(self._noun , self._predicate)
 		self._sons 		= {}
+		self._attrs 	= self._clause.attrs
 
 		self._init_syntax()
 		self._recursive_load_value() #读取所有子节点的值
@@ -100,36 +99,37 @@ class CoreSentence(_CoreSentence_Syntax , _CoreSentence_Value , _CoreSentence_Pe
 	'''概念上说，这个类私有继承 Predicate , Noun ，公有继承 Value , Clause
 		但是写成多重继承很不方便，所以就手动写了一些接口，又把这些接口封装在其他基类里面，再多重继承
 	'''
-	def __init__(self , noun , clause , default = None , **kwargs):
+	def __init__(self , noun , clause , attrs = {}):
 
 		self._noun 		= noun
 		self._clause 	= clause
 		self._predicate = self._clause.predicate
 		self._value 	= Value(self._noun , self._predicate)
 		self._sons 		= {}
+		self._attrs 	= attrs
 
 		self._init_syntax()
 
 		# other params 
-		if default is not None:
-			self._value.set_default(default)
+		if self._attrs.get("default") is not None:
+			self._value.set_default(self._attrs.get("default"))
 
 	@property
 	def noun(self):
 		return self._noun
 
 	# value的接口
-	@property	
+	@property
 	def value(self):
 		val = self._value.value()
-		if val is None:
-			val = self._default_val
 		return val
 
+	# attrs的接口
+	@property	
+	def attrs(self):
+		return self._attrs
 
 class Sentence(CoreSentence):
-
-	ROOT_PRED = "_fitterlog_root"
 
 	def __init__(self , noun = None , predicate_struct = None):
 		if noun is None:

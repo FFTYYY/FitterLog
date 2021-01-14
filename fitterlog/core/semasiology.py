@@ -27,7 +27,6 @@ class Value:
 	def set_default(self , value):
 		self.persister.append( (-1 , value) ) #设置-1位置的值
 
-
 	def dump(self):
 		save_point = self.persister.save()
 		self.noun.set_position(self.predicate , save_point) #保存储存点
