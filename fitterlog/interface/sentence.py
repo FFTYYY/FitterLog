@@ -131,7 +131,7 @@ class CoreSentence(_CoreSentence_Syntax , _CoreSentence_Value , _CoreSentence_Pe
 
 class Sentence(CoreSentence):
 
-	def __init__(self , noun = None , predicate_struct = None):
+	def __init__(self , predicate_struct = None , noun = None):
 		if noun is None:
 			noun = Noun.new()
 			super().__init__(noun , predicate_struct)
