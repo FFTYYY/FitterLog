@@ -1,5 +1,4 @@
 from YTools.system.locker import Locker
-from YTools.universe.onexit import add_quit_methods
 import threading
 import time
 
@@ -63,6 +62,7 @@ class Master:
 		self.clients = [] #目前活跃的句子列表（句子编号）
 		self.clients_on_resources = self.empty_client_on_resources() #报告表
 
+		# 获取活跃句子信息
 		self.clientmaintainer = ClientMaintainer(self)
 		self.clientmaintainer.start()
 
@@ -70,10 +70,21 @@ class Master:
 		self.clientmaintainer.close()
 
 	def ask_clients(self):
+		'''获取当前所有活跃度句子列表'''
 		return self.clients
 
 	def ask_resources(self , res_name = None , res_id = None):
-
+		'''获取所有的资源占用情况
+		
+		格式示例：
+		{
+			"gpu" : {
+				0 : [] , 
+				1 : [001 , 002] , 
+				2 : [001 , ] , 
+			}
+		}
+		'''
 		ret = self.clients_on_resources
 		if res_name is not None:
 			ret = ret[res_name]
@@ -84,16 +95,7 @@ class Master:
 
 	def empty_client_on_resources(self):
 		'''生成一个空的resource报告表，方便填信息
-	
-		示例：
-		clients_on_resources = {
-			"gpu" : {
-				0 : [] , 
-				1 : [001 , 002] , 
-				2 : [001 , ] , 
-			}
-		}
-		'''
+			'''
 		return {
 			name : {
 				_id : [] for _id in ids
