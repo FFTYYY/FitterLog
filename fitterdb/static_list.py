@@ -24,7 +24,7 @@ class StaticList_FileManager:
 	)
 
 	FOLDER_NAME = "Fitterlog_Static_List"
-	LOCKER_FOLDER = "fitterlog/static_list/"
+	LOCKER_PATH = "fitterlog/static_list/"
 
 	def __init__(self , filename):
 
@@ -37,7 +37,7 @@ class StaticList_FileManager:
 		add_quit_methods(self.close) 					#保证文件关闭
 
 		self.locker = Locker()
-		self.locker_name = self.LOCKER_FOLDER + filename + "/" #在lokcer中使用的键的前缀
+		self.locker_name = self.LOCKER_PATH + filename + "/" #在lokcer中使用的键的前缀
 		self.key_filesize = self.locker_name + "filesize/"
 
 	def __enter__(self):

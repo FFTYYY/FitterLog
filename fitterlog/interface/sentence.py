@@ -1,6 +1,7 @@
 from ..core.morphology import Predicate , Noun
 from ..core.semasiology import Value
 from ..core.syntax import Clause
+from YTools.system.locker import Locker
 
 class _CoreSentence_Syntax:
 	'''定义各种句法操作的模块'''
@@ -131,9 +132,35 @@ class CoreSentence(_CoreSentence_Syntax , _CoreSentence_Value , _CoreSentence_Pe
 
 class Sentence(CoreSentence):
 
+	LOCKER_PATH = "fitterlog/sentence/"
+
 	def __init__(self , predicate_struct = None , noun = None):
 		if noun is None:
 			noun = Noun.new()
 			super().__init__(noun , predicate_struct)
 		else:
 			super()._init_from_noun(noun)
+
+		self.locker = Locker()
+		self._setted_key = [] #所有设置过的key，在离开时要清空
+
+		self.set("live" , True)
+
+	def set(self , key , val):
+		key = self.LOCKER_PATH + key + "/"  + str(self.noun.id) + "/" 
+		self.locker.set(key , val) #设置自己的位置的值
+		self._setted_key.append(key) #记录下设置的key，方便最后删除
+
+	def get(self , key):
+		return self.locker.get(self.LOCKER_PATH + key + "/" + str(self.noun.id) + "/")
+
+	def require_resource(self , resource_name , ids):
+		'''对resource_name这个名称的ids资源声称占有。
+			注意虽然名字叫require，这个函数实际上不是请求，是声称。
+		'''
+		self.set("resources/" + resource_name , ids)
+
+
+	def finish(self):
+		for x in self._setted_key:
+			self.locker.set(x , None)

@@ -3,9 +3,11 @@ from ..core.semasiology import Value
 from ..core.syntax import Clause
 
 def load_syntax(noun):
+	'''给定名词，读取句子结构'''
 	return Clause.load_clause_struct(noun)
 
 def load_last(noun , predicate , with_timestamp = True):
+	'''给定名词和谓词，读取最后一个值'''
 
 	position = noun.ask_position(predicate)
 	with Restorer(Value.FILENAME) as restorer:
@@ -16,6 +18,7 @@ def load_last(noun , predicate , with_timestamp = True):
 	return ret_val[1]
 
 def load_all(noun , predicate , with_timestamp = True):
+	'''给定名词和谓词，读取所有历史值'''
 	
 	position = noun.ask_position(predicate)
 	with Restorer(Value.FILENAME) as restorer:

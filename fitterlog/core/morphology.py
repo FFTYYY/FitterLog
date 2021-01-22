@@ -24,6 +24,8 @@ class Noun:
 
 	def __str__(self):
 		return "<Noun: {0}>".format(self.id)
+	def __int__(self):
+		return self.id
 
 class Predicate:
 
