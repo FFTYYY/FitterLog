@@ -59,6 +59,7 @@ class TestInterface(unittest.TestCase):
 
 	def test_attrs(self):
 
+
 		s = Sentence(Clause( sons = [
 			Clause("loss" , default = 0 , sons = [
 				Clause("test loss" , display = True , default = 0 , fuck = 12) ,

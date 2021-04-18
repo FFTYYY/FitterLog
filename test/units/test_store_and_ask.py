@@ -3,11 +3,11 @@ from fitterlog.core.morphology import Predicate
 from fitterlog.interface import Sentence , Clause
 from fitterlog.interface.restore import load_last , load_all
 import random
+import pdb
 
 class TestSave(unittest.TestCase):
 
 	def test_save_and_load_value(self):
-
 		predicate_struce = Clause(sons = [
 			Clause("loss" , default = 0 , sons = [
 				Clause("test loss" , display = True , default = 0) ,
@@ -72,9 +72,6 @@ class TestSave(unittest.TestCase):
 
 		self.assertEqual(c["loss"]["test loss"].value , test_loss_vals[-1])
 		self.assertEqual(c._clause.linearize() , s_struct)
-
-
-
 
 if __name__ == "__main__":
 	unittest.main()

@@ -15,7 +15,10 @@ class Value:
 		self.save_point = 0
 
 	def value(self):
-		return self.persister.last()[1]
+		get_val = self.persister.last()
+		if get_val is None:
+			return None
+		return get_val[1]
 
 	def update(self , value , time_stamp = None):
 		if time_stamp is None: #自动设置时间戳

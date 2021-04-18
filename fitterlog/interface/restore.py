@@ -4,7 +4,7 @@ from ..core.syntax import Clause
 
 def load_syntax(noun):
 	'''给定名词，读取句子结构'''
-	return Clause.load_clause_struct(noun)
+	return Clause.load_clauses(noun)
 
 def load_last(noun , predicate , with_timestamp = True):
 	'''给定名词和谓词，读取最后一个值'''

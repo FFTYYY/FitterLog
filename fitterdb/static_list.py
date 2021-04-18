@@ -106,7 +106,7 @@ class StaticList(list , StaticList_FileManager):
 		StaticList_FileManager.__init__(self , filename)
 		list.__init__(self , init_list)
 
-		self.remember_last = (None , None) #清空后，依然记得之前的最后一个元素
+		self.remember_last = None #清空后，依然记得之前的最后一个元素
 		self.save_point = -1 #上一块保存的位置
 		self.saved_size = 0  #已经保存了前多少个
 

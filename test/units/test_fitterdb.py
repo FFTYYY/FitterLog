@@ -7,11 +7,11 @@ class TestStaticList(unittest.TestCase):
 	def test_init(self):
 
 		init_list = random.sample(range(1000) , 20)
-		l = StaticList(name = "test" , init_list = init_list)
+		l = StaticList(filename = "test" , init_list = init_list)
 		self.assertEqual(l , init_list)
 
 	def test_clear(self):
-		l = StaticList(name = "test")
+		l = StaticList(filename = "test")
 		self.assertEqual(l.remember_last , None)
 
 	def test_size(self):
@@ -31,4 +31,6 @@ class TestStaticList(unittest.TestCase):
 
 	def test_encode(self):
 		pass
+if __name__ == "__main__":
+	unittest.main()
 

@@ -2,9 +2,12 @@ import os
 from fitterlog.arg_proxy.types import Bool
 from YTools.universe.temp_cwd import TempCWD
 from subprocess import Popen , DEVNULL
+from queue import Queue
+import threading
+from collections import namedtuple
 
-def read_config(config_path):
-	'''读取一个标准格式的config文件'''
+def read_config_carg(config_path):
+	'''读取一个标准格式的config文件中的命令行参数定义'''
 	if not os.path.exists(config_path):
 		raise "file does not exists."
 
@@ -17,6 +20,20 @@ def read_config(config_path):
 
 	return argprox
 
+def read_config_rsc(config_path):
+	'''读取一个标准格式的config文件中的资源需求定义'''
+	if not os.path.exists(config_path):
+		raise "file does not exists."
+
+	nspace = {}
+	with open(config_path , "r") as fil:
+		config_content = fil.read()
+
+	exec(config_content , nspace)
+	rsc_aq = nspace["get_resource_acuire"]()
+
+	return rsc_aq
+
 def run_a_experiment(path , config_name , values , 
 		command = "python" , entry_file = "main.py" , prefix = [], suffix = []):
 	'''
@@ -24,7 +41,7 @@ def run_a_experiment(path , config_name , values ,
 		values: dict。 名-值字典，表示对应config项的赋值，如果没有赋值则使用默认值。
 	'''
 
-	argprox = read_config(os.path.join(path , config_name))
+	argprox = read_config_carg(os.path.join(path , config_name))
 
 	cmds = []
 	for name , value in values.items():
@@ -49,8 +66,32 @@ def run_a_experiment(path , config_name , values ,
 
 	return popen_ret
 
-class BatchRunner:
-	'''运行一组实验'''
+class BatchRunner(threading.Thread):
+	'''这个线程管理实验的运行'''
 
-	def __init__(self):
-		pass
+	Task = namedtuple("Task" , ["config_name" , "values" , "command" , "entry_file" , "prefix" , "suffix"])
+
+	def __init__(self , father):
+		'''
+		task格式：[Task]
+		'''
+		super().__init__()
+		self.setDaemon(True) #不负责结束
+
+		self.father = father
+		self.tasks = Queue() #等待运行的任务列表
+
+		self.closed = False
+
+	def run(self):
+		while not self.closed:
+			if self.tasks.empty():
+				continue
+			one_task = self.tasks.get()
+			# run_a_experiment()
+
+	def __del__(self):
+		self.close()
+
+	def close(self):
+		self.closed = True
