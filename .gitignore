@@ -11,3 +11,4 @@ sftp-config.json
 *.eddx
 test/test_project
 test/other
+*.qmlc
