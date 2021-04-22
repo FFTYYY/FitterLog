@@ -30,7 +30,6 @@ class TestSave(unittest.TestCase):
 		s["loss"]["test loss"].save_values()
 		self.assertEqual(s["loss"]["test loss"].value , test_loss_vals[-1])
 
-
 		the_noun = s.noun
 
 		self.assertEqual( load_last(the_noun , Predicate("test loss") , False) , test_loss_vals[-1])
@@ -66,6 +65,7 @@ class TestSave(unittest.TestCase):
 		# --- 恢复实验 ---
 		s_struct = s._clause.linearize()
 		the_noun = s.noun
+		print (s.noun)
 		del s
 
 		c = Sentence(noun = the_noun)

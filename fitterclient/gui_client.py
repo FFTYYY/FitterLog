@@ -52,6 +52,13 @@ class Liaison(QObject):
 
 
 def main():
+	import urllib
+	import urllib.request
+	import pickle
+	resp = urllib.request.urlopen("http://127.0.0.1:8000/test").read()
+	print(pickle.loads(resp))
+	quit()
+	
 	path = os.path.abspath(os.path.join(os.path.dirname(__file__) , './main.qml'))
 	path = path.replace("\\" , "/")
 	path = "file:///" + path

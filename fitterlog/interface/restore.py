@@ -1,6 +1,12 @@
 from fitterdb.static_list import StaticList_FileManager as Restorer
 from ..core.semasiology import Value
+from ..core.morphology import Noun
 from ..core.syntax import Clause
+
+def load_noun_number():
+	'''读取名词数量'''
+	return Noun.persister.get(Noun.COUTER)
+
 
 def load_syntax(noun):
 	'''给定名词，读取句子结构'''
