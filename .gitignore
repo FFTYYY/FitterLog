@@ -9,3 +9,5 @@ dist/*
 fitterlog_server_module-old/
 sftp-config.json
 *.eddx
+test
+fitterclient
