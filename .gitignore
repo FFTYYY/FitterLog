@@ -11,3 +11,4 @@ sftp-config.json
 *.eddx
 test
 fitterclient
+build
