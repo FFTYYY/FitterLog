@@ -61,7 +61,7 @@ class TestFittermaster(unittest.TestCase):
 		s2.finish()
 		time.sleep(1)
 
-		self.assertEqual (len(locker.ask_prefix("")) , 0)
+		self.assertEqual (len(locker.ask_prefix("" , not_none = True)) , 0)
 
 
 

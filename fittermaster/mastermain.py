@@ -1,6 +1,7 @@
 from YTools.system.locker import Locker
 import threading
 import time
+import os.path as P
 
 class ClientMaintainer(threading.Thread):
 	'''这个线程维护各种进程信息'''
@@ -22,19 +23,21 @@ class ClientMaintainer(threading.Thread):
 		while not self.closed:
 
 			# 获得活动的句子列表
-			now_live_clients = locker.ask_prefix(self.LIVE_LOCKER_PATH)
-			now_live_clients = [int(x[len(self.LIVE_LOCKER_PATH):-1]) for x in now_live_clients] 
+			now_live_clients = locker.ask_prefix(self.LIVE_LOCKER_PATH , only_suffix = True , not_none = True)
+			now_live_clients = [int(x) for x in now_live_clients] 
 			father.clients = now_live_clients
 
 			# 获得资源占用列表
-			clients_on_resources = father.empty_client_on_resources() #生成报告表
+			clients_on_resources = father.empty_client_on_resources() # 生成报告表
 			for resource_name , resource_ids in father.resource_ids.items():
-				prefix = self.RESOURCES_LOCKER_PATH + resource_name + "/" #查询的前缀
-				now_clients = locker.ask_prefix(prefix) 			#获得所有占用这个资源的句子对应的key
+				prefix = P.join(self.RESOURCES_LOCKER_PATH , resource_name)  # 查询的前缀
+				now_clients = locker.ask_prefix(prefix , not_none = True) 	 # 获得所有占用这个资源的句子对应的key
 				for client_key in now_clients:
-					now_noun = int( client_key[len(prefix):-1] ) 	#获得句子编号
-					now_ids = locker.get(client_key) 				#再查询一次获得具体占用资源的id
-					for _id in now_ids:	# 填报告表
+					now_noun = int( P.relpath(client_key , prefix) ) # 获得句子编号
+					now_ids = locker.get(client_key) 				 # 再查询一次获得具体占用资源的id
+					if now_ids is None: #突然finish
+						continue
+					for _id in now_ids:								 # 填报告表
 						clients_on_resources[resource_name][_id].append(now_noun)
 			father.clients_on_resources = clients_on_resources
 
@@ -50,7 +53,7 @@ class Master:
 	LOCKER_PATH = "fitterlog/mastermain/"
 	locker = Locker()
 
-	SYNC_TIME = 1 #子进程行为同步时间
+	SYNC_TIME = 0.05 #子进程行为同步时间
 
 	def __init__(self , resources = []):
 		'''

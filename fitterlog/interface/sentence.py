@@ -163,4 +163,4 @@ class Sentence(CoreSentence):
 
 	def finish(self):
 		for x in self._setted_key:
-			self.locker.set(x , None)
+			self.locker.remove(x)
