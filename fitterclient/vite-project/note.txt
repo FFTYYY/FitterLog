@@ -1,0 +1,11 @@
+逻辑是这样的，正常在/src里编写，用npm run dev可以用vite来在浏览器中预览
+要在窗口中预览，要先npm run build来生成/dist，然后elect_main.js引用的是dist中的文件，然后再npm run start来调用electron预览
+要生成可执行文件，在上一步之后进一步npm run make来用electron-forge生成可执行文件
+
+
+初始化：先初始化vite，选vue模式，然后安装NaiveUI，然后安装electron，然后安装electron-forge
+一是要自己添加elect_main.js来作为electron的入口，而是记得把elect_main.js中的index.html改到/dist里（electron比如定位到dist，不然会出错），三是记得在vite.config.js里加入，来让vite build的时候生成正确的路径
+  const path = require('path')
+  base: path.resolve(__dirname, './dist/'),
+
+* 但是，在调试（npm dev run）时又要把base改回来，真是蛋疼

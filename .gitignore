@@ -13,3 +13,7 @@ test/test_project
 test/other
 *.qmlc
 build
+fitterclient/vite-project/node_modues/
+fitterclient/vite-project/out/
+fitterclient/vite-project/public/
+代码约定.md
