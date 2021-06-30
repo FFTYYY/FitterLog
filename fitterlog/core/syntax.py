@@ -74,10 +74,16 @@ class Clause:
 			if fpred_id != -1:
 				clauses[fpred_id].add_son(clauses[spred_id])
 
+		if root is None: #未曾保存syntasx
+			return None
+
 		return clauses[root] #返回根节点
 
-	def linearize(self):
+	def linearize(self , rigor = False):
 		'''返回一个列表，描述树结构'''
+
 		if len(self.sons) > 0: 
-			return [self.predicate.name , [ x.linearize() for x in self.son_list() ]]
+			return [self.predicate.name , [ x.linearize(rigor = rigor) for x in self.son_list() ]]
+		if rigor: #更严谨，但是更不易读的表示
+			return [self.predicate.name]			
 		return self.predicate.name

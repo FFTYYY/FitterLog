@@ -45,7 +45,7 @@ def main():
 	ui.add_processor("syntax" , processer_ask_syntax    , "[noun_id: int] ask syntax of specific noun")
 	ui.add_processor("askval" , processer_ask_val       , "[noun_id: int, pred_name: str] ask a certain value")
 	ui.add_processor("askall" , processer_ask_all       , "[noun_id: int, pred_name: str] ask all values")
-	ui.fake_input("conn 127.0.0.1 7899")
+	ui.fake_input("conn 127.0.0.1 7898")
 	ui.fake_input("noun_cnt")
 	ui.fake_input("syntax 346")
 	ui.fake_input("askval 346 test loss")

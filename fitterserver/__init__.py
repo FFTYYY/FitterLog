@@ -21,9 +21,13 @@ def ask_all(request , noun_id , pred_name):
 	return load_all(the_noun , the_pred , False)
 
 if __name__ == "__main__":
+	from table_page import ask_titles , ask_datas
+
 	start_server(ip = "127.0.0.1" , port = "7899" , responsers = {
 		"noun_cnt" : noun_cnt , 
 		"ask_syntax/<int:noun_id>" : ask_syntax , 
 		"ask_all/<int:noun_id>/<str:pred_name>" : ask_all , 
 		"ask_val/<int:noun_id>/<str:pred_name>" : ask_val , 
-	})
+		"ask_titles" : ask_titles , 
+		"ask_datas"  : ask_datas , 
+	} , encode = "json" , cross_domain = True)
