@@ -28,11 +28,12 @@ class Value:
 		self.persister.append( (time_stamp , value) )
 
 	def set_default(self , value):
-		self.persister.append( (-1 , value) ) #设置-1位置的值
+		self.update( value )
 
 	def dump(self):
 		save_point = self.persister.save()
-		self.noun.set_position(self.predicate , save_point) #保存储存点
+		if save_point >= 0:
+			self.noun.set_position(self.predicate , save_point) #保存储存点
 
 	def load_last(self):
 		

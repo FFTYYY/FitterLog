@@ -163,10 +163,14 @@ export let dataloader = {
 			let [title_list , data_dict , num_loaded , pos] = await get_data(
 				this.ip , this.filter , this.cur_pos ,  this.trans_size , this.searc_size
 			)
-			// 直接返回的title_list类似于["root" , [ ... ] ] ， 所以要先取[1]
-			this.cur_title = mergetitle(this.cur_title , title_list[1]) 
+			if(title_list.length > 0){
 
-			push_title(this.cur_title) // 通知父函数最新的title_list
+				// 直接返回的title_list类似于["root" , [ ... ] ] ， 所以要先取[1]
+				this.cur_title = mergetitle(this.cur_title , title_list[1]) 
+
+				push_title(this.cur_title) // 通知父函数最新的title_list
+			}
+			
 			push_data(data_dict , this.cur_loaded , num_loaded) // 通知父函数新获得的data
 
 			this.cur_pos    = pos //pos需要保证：-1的话表示到头了

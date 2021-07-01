@@ -17,6 +17,7 @@ def my_float(val):
 		return None
 	return  float(val)
 
+# TODO: 考虑default
 def check_noun(noun_idx , filter_info):
 	noun = Noun(noun_idx)
 	for pred_name , cond_info in filter_info.items():

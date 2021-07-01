@@ -16,7 +16,7 @@ def load_last(noun , predicate , with_timestamp = True):
 	'''给定名词和谓词，读取最后一个值。不存在则返回None'''
 
 	position = noun.ask_position(predicate)
-	if position is None: #如果不存在，返回None
+	if position is None or position < 0: #如果不存在，返回None
 		ret_val = [None , None]
 	else:
 		with Restorer(Value.FILENAME) as restorer:
