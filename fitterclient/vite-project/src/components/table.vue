@@ -25,10 +25,10 @@ export default {
 		}
 	},
 	computed: {
-		columns: function(){ // 表格头。提供给template。
+		columns() { // 表格头。提供给template。
 			return (this.title_list == undefined) ? [] : make_columns(this.title_list[1])
 		},
-		datas  : function(){ // 表格数据。提供给template。
+		datas() { // 表格数据。提供给template。
 			return (this.data_dict == undefined) ? [] : make_datas  (this.data_dict )
 		},
 	},

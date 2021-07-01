@@ -11,6 +11,8 @@ main
 <template>
 		<div class = "the_header" ><fitter-header 
 			:title_list = title_list
+
+			@filter-update = update_filter
 		/></div>
 		<div class = "the_table"  ><fitter-table  
 			:title_list = title_list
@@ -19,7 +21,7 @@ main
 </template>
 
 <script>
-import get_data from "../scripts/main.js"
+import { get_data , make_filter } from "../scripts/main.js"
 import mytable  from "./table.vue"
 import myheader from "./header.vue"
 
@@ -30,12 +32,18 @@ export default {
 			data_dict : undefined, //读到的名词列表
 		}
 	},
-	components:{
+	components: {
 		"fitter-table" : mytable,
 		"fitter-header": myheader,
 	},	
-	created: function(){
+	created() {
 		get_data(this) //填充数据
+	},
+	methods: {
+		update_filter(filter_items) {
+			console.log(filter_items)
+			console.log(make_filter(filter_items))
+		}
 	}
 
 }
