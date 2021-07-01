@@ -2,7 +2,7 @@ export function titlelist2options(titlelist){
 	/*根据远端发送的title信息生成可以直接用于options的变量
 	
 	参数：
-	titlelist：形如 [  ["loss" , [ ["train"] , ["test"] ]]  , ["acc"] ]
+	titlelist：形如 [  ["loss" , [ ["train" , []] , ["test" , []] ]]  , ["acc" , []] ]
 
 	返回值：形如[
 		{
@@ -18,7 +18,7 @@ export function titlelist2options(titlelist){
 
 	*/
 
-	if(titlelist == undefined){
+	if(titlelist == undefined || titlelist == []){
 		return []
 	}
 
@@ -31,9 +31,7 @@ export function titlelist2options(titlelist){
 			"value": title_name , 
 			"label": title_name, 
 		})
-		if(t.length > 1){
-			ret = ret.concat(titlelist2options(t[1]))
-		}
+		ret = ret.concat(titlelist2options(t[1]))
 	}
 	return ret
 }

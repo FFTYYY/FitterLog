@@ -4,26 +4,10 @@ from fitterlog.core.morphology import Noun , Predicate
 from base64 import b64encode , b64decode
 import django
 
-def noun_cnt(request):
-	return load_noun_number()
-
-def ask_val(request , noun_id , pred_name):
-	the_noun = Noun(noun_id)
-	the_pred = Predicate(str(b64decode(pred_name) , encoding = "utf-8"))
-	return load_last(the_noun , the_pred , False)
-
-def ask_all(request , noun_id , pred_name):
-	the_noun = Noun(noun_id)
-	the_pred = Predicate(str(b64decode(pred_name) , encoding = "utf-8"))
-	return load_all(the_noun , the_pred , False)
 
 if __name__ == "__main__":
-	from table_page import ask_titles , ask_datas
+	from table_page import ask_datas
 
 	start_server(ip = "127.0.0.1" , port = "7899" , responsers = {
-		"noun_cnt"  : noun_cnt , 
-		"ask_all/<int:noun_id>/<str:pred_name>" : ask_all , 
-		"ask_val/<int:noun_id>/<str:pred_name>" : ask_val , 
-		"ask_titles" : ask_titles , 
 		"ask_datas"  : ask_datas , 
 	} , encode = "json" , cross_domain = True)

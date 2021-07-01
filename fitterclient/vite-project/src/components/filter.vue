@@ -80,8 +80,7 @@ export default {
 	},
 	computed: {
 		pred_options: function(){ // 选项列表。提供给template。
-			if(this.title_list == undefined) return []
-			return titlelist2options(this.title_list[1]) 
+			return titlelist2options(this.title_list) 
 		}
 	},
 	methods: {

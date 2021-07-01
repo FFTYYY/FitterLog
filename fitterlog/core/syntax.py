@@ -85,5 +85,5 @@ class Clause:
 		if len(self.sons) > 0: 
 			return [self.predicate.name , [ x.linearize(rigor = rigor) for x in self.son_list() ]]
 		if rigor: #更严谨，但是更不易读的表示
-			return [self.predicate.name]			
+			return [self.predicate.name , []]			
 		return self.predicate.name

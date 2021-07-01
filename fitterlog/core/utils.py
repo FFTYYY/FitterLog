@@ -9,7 +9,7 @@ def merge(clauses , name):
 	'''
 
 	if len(clauses) <= 0:
-		return []
+		return None
 
 	attrs = {}
 

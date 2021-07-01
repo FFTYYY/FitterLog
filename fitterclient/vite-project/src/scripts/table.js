@@ -3,7 +3,10 @@ export function maketitle(title_name){
 
 	return `fitter-title:${title_name}`
 }
- 
+function isnull(o){
+	return o == null || o == undefined 
+}
+
 export function make_columns(titlelist){
 	/*根据远端发送的title信息生成可以直接用于vue组件的title变量。
 	
@@ -33,6 +36,8 @@ export function make_columns(titlelist){
 
 	*/
 
+	if ( isnull(titlelist) )
+		return []
 	let ret = []
 	for(let t of titlelist)
 	{
@@ -78,6 +83,8 @@ export function make_datas(datadict){
 	]
 
 	*/
+	if ( isnull(datadict) )
+		return []
 
 	let ret = []
 	for(let key in datadict)

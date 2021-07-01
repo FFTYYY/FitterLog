@@ -16,20 +16,20 @@ main
 		/></div>
 		<div class = "the_table"  ><fitter-table  
 			:title_list = title_list
-			:data_dict  = data_dict
+			:data_box   = data_box
 		/></div>
 </template>
 
 <script>
-import { get_data , make_filter } from "../scripts/main.js"
+import { dataloader , make_filter } from "../scripts/main.js"
 import mytable  from "./table.vue"
 import myheader from "./header.vue"
 
 export default {
 	data: function(){
 		return {
-			title_list: undefined, //读到的title列表
-			data_dict : undefined, //读到的名词列表
+			title_list : undefined, // 读到的title列表
+			data_box   : undefined, // 向table组件传递data_dict所用的prop
 		}
 	},
 	components: {
@@ -37,12 +37,18 @@ export default {
 		"fitter-header": myheader,
 	},	
 	created() {
-		get_data(this) //填充数据
+		let me = this
+		dataloader.run(
+			(title_list) => {me.title_list = title_list}, 
+			(data_dict , start , num) => { me.data_box = [data_dict , start , num]}
+		)
+		dataloader.update_data({}) //一开始用一个空filter先跑一次，即获得全部数据
 	},
 	methods: {
 		update_filter(filter_items) {
 			console.log(filter_items)
-			console.log(make_filter(filter_items))
+			let filter = make_filter(filter_items)
+			dataloader.update_data(filter)
 		}
 	}
 
