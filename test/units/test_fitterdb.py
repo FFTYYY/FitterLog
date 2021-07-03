@@ -4,33 +4,32 @@ import random
 
 class TestStaticList(unittest.TestCase):
 
-	def test_init(self):
+	def test_save_and_load(self):
+		n = 100
+		m = 33
+		init_list = [random.random() for i in range(n)]
+		secd_list = [random.random() for i in range(m)]
+		my_list = StaticList("test" , init_list = init_list)
 
-		init_list = random.sample(range(1000) , 20)
-		l = StaticList(filename = "test" , init_list = init_list)
-		self.assertEqual(l , init_list)
+		self.assertEqual(my_list.recent() , init_list[-1])
+		self.assertEqual(len(my_list) , n)
 
-	def test_clear(self):
-		l = StaticList(filename = "test")
-		self.assertEqual(l.remember_last , None)
+		save_point = my_list.save()
+		self.assertEqual(my_list.recent() , init_list[-1])
+		self.assertEqual(len(my_list) , 0)
 
-	def test_size(self):
-		pass
+		for x in secd_list:
+			my_list.append(x)
+		self.assertEqual(my_list.recent() , secd_list[-1])
+		self.assertEqual(len(my_list) , m)
 
-	def test_active_size(self):
-		pass
 
-	def test_active_empty(self):
-		pass
+		anothor_list = StaticList("test" , init_list = [] , last_pos = save_point)
+		self.assertEqual(anothor_list.recent() , init_list[-1])
+		self.assertEqual(len(anothor_list) , 0)
 
-	def test_last(self):
-		pass
 
-	def test_active_nonlast(self): 
-		pass
 
-	def test_encode(self):
-		pass
 if __name__ == "__main__":
 	unittest.main()
 

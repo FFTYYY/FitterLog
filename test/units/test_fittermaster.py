@@ -1,3 +1,5 @@
+'''out of date'''
+
 import unittest
 import random
 from fittermaster.mastermain import Master

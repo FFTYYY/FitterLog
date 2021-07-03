@@ -1,3 +1,5 @@
+'''out of date'''
+
 import unittest
 from fitterlog.core.morphology import Predicate
 from fitterlog.interface import Sentence , Clause

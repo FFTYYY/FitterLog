@@ -109,8 +109,8 @@ def ask_datas(request):
 		now_data = {} 			# 当前名词的数据
 		for pred , default_val in zip(preds , defaults):
 			val = load_last(noun , pred , with_timestamp = False) 	# 获取记录的最后一个值
-			if val is None: 										# 使用默认值
-				val = default_val
+			# if val is None: 										# 使用默认值
+			# 	val = default_val
 			now_data[pred.name] = val 
 		data_dict[noun.id] = now_data
 

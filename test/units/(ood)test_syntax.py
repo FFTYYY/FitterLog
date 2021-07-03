@@ -1,3 +1,5 @@
+'''out of date'''
+
 import unittest
 from fitterlog.interface import Sentence , Clause
 from fitterlog.interface.restore import load_syntax

@@ -7,10 +7,9 @@ def load_noun_number():
 	'''读取名词数量'''
 	return Noun.persister.get(Noun.COUTER)
 
-
 def load_syntax(noun):
 	'''给定名词，读取句子结构'''
-	return Clause.load_clauses(noun)
+	return Clause.load(noun)
 
 def load_last(noun , predicate , with_timestamp = True):
 	'''给定名词和谓词，读取最后一个值。不存在则返回None'''
