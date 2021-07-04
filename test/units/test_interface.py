@@ -1,7 +1,7 @@
 import unittest
 from fitterlog.interface import Sentence , Clause
 import random
-from fitterlog.base.exceptions import ArgumentError
+from YTools.universe.exceptions import ArgumentError
 
 class TestInterface(unittest.TestCase):
 

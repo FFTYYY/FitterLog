@@ -2,7 +2,7 @@ from ..core.morphology import Predicate , Noun
 from ..core.semasiology import Value
 from ..core.syntax import Clause
 from YTools.system.locker import Locker
-from ..base.exceptions import ArgumentError
+from YTools.universe.exceptions import ArgumentError
 from ..base.constants import SENT_LOCK_PATH , SENT_KEY_AMBI , SENT_ATTR_DEFAULT
 
 class _CoreSentence_Syntax:
@@ -17,7 +17,7 @@ class _CoreSentence_Syntax:
 
 		if son_clause.name in self._sons:
 			raise ArgumentError( "_syntax_newson" , "son_clause.name" , son_clause.name , 
-				class_name = "_CoreSentence_Syntax" , note_str = "duplicated clause name"
+				class_name = "_CoreSentence_Syntax" , note_str = "Duplicated clause name"
 			)
 
 		son_core_sentence = CoreSentence(
@@ -26,7 +26,7 @@ class _CoreSentence_Syntax:
 			clause 		= son_clause , 
 		)
 
-		self._sons[son_clause.name]                   = son_core_sentence
+		self._sons[son_clause.name]                    = son_core_sentence
 		self._root._allson_real [son_clause.real_name] = son_core_sentence
 
 		if son_clause.name in self._root._allson_dire: # 根节点有重复的

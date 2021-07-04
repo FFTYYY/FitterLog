@@ -39,7 +39,7 @@ from YTools.system.static_hash import DoubleHash , HighDimHash , StaticBlob
 from .morphology import Predicate
 import json
 from ..base.constants import DB_NAME , CLAUSE_ROOT_NAME , TB_NAME_CLAUSE , CLAUSE_CONCAT
-from ..base.exceptions import ArgumentError
+from YTools.universe.exceptions import ArgumentError
 
 class Clause:
 	'''这个类是用于储存的Clause类。
