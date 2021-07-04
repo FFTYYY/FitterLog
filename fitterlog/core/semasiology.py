@@ -5,6 +5,7 @@
 
 from fitterdb.static_list import StaticList , StaticList_FileManager
 from .syntax import Clause
+from ..base.constants import FILE_NAME_VALUE
 
 class Value:
 	'''Value是StaticList的一个面向用户的封装。
@@ -16,7 +17,7 @@ class Value:
 		value：最近一次的值。只要给定了noun和predicate就可以保证这个value是真实的上一次的值。
 	'''
 
-	FILENAME = "fitterlog-value"
+	FILENAME = FILE_NAME_VALUE
 
 	def __init__(self , noun , predicate):
 		self.noun 		= noun

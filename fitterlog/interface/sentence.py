@@ -2,6 +2,8 @@ from ..core.morphology import Predicate , Noun
 from ..core.semasiology import Value
 from ..core.syntax import Clause
 from YTools.system.locker import Locker
+from ..base.exceptions import ArgumentError
+from ..base.constants import SENT_LOCK_PATH , SENT_KEY_AMBI , SENT_ATTR_DEFAULT
 
 class _CoreSentence_Syntax:
 	'''定义各种句法操作的模块
@@ -13,8 +15,10 @@ class _CoreSentence_Syntax:
 		只有这个函数可以更改_sons、_allson_dire、_allson_real
 		'''
 
-		if self._sons.get(son_clause.name) is not None:
-			raise ValueError("duplicated clause name")
+		if son_clause.name in self._sons:
+			raise ArgumentError( "_syntax_newson" , "son_clause.name" , son_clause.name , 
+				class_name = "_CoreSentence_Syntax" , note_str = "duplicated clause name"
+			)
 
 		son_core_sentence = CoreSentence(
 			root 		= self._root , # 继承自己的根节点
@@ -26,7 +30,7 @@ class _CoreSentence_Syntax:
 		self._root._allson_real [son_clause.real_name] = son_core_sentence
 
 		if son_clause.name in self._root._allson_dire: # 根节点有重复的
-			self._root._allson_dire[son_clause.name]   = "fitterlog-ambiguity"
+			self._root._allson_dire[son_clause.name]   = SENT_KEY_AMBI
 		else:
 			self._root._allson_dire[son_clause.name]   = son_core_sentence
 
@@ -69,13 +73,21 @@ class _CoreSentence_Value:
 			return self._sons[key]
 
 		if key in self._allson_dire:
-			if self._allson_dire[key] == "fitterlog-ambiguity":
-				raise KeyError("_CoreSentence_Value.__getitem__: Has multiple name %s" % key)
+
+			# 如果有歧义，抛出异常
+			if self._allson_dire[key] == SENT_KEY_AMBI:
+				raise ArgumentError("__getitem__" , "key" , key , 
+					class_name = "_CoreSentence_Value" , note_str = "Has multiple shortcut keys"
+				)
+			# 返回正常的值
 			return self._allson_dire[key]
 
 		if key in self._allson_real:
 			return self._allson_real[key]
-		raise KeyError("_CoreSentence_Value.__getitem__: no predicate named %s" % key)
+
+		raise ArgumentError("__getitem__" , "key" , key , 
+			class_name = "_CoreSentence_Value" , note_str = "No predicate name"
+		)
 
 class _CoreSentence_Persist:
 	'''保存，恢复模块'''
@@ -135,7 +147,7 @@ class CoreSentence(_CoreSentence_Syntax , _CoreSentence_Value , _CoreSentence_Pe
 	def value(self):
 		val = self._value.value
 		if val is None: # 如果没有任何值，就返回默认值
-			val = self.attrs.get("default")
+			val = self.attrs.get(SENT_ATTR_DEFAULT)
 		return val
 
 	# attrs的接口
@@ -145,7 +157,7 @@ class CoreSentence(_CoreSentence_Syntax , _CoreSentence_Value , _CoreSentence_Pe
 
 class Sentence(CoreSentence):
 
-	LOCKER_PATH = "fitterlog/sentence/"
+	LOCKER_PATH = SENT_LOCK_PATH
 
 	def __init__(self , predicate_struct = None , noun = None):
 		if noun is None:

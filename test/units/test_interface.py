@@ -1,7 +1,7 @@
 import unittest
 from fitterlog.interface import Sentence , Clause
 import random
-
+from fitterlog.base.exceptions import ArgumentError
 
 class TestInterface(unittest.TestCase):
 
@@ -44,7 +44,7 @@ class TestInterface(unittest.TestCase):
 		self.assertEqual(s["loss"].attrs["haha"] , 2333)
 		self.assertEqual(s["test"].attrs["display"] , True)
 		self.assertEqual(s["n"].attrs["default"] , 12)
-		with self.assertRaises(KeyError):
+		with self.assertRaises(ArgumentError):
 				print (s["dev"])
 		self.assertEqual(sb["dev"].attrs["default"] , 4)
 
@@ -58,13 +58,13 @@ class TestInterface(unittest.TestCase):
 		self.assertEqual(s["note"].value , "")
 		self.assertIs(s["m"].value , None)
 
-		with self.assertRaises(KeyError):
+		with self.assertRaises(ArgumentError):
 			s["num_layers"]
-		with self.assertRaises(KeyError):
+		with self.assertRaises(ArgumentError):
 			s["num_heads"]
-		with self.assertRaises(KeyError):
+		with self.assertRaises(ArgumentError):
 			s["d"]
-		with self.assertRaises(KeyError):
+		with self.assertRaises(ArgumentError):
 			s["is_torch"]
 
 		cmd_hyper = {
@@ -81,7 +81,7 @@ class TestInterface(unittest.TestCase):
 		self.assertEqual(s["d"].value 			, 128 	)
 		self.assertEqual(s["is_torch"].value 	, False	)
 
-		with self.assertRaises(KeyError):
+		with self.assertRaises(ArgumentError):
 			s["Acc"]
 
 		self.assertEqual(s["test"].value , 3)		
@@ -92,7 +92,7 @@ class TestInterface(unittest.TestCase):
 
 		self.assertIs(s["Acc"]["test"].value , None)
 		self.assertEqual(s["Acc"]["train"].value , 0)
-		with self.assertRaises(KeyError):
+		with self.assertRaises(ArgumentError):
 				print (s["test"])
 
 	def test_syntax(self):

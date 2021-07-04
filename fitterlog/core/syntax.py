@@ -38,7 +38,8 @@ clause = (
 from YTools.system.static_hash import DoubleHash , HighDimHash , StaticBlob
 from .morphology import Predicate
 import json
-
+from ..base.constants import DB_NAME , CLAUSE_ROOT_NAME , TB_NAME_CLAUSE , CLAUSE_CONCAT
+from ..base.exceptions import ArgumentError
 
 class Clause:
 	'''这个类是用于储存的Clause类。
@@ -50,11 +51,11 @@ class Clause:
 	每个从句的「名」有两个部分。直接名(name)是显示给用户的名称。真实名（real name）是谓词在数据库中的
 		名称。
 	'''
-	ROOT_NAME = "_fitterlog_root"
+	ROOT_NAME = CLAUSE_ROOT_NAME
 
 
 	# 储存子句结构和属性
-	persister = StaticBlob(db_name = "fitterlog" , tb_name = "fitterlog_clause") # 从(noun,pred)到2进制的映射
+	persister = StaticBlob(db_name = DB_NAME , tb_name = TB_NAME_CLAUSE) # 从(noun,pred)到2进制的映射
 
 	def __init__(self , name = None , sons = [] , **attrs):
 
@@ -81,7 +82,7 @@ class Clause:
 			fname = "" #没有father的人的默认name
 			if self.father is not None:
 				fname = self.father.real_name
-			self._real_name = "{0}-fitterlog-concat-{1}".format(fname , self.name)
+			self._real_name = "{0}{1}{2}".format(fname , CLAUSE_CONCAT , self.name)
 
 		return self._real_name
 
@@ -99,7 +100,7 @@ class Clause:
 
 	def from_list(l):
 		if len(l) != 3:
-			raise Exception("Clause.from_list: wrong argument.")
+			raise ArgumentError("from_list" , "l" , l , class_name = "Clause")
 
 		name , attrs , sons_list = l
 		sons = [Clause.from_list(x) for x in sons_list]

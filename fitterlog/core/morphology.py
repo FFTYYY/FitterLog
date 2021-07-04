@@ -1,4 +1,9 @@
 from YTools.system.static_hash import DoubleHash , HighDimHash
+from ..base.constants import DB_NAME
+from ..base.constants import TB_NAME_NOUN_PRED_POS , KEY_NOUN_CNT 
+from ..base.constants import TB_NAME_PRED_ID , KEY_PRED_CNT
+
+
 
 class Noun:
 	'''名词类，描述一个名词。注意名词和名词的编号一一对应，本质上这个类只是给编号赋予更多含义。
@@ -18,8 +23,8 @@ class Noun:
 		get_new_id
 		new
 	'''
-	persister = HighDimHash(db_name = "fitterlog" , tb_name = "fitterlog_noun_predicate") #查询名词和谓词对应的值的位置
-	COUTER = (-1,-1) #计数器key，统计目前有多少名词，用来生成名词编号。（注意这里key必须是二维向量所以用了-1,-1）
+	persister = HighDimHash(db_name = DB_NAME , tb_name = TB_NAME_NOUN_PRED_POS) #查询名词和谓词对应的值的位置
+	COUTER = KEY_NOUN_CNT #计数器key，统计目前有多少名词，用来生成名词编号。（注意这里key必须是二维向量所以用了-1,-1）
 
 	def __init__(self , id):
 		'''
@@ -59,8 +64,8 @@ class Predicate:
 	'''这个类用来建立谓词名（字符串）和谓词编号（整数）的双向持久化映射。
 	'''
 
-	persister = DoubleHash(db_name = "fitterlog" , tb_name = "fitterlog_predicate") # 查询谓词的名称和值
-	COUTER = "_fitterlog_count" # 计数器key，统计目前有多少谓词，用来生成谓词编号
+	persister = DoubleHash(db_name = DB_NAME , tb_name = TB_NAME_PRED_ID) # 查询谓词的名称和值
+	COUTER = KEY_PRED_CNT # 计数器key，统计目前有多少谓词，用来生成谓词编号
 
 	def __init__(self , name):
 		'''给定谓词名的初始化'''
