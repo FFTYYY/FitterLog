@@ -2,7 +2,7 @@ from ..core.morphology import Predicate , Noun
 from ..core.semasiology import Value
 from ..core.syntax import Clause
 from YTools.system.locker import Locker
-from YTools.universe.exceptions import ArgumentError
+from YTools.universe.exceptions import ArgumentError , YAttributeError
 from ..base.constants import SENT_LOCK_PATH , SENT_KEY_AMBI , SENT_ATTR_DEFAULT
 
 class _CoreSentence_Syntax:
@@ -68,26 +68,31 @@ class _CoreSentence_Value:
 	def update(self , value , time_stamp = None):
 		self._value.update(value , time_stamp)
 
-	def __getitem__(self , key):
+	def get_son(self , key , bad = None):
+		'''如果不存在，就返回None'''
 		if key in self._sons: # 从直接儿子中可以找到
 			return self._sons[key]
 
 		if key in self._allson_dire:
-
-			# 如果有歧义，抛出异常
-			if self._allson_dire[key] == SENT_KEY_AMBI:
-				raise ArgumentError("__getitem__" , "key" , key , 
-					class_name = "_CoreSentence_Value" , note_str = "Has multiple shortcut keys"
-				)
-			# 返回正常的值
 			return self._allson_dire[key]
 
 		if key in self._allson_real:
 			return self._allson_real[key]
 
-		raise ArgumentError("__getitem__" , "key" , key , 
-			class_name = "_CoreSentence_Value" , note_str = "No predicate name"
-		)
+		return bad
+
+	def __getitem__(self , key):
+		val = self.get_son(key)
+		if val == SENT_KEY_AMBI: # 有歧义
+			raise ArgumentError("__getitem__" , "key" , key , 
+				class_name = "_CoreSentence_Value" , note_str = "Has multiple shortcut keys"
+			)
+
+		if val is None: # 没找到
+			raise ArgumentError("__getitem__" , "key" , key , 
+				class_name = "_CoreSentence_Value" , note_str = "No predicate name"
+			)
+		return val
 
 class _CoreSentence_Persist:
 	'''保存，恢复模块'''
@@ -127,6 +132,9 @@ class CoreSentence(_CoreSentence_Syntax , _CoreSentence_Value , _CoreSentence_Pe
 		else:
 			self._clause = clause
 
+		if self._clause is None: #比如读取失败，这个noun没有存clause
+			raise YAttributeError("__init__" , "clause" , None , "CoreSentence")
+
 		self._pred  	 = Predicate(self._clause.real_name)
 		self._value 	 = Value(self._noun , self._pred)
 
@@ -154,6 +162,29 @@ class CoreSentence(_CoreSentence_Syntax , _CoreSentence_Value , _CoreSentence_Pe
 	@property	
 	def attrs(self):
 		return self._clause.attrs
+
+	@property	
+	def syntax(self):
+		return self._clause
+
+	@property	
+	def pred(self):
+		return self._pred
+
+	def all_sons(self): # 所有儿子的列表
+		return self._allson_real.values()
+
+	@property
+	def sons(self): # 儿子的dict
+		return self._sons
+
+	@property
+	def name(self): 
+		return self._clause.name
+	@property
+	def real_name(self): 
+		return self._clause.real_name
+
 
 class Sentence(CoreSentence):
 

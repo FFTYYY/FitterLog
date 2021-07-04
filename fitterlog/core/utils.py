@@ -33,7 +33,7 @@ def merge(clauses , name):
 
 	return Clause(name , ** attrs)
 
-def do_nothing_filter(clause , context , agg = None):
+def do_nothing_filter(clause , context , sons = None):
 	return True
 
 class ClauseFilter:
@@ -42,11 +42,11 @@ class ClauseFilter:
 
 
 	def unfold(self , clause):
-		agg = []
+		sons = []
 		if self.filter_enter(clause , self.context): #如果filter返回false，停止递归 
-			for _,c in clause.sons.items():
-				agg.append( self.unfold(c) )
-		return self.filter_exit(clause , self.context , agg)
+			for c in clause.sons.values():
+				sons.append( self.unfold(c) )
+		return self.filter_exit(clause , self.context , sons)
 
 	def run(self , clause , 
 			filter_enter = do_nothing_filter, filter_exit = do_nothing_filter , 

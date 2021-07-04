@@ -121,6 +121,10 @@ class StaticList_FileManager:
 
 		return start_point
 
+def check_lastpos(last_pos):
+	'''检查一个给定的last_pos输入是否合法'''
+	return last_pos is not None and int(last_pos) >= 0
+
 class StaticList(list , StaticList_FileManager):
 	'''这个类是一个可以持久化的list。正常使用就像普通的list一样。当调用save()后，会把所有数据保存下来，并返回
 		保存位置。只要记得保存的位置，下次可以从这个保存位置还原元素。
@@ -152,8 +156,7 @@ class StaticList(list , StaticList_FileManager):
 			self.last_pos = last_pos
 
 	def check_lastpos(self , last_pos):
-		'''检查一个给定的last_pos输入是否合法'''
-		return last_pos is not None and int(last_pos) >= 0
+		return check_lastpos(last_pos)
 
 	@property
 	def size(self):
