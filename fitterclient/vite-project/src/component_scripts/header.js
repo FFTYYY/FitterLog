@@ -1,4 +1,6 @@
-export function titlelist2options(titlelist){
+import {make_filter_title} from "../scripts/title_list_process.js"
+
+export function titlelist2options(titlelist , father_list = []){
 	/*根据远端发送的title信息生成可以直接用于options的变量
 	
 	参数：
@@ -24,14 +26,13 @@ export function titlelist2options(titlelist){
 
 
 	let ret = []
-	for(let t of titlelist)
+	for(let [title_name , sons] of titlelist)
 	{
-		let title_name = t[0]
 		ret.push({
-			"value": title_name , 
-			"label": title_name, 
+			"label": title_name , //TODO：搞成 father-son这种形式
+			"value": make_filter_title(title_name , father_list), 
 		})
-		ret = ret.concat(titlelist2options(t[1]))
+		ret = ret.concat(titlelist2options(sons , father_list.concat(title_name)))
 	}
 	return ret
 }

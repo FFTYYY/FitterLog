@@ -41,7 +41,7 @@ class StaticList_FileManager:
 
 		open(self.save_file_name , "ab+").close() 		#确保文件存在
 		self.file = open(self.save_file_name , "rb+") 	#以读写模式打开，这个模式下可以随意写，无视文件大小
-		add_quit_methods(self.close) 					#保证文件关闭
+		# add_quit_methods(self.close) 					
 
 		self.locker = Locker()
 		self.locker_name  = self.LOCKER_PATH + filename + "/" #在lokcer中使用的键的前缀
@@ -54,6 +54,10 @@ class StaticList_FileManager:
 
 	def close(self):
 		self.file.close()
+
+	def __del__(self):
+		# 保证文件关闭
+		self.close()
 
 	def read_head(self , save_pos):
 		'''从save_pos开始读，读取一个head'''

@@ -216,7 +216,16 @@ class Sentence(CoreSentence):
 		'''
 		self.set("resources/" + resource_name , ids)
 
+	def close(self):
+		'''关闭所有打开的文件'''
+		if hasattr(self , "_value"):
+			self._value.close()
 
-	def finish(self):
-		for x in self._setted_key:
-			self.locker.remove(x)
+	def clear(self):
+		if hasattr(self , "_setted_key"):
+			for x in self._setted_key:
+				self.locker.remove(x)
+		self.close()
+
+	def __del__(self):
+		self.clear()

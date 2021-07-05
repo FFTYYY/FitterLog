@@ -18,11 +18,16 @@ def my_float(val):
 		return None
 	return  float(val)
 
+def close_all(lis):
+	'''关闭所有文件'''
+	[s.close() for s in lis]
+
 def check_noun(noun , filter_info):
 	try:
 		s = Sentence(noun = noun)
 	except YAttributeError: # 读取失败
 		return None
+
 
 	for pred_name , cond_info in filter_info.items():
 		val = s.get_son(pred_name)
@@ -31,13 +36,18 @@ def check_noun(noun , filter_info):
 
 		if cond_info["type"] == "exists":
 			if val is None:
+				s.close() # 返回None的时候一定要关闭s
 				return None
+
 		if cond_info["type"] == "regular":
 			if re.search( cond_info["cond"] , str(val) ) is None:
+				s.close()
 				return None
+
 		if cond_info["type"] == "interval":
 			val = my_float(val) # 不是浮点数，条件不成立
 			if val is None:
+				s.close()
 				return None
 
 			l , r = cond_info["cond"]
@@ -46,7 +56,9 @@ def check_noun(noun , filter_info):
 			if None in [l,r]: # 不是浮点数，条件作废
 				continue
 			if val < l or val > r:
+				s.close()
 				return None
+				
 	return s # 返回一个sentence表示成功
 
 
@@ -82,7 +94,6 @@ def ask_datas(request):
 	# ----- 筛选名词 -----
 	noun_num = load_noun_number()
 	search_r = min( start+searc_size , noun_num) # 搜索范围上界
-	end_flag = search_r == noun_num # 这次是不是搜到头了
 
 	valid_sents = [] # 每一条记录： (noun , clause)
 	for noun_idx in range(start , search_r):
@@ -93,7 +104,10 @@ def ask_datas(request):
 			valid_sents.append( sent )
 
 			if len(valid_sents) > trans_size: # 记录够多了，就返回
+				search_r = noun_idx + 1 # 实际上搜到的上界
 				break
+
+	end_flag = search_r == noun_num # 这次是不是搜到头了
 
 	# 没有找到合法的数据的返回值
 	blank_response = {
@@ -106,7 +120,6 @@ def ask_datas(request):
 		return blank_response
 
 	# ----- 获得合法名词的clause的并 -----
-	clauses = [x.syntax for x in valid_sents]
 	merged_clause = merge(valid_sents , "root")
 
 	title_list = ClauseFilter().run(merged_clause , title_cf_enter , title_cf_exit)[0]
@@ -119,6 +132,7 @@ def ask_datas(request):
 		for s in valid_sents
 	}
 
+	close_all(valid_sents) # return之前先关闭文件
 	return {
 		"title_list": title_list , 
 		"data_dict" : data_dict , 

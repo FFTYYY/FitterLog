@@ -59,7 +59,7 @@
 
 <script>
 
-import {titlelist2options , get_opr_options} from "../scripts/header.js"
+import {titlelist2options , get_opr_options} from "../component_scripts/header.js"
 
 export default {
 	data: function(){

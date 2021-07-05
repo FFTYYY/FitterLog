@@ -69,3 +69,7 @@ class Value:
 			self.noun.set_position(self.predicate , save_point)
 			self.last_pos = save_point # 也更新自己的值
 
+	def close(self):
+		self.persister.close()
+	def __del__(self):
+		self.close()

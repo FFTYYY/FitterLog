@@ -4,7 +4,7 @@
 </template>
 
 <script>
-import {make_columns , make_datas} from "../scripts/table.js"
+import {make_columns , make_datas} from "../component_scripts/table.js"
 
 export default {
 	data: function(){
@@ -23,17 +23,18 @@ export default {
 				},
 			},
 
-			datas: [], // 表格数据。提供给template。每次由data_dict_box()更新
+			datas: [], // 表格数据。提供给template。每次由push_data更新
 		}
 	},
-	watch: {
-		data_box(new_val , old_val){
-			// 一个val是一个data_dict
-			let [data_dict , start , num] = new_val //加载了[start,start+num]这个区间的数据
-
+	methods: {
+		push_data(data_dict , start , num){
+			/*这个方法由父组件main调用，用于在接收到data后传递给table。因为接收数据的逻辑是在main中实现的。
+			*/
 			let data_made = make_datas(data_dict)
 			for(let i = start;i < start + num;i++)
-				this.datas[i] = data_made[i]
+				this.datas[i] = data_made[i-start]
+			if(this.datas.length > start + num)
+				this.datas = this.datas.slice(0,start + num)
 			// TODO: 清空后面的data
 		},
 	},
@@ -44,7 +45,6 @@ export default {
 	},
 	props: [
 		"title_list" , 
-		"data_box"  , 
 	],
 }
 </script>

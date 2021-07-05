@@ -14,14 +14,14 @@ main
 
 			@filter-update = update_filter
 		/></div>
-		<div class = "the_table"  ><fitter-table  
+		<div class = "the_table" ><fitter-table  
 			:title_list = title_list
-			:data_box   = data_box
+			ref 		= "the_table"
 		/></div>
 </template>
 
 <script>
-import { dataloader , make_filter } from "../scripts/main.js"
+import { dataloader , make_filter } from "../component_scripts/main.js"
 import mytable  from "./table.vue"
 import myheader from "./header.vue"
 
@@ -29,7 +29,6 @@ export default {
 	data: function(){
 		return {
 			title_list : undefined, // 读到的title列表
-			data_box   : undefined, // 向table组件传递data_dict所用的prop
 		}
 	},
 	components: {
@@ -40,7 +39,9 @@ export default {
 		let me = this
 		dataloader.run(
 			(title_list) => {me.title_list = title_list}, 
-			(data_dict , start , num) => { me.data_box = [data_dict , start , num]}
+			(data_dict , start , num) => { 
+				this.$refs.the_table.push_data(data_dict , start , num) //调用子组件方法
+			}
 		)
 		dataloader.update_data({}) //一开始用一个空filter先跑一次，即获得全部数据
 	},
