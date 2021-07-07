@@ -35,7 +35,7 @@ export default {
 				this.datas[i] = data_made[i-start]
 			if(this.datas.length > start + num)
 				this.datas = this.datas.slice(0,start + num)
-			// TODO: 清空后面的data
+			// TODO: 用更帅气的方式清空后面的data
 		},
 	},
 	computed: {

@@ -28,7 +28,7 @@ import myheader from "./header.vue"
 export default {
 	data: function(){
 		return {
-			title_list : undefined, // 读到的title列表
+			title_list : [], // 读到的title列表
 		}
 	},
 	components: {

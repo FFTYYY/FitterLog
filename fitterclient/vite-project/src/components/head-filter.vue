@@ -1,9 +1,8 @@
 <!-- 过滤器 -->
 
 <template>
-	<n-button type="primary" @click=onclick>选择器</n-button>
+	<n-button type="primary" @click=onclick>筛选器</n-button>
 
-	<!-- :show控制 -->
 	<n-modal v-model:show="show_main">
 		<n-card style="width: 80%;" title="筛选名词" :bordered="false" size="huge">
 			<template #header-extra> 
@@ -59,7 +58,8 @@
 
 <script>
 
-import {titlelist2options , get_opr_options} from "../component_scripts/header.js"
+import {get_opr_options} from "../component_scripts/header.js"
+import {make_filter_title , title_process} from "../scripts/title_list_process.js"
 
 export default {
 	data: function(){
@@ -79,8 +79,11 @@ export default {
 		}
 	},
 	computed: {
-		pred_options: function(){ // 选项列表。提供给template。
-			return titlelist2options(this.title_list) 
+		pred_options(){ // 选项列表
+			return title_process(this.title_list , [] , {
+				label: (title_name , father_list) => father_list.concat(title_name).join("-") , 
+				value: make_filter_title , 
+			} , undefined)
 		}
 	},
 	methods: {
