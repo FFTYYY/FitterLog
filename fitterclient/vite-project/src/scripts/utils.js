@@ -9,3 +9,12 @@ export var ID_COLUMN 	 	 = "fitter-id" // filter的title前缀
 export function isnull(o){
 	return o == null || o == undefined 
 }
+export function isnull_list(o){
+	return o == null || o == undefined  || o == []
+}
+export function isnull_str(o){
+	return o == null || o == undefined  || o == ""
+}
+export function isnull_obj(o){
+	return o == null || o == undefined  || o == {}
+}

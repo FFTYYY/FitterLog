@@ -1,16 +1,16 @@
 import {make_column_title , title_process} from "../scripts/title_list_process.js"
-import {isnull , ID_COLUMN} from "../scripts/utils.js"
+import {isnull_list , isnull_obj , ID_COLUMN} from "../scripts/utils.js"
 
 export function make_columns(titlelist){
 	/*将titlelist转成可以直接用于naiveui.table的columns的格式*/
 	let full_titlelist = [[ID_COLUMN , []]]
-	if(!isnull(titlelist))
+	if(!isnull_list(titlelist))
 		full_titlelist = full_titlelist.concat(titlelist)
 
 	return title_process(full_titlelist , [] , {
 		title: (titlename , fatherlist) => titlename == ID_COLUMN ? "id" : titlename , 
 		key  :  make_column_title , 
-	})
+	} , "children")
 }
 
 export function make_datas(datadict){
@@ -43,7 +43,7 @@ export function make_datas(datadict){
 	]
 
 	*/
-	if ( isnull(datadict) )
+	if ( isnull_obj(datadict) )
 		return []
 
 	let ret = []

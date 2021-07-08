@@ -1,7 +1,7 @@
 <!-- 过滤器 -->
 
 <template>
-	<n-button type="primary" @click=onclick>筛选器</n-button>
+	<n-button type="primary" @click=open_main>筛选器</n-button>
 
 	<n-modal v-model:show="show_main">
 		<n-card style="width: 80%;" title="筛选名词" :bordered="false" size="huge">
@@ -52,7 +52,6 @@
 
 		</n-card>
 	</n-modal>
-
 </template>
 
 
@@ -81,13 +80,13 @@ export default {
 	computed: {
 		pred_options(){ // 选项列表
 			return title_process(this.title_list , [] , {
-				label: (title_name , father_list) => father_list.concat(title_name).join("-") , 
+				label: (title_name , father_list) => father_list.concat(title_name).join("-"), 
 				value: make_filter_title , 
 			} , undefined)
 		}
 	},
 	methods: {
-		onclick () { //点击按钮时，弹出主界面
+		open_main () { //点击按钮时，弹出主界面
 			this.show_main = true
 		},
 		new_filter_line () { // 添加一行时的模板
@@ -114,7 +113,7 @@ export default {
 			this.$emit("filter-update" , this.filter_items)
 			this.show_main = false
 		},
-		sub_close(){ // 点击关闭千牛
+		sub_close(){ // 点击关闭按钮
 			this.show_main = false
 		}
 

@@ -1,8 +1,10 @@
 <!-- 负责渲染表头 -->
 
 <template>
-	<fitter-filter :title_list=title_list> </fitter-filter>
-	<fitter-selector :title_list=title_list> </fitter-selector>
+	<div>
+		<fitter-filter   :title_list=title_list @filter-update=pass_filter_update> </fitter-filter>
+		<fitter-selector :title_list=title_list> </fitter-selector>
+	</div>
 </template>
 
 
@@ -16,12 +18,17 @@ export default {
 		"fitter-filter"  : filter,  
 		"fitter-selector": selector,  
 	},
+	methods:{
+		pass_filter_update(x){ //向上传递filter-update事件
+			this.$emit("filter-update" , x)
+		}
+	},
 	props: [
 		"title_list", //从远端读到的title列表。由main提供
 	],
 	emits: [
-		"filter-update", // 更新过滤器事件。传递给main。
-	]
+		"filter-update" , 
+	],
 
 }
 </script>

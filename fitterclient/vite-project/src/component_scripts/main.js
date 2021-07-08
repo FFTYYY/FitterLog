@@ -1,8 +1,5 @@
 import axios from "axios"
-
-function isnull(o){
-	return o == null || o == undefined || o == ""
-}
+import {isnull_str} from "../scripts/utils.js"
 
 export function make_filter(filter_items){
 	/* 将filter类输出的filter_items转成通知后端用的格式
@@ -46,7 +43,7 @@ export function make_filter(filter_items){
 		{
 			filter[item.pred] = {
 				"type" : "regular",
-				"cond" : isnull(item.content1) ? "" : item.content1, // null转成匹配全部
+				"cond" : isnull_str(item.content1) ? "" : item.content1, // null转成匹配全部
 			}
 		}
 		if(item.opr == "fitter-opt:interval")
@@ -54,8 +51,8 @@ export function make_filter(filter_items){
 			filter[item.pred] = {
 				"type" : "interval",
 				"cond" : [
-					isnull(item.content1) ? "-inf" : item.content1, // null转成inf
-					isnull(item.content2) ? "inf"  : item.content2,
+					isnull_str(item.content1) ? "-inf" : item.content1, // null转成inf
+					isnull_str(item.content2) ? "inf"  : item.content2,
 				], 
 			}
 		}

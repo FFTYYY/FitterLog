@@ -1,10 +1,10 @@
 import {CLAUSE_ROOT_NAME , CLAUSE_CONCAT , COLUMN_PREFIX , FILTER_PREFIX , SELECTOR_PREFIX} from "./utils.js"
-import {isnull} from "./utils.js"
+import {isnull_str , isnull_list , isnull_obj} from "./utils.js"
 
 function get_real_name(title_name , father_list){
 	/*对于给定的father_list和直接名title_name，生成一个真实名。
 	*/
-	if(!isnull(father_list))
+	if(!isnull_list(father_list))
 		return ["" , CLAUSE_ROOT_NAME].concat(father_list).concat(title_name).join(CLAUSE_CONCAT)
 	return title_name
 }
@@ -41,7 +41,7 @@ export function title_process(
 	title_list , 
 	father_list   = [] , 
 	key_and_funcs = {} , 
-	sons_key 	  = "children" , 
+	sons_key 	  = undefined , 
 	leaf_extra    = {} , 
 ){
 	/*根据远端发送的title信息生成可以直接用于vue组件的title变量。
@@ -72,7 +72,7 @@ export function title_process(
 	]
 
 	*/
-	if ( isnull(title_list) )
+	if ( isnull_list(title_list) )
 		return []
 
 	let ret = []
@@ -87,27 +87,26 @@ export function title_process(
 				
 
 		// 为叶子添加额外属性
-		if((isnull(sons) || sons.length <= 0) && (!isnull(leaf_extra))){
+		if((isnull_list(sons) || sons.length <= 0) && (!isnull_obj(leaf_extra))){
 			for(let key in leaf_extra){
 				let func = leaf_extra[key]
 				cur[key] = func(title_name , father_list)
 			}
 		}
 
-		if(sons_key == undefined) //拉成平面
+		if(isnull_str(sons_key)) //拉成平面
 		{
 			ret = ret.concat(title_process(
 					sons , father_list.concat([title_name]) , key_and_funcs , sons_key , leaf_extra
 			))
 		}
 		else{
-			if((!isnull(sons)) && sons.length > 0){ //有后代节点
+			if((!isnull_list(sons)) && sons.length > 0){ //有后代节点
 				cur[sons_key] = title_process(
 					sons , father_list.concat([title_name]) , key_and_funcs , sons_key , leaf_extra
 				)
 			}
 		}
-
 
 		ret.push(cur)
 	}
