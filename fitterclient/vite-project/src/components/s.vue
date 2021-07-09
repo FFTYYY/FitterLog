@@ -15,8 +15,6 @@
 			:data="tree_data"
 			:selectable="false"
 			draggable
-			pattern="haha"
-			default-expand-all
 			:checked-keys="checkedKeys"
 			:expanded-keys="expandedKeys"
 			v-model:selected-keys="selected"
@@ -31,13 +29,15 @@
 </template>
 
 <script>
-import { make_selector_title , title_process } from "../scripts/title_list_process.js"
-import { search_son , node2titlelist , on_selector_drop } from "../component_scripts/filter.js"
-import { get_selector_title_name} from "../component_scripts/filter.js"
+import {make_selector_title , title_process} from "../scripts/title_list_process.js"
+import {search_son , node2titlelist , on_selector_drop} from "../component_scripts/header.js"
+import { h, defineComponent, ref } from 'vue'
+import { NButton } from 'naive-ui'
 
 export default {
 	data(){return {
 		draged_title_list: [], // 拖动之后的title_list
+
 		show_main: false,
 		selected: [] , 
 		expandedKeys: [],
@@ -47,13 +47,27 @@ export default {
 	computed: {
 		tree_data(){
 			let data = title_process(this.draged_title_list , [] , {
-				label: get_selector_title_name,
+				label: (titlename , fatherlist) => titlename,
 				key: make_selector_title ,
 				isLeaf: (titlename , fatherlist) => false ,
 				fatherlist: (titlename , fatherlist) => fatherlist, 
+				suffix: (titlename , fatherlist) => {return () => 
+					h(
+						NButton, 
+						{ 
+							text: true, 
+							type: 'primary' 
+						}, 
+						{ 
+							default: () => 'Prefix' 
+						}
+					)
+				},
+
 			} , "children" , {
 				isLeaf: (titlename , fatherlist) => true , //覆盖之前生成的属性
 			})
+			console.log(data)
 			return data
 		}
 	},
