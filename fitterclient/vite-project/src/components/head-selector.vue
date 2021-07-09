@@ -90,7 +90,6 @@ export default {
 			}
 			let drag_idx = search_son(drag_container , drag_node.label) //拿起来的点是container的第几个
 			drag_container.splice(drag_idx, 1) //从drag_container中取出
-			console.log(drag_container , drag_idx)
 
 			// 寻找要放下的点的container
 			let tar_container = full_list
@@ -101,7 +100,7 @@ export default {
 			let tar_idx = search_son(tar_container , tar_node.label) //放下去的点是container的第几个
 
 			if (drop_pos == "inside") {
-				tar_container = tar_container[1][tar_idx] //转到tar_node本身
+				tar_container = tar_container[tar_idx][1] //转到tar_node本身
 				tar_container.push(node2titlelist(drag_node))
 			}
 			else {
