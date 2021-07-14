@@ -1,13 +1,13 @@
 <!-- 过滤器 -->
 
 <template>
-	<n-button type="primary" @click=open_main>筛选器</n-button>
+	<n-button type="primary" @click=visib_click>筛选器</n-button>
 
-	<n-modal v-model:show="show_main">
+	<n-modal v-model:show="visib_display">
 		<n-card style="width: 80%;" title="筛选名词" :bordered="false" size="huge">
 			<template #header-extra> 
-				<n-button @click=sub_apply>应用</n-button>
-				<n-button @click=sub_close>关闭</n-button>
+				<n-button @click=visib_apply>应用</n-button>
+				<n-button @click=visib_close>关闭</n-button>
 			</template>
 
 			<n-dynamic-input
@@ -18,14 +18,14 @@
 				<div style="width: 100%;">
 				<div style="display: flex; align-items: center;">
 					<n-select v-model:value="value.pred" :options="pred_options" placeholder="选择谓词"/>
-					<n-select v-model:value="value.opr"  :options="opr_options" />
+					<n-select v-model:value="value.opr"  :options= "opr_options" />
 
 					<!-- 输入正则表达式 -->
 					<n-input  
-						v-model:value="value.content1" 
-						type="input" 
-						v-show="show_input(value)" 
-						placeholder=正则表达式
+						v-model:value = "value.content1" 
+						v-show        = "show_input(value)" 
+						type          = "input" 
+						placeholder   = 正则表达式
 					>
 						<template #prefix>/</template>
 						<template #suffix>/</template>
@@ -34,16 +34,16 @@
 					
 					<!-- 输入左右区间 -->
 					<n-input 
-						v-model:value="value.content1" 
-						type="input" 
-						v-show="show_number_input(value)"
-						placeholder=左
+						v-model:value = value.content1
+						v-show        = show_number_input(value)
+						type          = input 
+						placeholder   = 左
 					/>
 					<n-input 
-						v-model:value="value.content2" 
-						type="input" 
-						v-show="show_number_input(value)"
-						placeholder=右
+						v-model:value = value.content2
+						v-show        = show_number_input(value)
+						type          = input
+						placeholder   = 右
 					/>
 
 				</div>
@@ -57,16 +57,14 @@
 
 <script>
 
-import {get_opr_options} from "../component_scripts/header.js"
-import {make_filter_key , predlist_process} from "../scripts/predlist_process.js"
+import { get_opr_options } from "../component_scripts/header.js"
+import { make_filter_key , predlist_process } from "../scripts/predlist_process.js"
 
 export default {
 	data: function(){
 		return {
-			show_main: false, // 主界面是否出现。提供给template。
-			noun_left: 0,
-			noun_right: -1,
-			filter_items: [	  // 储存动态录入的值。提供给template。
+			visib_display: false, // 主界面是否出现。提供给template。
+			filter_items: [	      // 储存动态录入的值。提供给template。
 				{
 					pred: null,
 					opr: "fitter-opt:exists",
@@ -80,15 +78,30 @@ export default {
 	computed: {
 		pred_options(){ // 选项列表
 			return predlist_process(this.predlist , [] , {
-				label: (predname , fatherlist) => fatherlist.concat(predname).join("-"), 
-				value: make_filter_key , 
+				label: (predname , fatherlist) => fatherlist.concat(predname).join("-"), // 生成给用户看到的文本
+				value: make_filter_key , // 给vue的key
 			} , undefined)
 		}
 	},
+	props: [
+		"predlist", // pred列表。由main传递。
+	],
 	methods: {
-		open_main () { //点击按钮时，弹出主界面
-			this.show_main = true
+
+		// ----- 以下几个 visib 开头的函数是处理弹出框的。 -----
+
+		visib_click () { //点击按钮时，弹出主界面
+			this.visib_display = true
 		},
+		visib_apply (){ //点击提交按钮
+			this.$emit("filter-update" , this.filter_items)
+			this.visib_display = false
+		},
+		visib_close(){ // 点击关闭按钮
+			this.visib_display = false
+		},
+
+		// ----- ----- 
 		new_filter_line () { // 添加一行时的模板
 			return {
 				pred: null,
@@ -98,6 +111,8 @@ export default {
 			}
 		},
 
+		// ----- 以下几个show开头的函数是控制每一行的输入框类型的 -----
+
 		show_input(value) { //是否显示input框
 			return value.opr == "fitter-opt:regular"
 		},
@@ -105,24 +120,10 @@ export default {
 			return value.opr == "fitter-opt:interval"
 		},
 
-		// number_validator(x) { //验证是否为数字
-		// 	return ! isNaN( x )
-		// },
-
-		sub_apply (){ //点击提交按钮
-			this.$emit("filter-update" , this.filter_items)
-			this.show_main = false
-		},
-		sub_close(){ // 点击关闭按钮
-			this.show_main = false
-		}
 
 	},
-	props: [
-		"predlist", // pred列表。由main传递。
-	],
 	emits: [
 		"filter-update", // 更新过滤器事件。传递给main。
-	]
+	],
 }
 </script>

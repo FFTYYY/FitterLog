@@ -10,8 +10,7 @@ main
 
 <template>
 		<div class = "the_header" ><fitter-header 
-			:predlist_orig     = predlist_orig
-			:predlist_selected = predlist_selected
+			:predlist     = predlist_orig
 
 			@filter-update   = update_filter
 			@selector-update = update_selector
@@ -40,6 +39,8 @@ export default {
 		"fitter-header": myheader,
 	},	
 	created() {
+
+		// 开启读取后台数据的循环。
 		let me = this
 		dataloader.run(
 			(predlist) => {me.predlist_orig = predlist}, 
@@ -47,7 +48,9 @@ export default {
 				this.$refs.the_table.push_data(data_dict , start , num) //调用子组件方法
 			}
 		)
-		dataloader.update_data({}) //一开始用一个空filter先跑一次，即获得全部数据
+
+		// 一开始用一个空filter先跑一次，即获得全部数据
+		dataloader.update_data({})
 	},
 	methods: {
 		update_filter(filter_items) {
