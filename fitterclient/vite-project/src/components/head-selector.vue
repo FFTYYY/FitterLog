@@ -14,6 +14,9 @@
 			block-line
 			:data="tree_data"
 			:selectable="false"
+			:allow-drop="allow_drop"
+			:on-dragstart="on_dragstart"
+
 			draggable
 			default-expand-all
 			@drop="ondrop"
@@ -25,22 +28,24 @@
 
 <script>
 import { make_selector_title , title_process } from "../scripts/title_list_process.js"
-import { search_son , node2titlelist , on_drop } from "../component_scripts/selector.js"
-import { get_title_label } from "../component_scripts/selector.js"
+import { get_title_label , on_drop , allow_drop } from "../component_scripts/selector.js"
 
 export default {
 	data(){return {
+		show_main: false,      // 主界面是否出现
+		dragging_node: undefined , //维护一个当前正在拖动的节点。
+
 		draged_title_list: [], // 拖动之后的title_list
-		show_main: false,
-		disabled: new Set(),
+		disabled: new Set(),   // 哪些title不要显示
 	}},
 	computed: {
 		tree_data(){
 			let me = this
 			let data = title_process(this.draged_title_list , [] , {
 				label: get_title_label(me),
-				key: make_selector_title ,
-				isLeaf: (titlename , fatherlist) => false ,
+				key  : make_selector_title ,
+				isLeaf    : (titlename , fatherlist) => false ,
+				titlename : (titlename , fatherlist) => titlename,
 				fatherlist: (titlename , fatherlist) => fatherlist, 
 			} , "children" , {
 				isLeaf: (titlename , fatherlist) => true , //覆盖之前生成的属性
@@ -58,15 +63,25 @@ export default {
 			}
 		},
 		sub_apply (){ //点击提交按钮
-			//this.$emit("filter-update" , this.filter_items)
+			this.$emit("selector-update" , {
+				"after-drag": this.draged_title_list ,
+				disabled: this.disabled
+			})
 			this.show_main = false
 		},
 		sub_close(){ // 点击关闭按钮
 			this.show_main = false
 		},
 		ondrop (e) {
-			on_drpo(e.dragNode , e.node , e.dropPosition , this.draged_title_list)
-		}
+			on_drop(this , e.dragNode , e.node , e.dropPosition , this.draged_title_list)
+		},
+		allow_drop(info) {
+			
+			return allow_drop(this , this.dragging_node , info.node , info.dropPosition , this.draged_title_list)
+		},
+		on_dragstart(info){
+			this.dragging_node = info.node
+		},
 	},
 	setup(){
 
@@ -74,5 +89,8 @@ export default {
 	props:[
 		"title_list" , 
 	],
+	emits:[
+		"selector-update" , 
+	]
 }
 </script>

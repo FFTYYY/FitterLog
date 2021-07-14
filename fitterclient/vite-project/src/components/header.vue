@@ -2,8 +2,14 @@
 
 <template>
 	<div>
-		<fitter-filter   :title_list=title_list @filter-update=pass_filter_update> </fitter-filter>
-		<fitter-selector :title_list=title_list> </fitter-selector>
+		<fitter-filter   
+			:title_list=title_list 
+			@filter-update=pass_filter_update
+		> </fitter-filter>
+		<fitter-selector 
+			:title_list=title_list
+			@selector-update=pass_selector_update
+		> </fitter-selector>
 	</div>
 </template>
 
@@ -21,13 +27,17 @@ export default {
 	methods:{
 		pass_filter_update(x){ //向上传递filter-update事件
 			this.$emit("filter-update" , x)
-		}
+		},
+		pass_selector_update(x){ //向上传递filter-update事件
+			this.$emit("selector-update" , x)
+		},
 	},
 	props: [
 		"title_list", //从远端读到的title列表。由main提供
 	],
 	emits: [
 		"filter-update" , 
+		"selector-update" , 
 	],
 
 }
