@@ -8,7 +8,6 @@ import warnings
 import json
 import re
 from YTools.universe.exceptions import ArgumentError , YAttributeError
-from fitterserver.clause_filters import title_cf_enter , title_cf_exit , data_cf_enter , data_cf_exit
 
 def my_float(val):
 	# 是不是浮点数
@@ -122,7 +121,7 @@ def ask_datas(request):
 	# ----- 获得合法名词的clause的并 -----
 	merged_clause = merge(valid_sents , "root")
 
-	title_list = ClauseFilter().run(merged_clause , title_cf_enter , title_cf_exit)[0]
+	title_list = merged_clause.listize(no_attr = True)
 
 	# ----- 生成 data_dict -----
 

@@ -15,15 +15,8 @@
 			:data="tree_data"
 			:selectable="false"
 			draggable
-			pattern="haha"
 			default-expand-all
-			:checked-keys="checkedKeys"
-			:expanded-keys="expandedKeys"
-			v-model:selected-keys="selected"
 			@drop="ondrop"
-			@update:checked-keys="handleCheckedKeysChange"
-			@update:expanded-keys="handleExpandedKeysChange"
-
 		/>
 
 	</n-card>
@@ -32,22 +25,20 @@
 
 <script>
 import { make_selector_title , title_process } from "../scripts/title_list_process.js"
-import { search_son , node2titlelist , on_selector_drop } from "../component_scripts/filter.js"
-import { get_selector_title_name} from "../component_scripts/filter.js"
+import { search_son , node2titlelist , on_drop } from "../component_scripts/selector.js"
+import { get_title_label } from "../component_scripts/selector.js"
 
 export default {
 	data(){return {
 		draged_title_list: [], // 拖动之后的title_list
 		show_main: false,
-		selected: [] , 
-		expandedKeys: [],
-		checkedKeys: [],
-		disabled: [],
+		disabled: new Set(),
 	}},
 	computed: {
 		tree_data(){
+			let me = this
 			let data = title_process(this.draged_title_list , [] , {
-				label: get_selector_title_name,
+				label: get_title_label(me),
 				key: make_selector_title ,
 				isLeaf: (titlename , fatherlist) => false ,
 				fatherlist: (titlename , fatherlist) => fatherlist, 
@@ -69,22 +60,12 @@ export default {
 		sub_apply (){ //点击提交按钮
 			//this.$emit("filter-update" , this.filter_items)
 			this.show_main = false
-			console.log(this.selected)
 		},
 		sub_close(){ // 点击关闭按钮
 			this.show_main = false
 		},
-
-		handleExpandedKeysChange (expandedKeys) {
-		  this.expandedKeys = expandedKeys
-		  console.log(this.expandedKeys)
-		},
-		handleCheckedKeysChange (checkedKeys) {
-		  this.checkedKeys = checkedKeys
-		  console.log(this.checkedKeys)
-		},
 		ondrop (e) {
-			on_selector_drop(e.dragNode , e.node , e.dropPosition , this.draged_title_list)
+			on_drpo(e.dragNode , e.node , e.dropPosition , this.draged_title_list)
 		}
 	},
 	setup(){

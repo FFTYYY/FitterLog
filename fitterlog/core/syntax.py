@@ -94,9 +94,12 @@ class Clause:
 		self.sons[clause.name] = clause
 		clause._set_father(self)
 
-	# 把自己转成list描述，但不描述属性
-	def listize(self):
-		return [self.name , self.attrs , [x.listize() for _,x in self.sons.items()]]
+	# 把自己转成list描述
+	def listize(self , no_attr = False):
+		sonlist = [x.listize(no_attr = no_attr) for _,x in self.sons.items()]
+		if no_attr:
+			return [self.name , sonlist]
+		return [self.name , self.attrs , sonlist]
 
 	def from_list(l):
 		if len(l) != 3:
