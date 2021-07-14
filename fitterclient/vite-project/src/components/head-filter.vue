@@ -58,7 +58,7 @@
 <script>
 
 import {get_opr_options} from "../component_scripts/header.js"
-import {make_filter_title , title_process} from "../scripts/title_list_process.js"
+import {make_filter_key , predlist_process} from "../scripts/predlist_process.js"
 
 export default {
 	data: function(){
@@ -79,9 +79,9 @@ export default {
 	},
 	computed: {
 		pred_options(){ // 选项列表
-			return title_process(this.title_list , [] , {
-				label: (title_name , father_list) => father_list.concat(title_name).join("-"), 
-				value: make_filter_title , 
+			return predlist_process(this.predlist , [] , {
+				label: (predname , fatherlist) => fatherlist.concat(predname).join("-"), 
+				value: make_filter_key , 
 			} , undefined)
 		}
 	},
@@ -119,7 +119,7 @@ export default {
 
 	},
 	props: [
-		"title_list", // title列表。由main传递。
+		"predlist", // pred列表。由main传递。
 	],
 	emits: [
 		"filter-update", // 更新过滤器事件。传递给main。

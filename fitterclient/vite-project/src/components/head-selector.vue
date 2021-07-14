@@ -1,4 +1,4 @@
-<!-- 这个模块接受完整的title_list，并允许用户筛选列，返回筛选后的selected_title_list -->
+<!-- 这个模块接受完整的predlist，并允许用户筛选列，返回筛选后的selected_predlist -->
 
 <template>
 	<n-button type="primary" @click=open_main>选择器</n-button>
@@ -27,28 +27,28 @@
 </template>
 
 <script>
-import { make_selector_title , title_process } from "../scripts/title_list_process.js"
-import { get_title_label , on_drop , allow_drop } from "../component_scripts/selector.js"
+import { make_selector_key  , predlist_process } from "../scripts/predlist_process.js"
+import { make_selector_text , on_drop , allow_drop } from "../component_scripts/selector.js"
 
 export default {
 	data(){return {
 		show_main: false,      // 主界面是否出现
 		dragging_node: undefined , //维护一个当前正在拖动的节点。
 
-		draged_title_list: [], // 拖动之后的title_list
-		disabled: new Set(),   // 哪些title不要显示
+		draged_predlist: [], // 拖动之后的predlist
+		disabled: new Set(),   // 哪些pref不要显示
 	}},
 	computed: {
 		tree_data(){
 			let me = this
-			let data = title_process(this.draged_title_list , [] , {
-				label: get_title_label(me),
-				key  : make_selector_title ,
-				isLeaf    : (titlename , fatherlist) => false ,
-				titlename : (titlename , fatherlist) => titlename,
-				fatherlist: (titlename , fatherlist) => fatherlist, 
+			let data = predlist_process(this.draged_predlist , [] , {
+				label: make_selector_text (me),
+				key  : make_selector_key ,
+				isLeaf    : (predname , fatherlist) => false ,
+				predname  : (predname , fatherlist) => predname,
+				fatherlist: (predname , fatherlist) => fatherlist, 
 			} , "children" , {
-				isLeaf: (titlename , fatherlist) => true , //覆盖之前生成的属性
+				isLeaf: (predname , fatherlist) => true , //覆盖之前生成的属性
 			})
 			return data
 		}
@@ -57,14 +57,14 @@ export default {
 		open_main () { //点击按钮时，弹出主界面
 			if(!this.show_main){
 				this.show_main = true
-				this.draged_title_list = JSON.parse(JSON.stringify(this.title_list))
- 														//弹出按钮时更新titlelist
+				this.draged_predlist = JSON.parse(JSON.stringify(this.predlist))
+ 														//弹出按钮时更新predlist
 														//TODO：应该是merge，暂时随便用一个deepcopy
 			}
 		},
 		sub_apply (){ //点击提交按钮
 			this.$emit("selector-update" , {
-				"after-drag": this.draged_title_list ,
+				"after-drag": this.draged_predlist ,
 				disabled: this.disabled
 			})
 			this.show_main = false
@@ -73,11 +73,11 @@ export default {
 			this.show_main = false
 		},
 		ondrop (e) {
-			on_drop(this , e.dragNode , e.node , e.dropPosition , this.draged_title_list)
+			on_drop(this , e.dragNode , e.node , e.dropPosition , this.draged_predlist)
 		},
 		allow_drop(info) {
 			
-			return allow_drop(this , this.dragging_node , info.node , info.dropPosition , this.draged_title_list)
+			return allow_drop(this , this.dragging_node , info.node , info.dropPosition , this.draged_predlist)
 		},
 		on_dragstart(info){
 			this.dragging_node = info.node
@@ -87,7 +87,7 @@ export default {
 
 	},
 	props:[
-		"title_list" , 
+		"predlist" , 
 	],
 	emits:[
 		"selector-update" , 

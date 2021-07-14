@@ -3,11 +3,11 @@
 <template>
 	<div>
 		<fitter-filter   
-			:title_list=title_list 
+			:predlist=predlist 
 			@filter-update=pass_filter_update
 		> </fitter-filter>
 		<fitter-selector 
-			:title_list=title_list
+			:predlist=predlist
 			@selector-update=pass_selector_update
 		> </fitter-selector>
 	</div>
@@ -33,7 +33,7 @@ export default {
 		},
 	},
 	props: [
-		"title_list", //从远端读到的title列表。由main提供
+		"predlist", //从远端读到的pred列表。由main提供
 	],
 	emits: [
 		"filter-update" , 

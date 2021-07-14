@@ -10,14 +10,15 @@ main
 
 <template>
 		<div class = "the_header" ><fitter-header 
-			:title_list = title_list_read
-			
-			@filter-update = update_filter
+			:predlist_orig     = predlist_orig
+			:predlist_selected = predlist_selected
+
+			@filter-update   = update_filter
 			@selector-update = update_selector
 
 		/></div>
 		<div class = "the_table" ><fitter-table  
-			:title_list = title_list_selected
+			:predlist   = predlist_orig
 			ref 		= "the_table"
 		/></div>
 </template>
@@ -30,8 +31,8 @@ import myheader from "./header.vue"
 export default {
 	data: function(){
 		return {
-			title_list_read : [], // 读到的title列表
-			title_list_selected : [], // 读到的title列表
+			predlist_orig     : [], // 读到的pred列表
+			predlist_selected : [], // 读到的pred列表
 		}
 	},
 	components: {
@@ -41,7 +42,7 @@ export default {
 	created() {
 		let me = this
 		dataloader.run(
-			(title_list) => {me.title_list_read = title_list}, 
+			(predlist) => {me.predlist_orig = predlist}, 
 			(data_dict , start , num) => { 
 				this.$refs.the_table.push_data(data_dict , start , num) //调用子组件方法
 			}

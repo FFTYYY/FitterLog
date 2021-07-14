@@ -40,11 +40,11 @@ export default {
 	},
 	computed: {
 		columns() { // 表格头。提供给template。
-			return make_columns(this.title_list)
+			return make_columns(this.predlist)
 		},
 	},
 	props: [
-		"title_list" , 
+		"predlist" , 
 	],
 }
 </script>

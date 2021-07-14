@@ -1,6 +1,6 @@
-import { h, defineComponent, ref } from 'vue'
-import { NText , NButton , NSwitch} from 'naive-ui'
-import { make_selector_title } from "../scripts/title_list_process.js"
+import { h, defineComponent, ref } from "vue"
+import { NText , NButton , NSwitch} from "naive-ui"
+import { make_selector_key } from "../scripts/predlist_process.js"
 import { isnull_list } from "../scripts/utils.js"
 
 export function get_son_idx (nodes , name) {
@@ -13,16 +13,16 @@ export function get_son_idx (nodes , name) {
 	return -1 //没有找到
 }
 
-export function node2titlelist(vm , node){
-	// 将node转成titlelist
+export function node2predlist(vm , node){
+	// 将node转成predlist
 	let child_list = []
 	if(!isnull_list(node.children)){ 
 		for(let c of node.children){
-			child_list.push(node2titlelist(vm , c))
+			child_list.push(node2predlist(vm , c))
 		}
 	}
 	return [
-		node.titlename , 
+		node.predname , 
 		child_list
 	]
 }
@@ -33,7 +33,7 @@ function search_son(container, node){
 		let idx = get_son_idx(container , father)
 		container = container[idx][1]
 	}
-	let drag_idx = get_son_idx(container , node.titlename) //拿起来的点是container的第几个
+	let drag_idx = get_son_idx(container , node.predname) //拿起来的点是container的第几个
 	return [container , drag_idx]
 }
 
@@ -54,7 +54,7 @@ export function on_drop(vm , drag_node , tar_node , drop_pos , full_list){
 	let [ tar_container , tar_idx] = search_son(full_list , tar_node)// 寻找要放下的点的container
 
 	// 放进去
-	let to_add = node2titlelist(vm , drag_node) 
+	let to_add = node2predlist(vm , drag_node) 
 
 	if (drop_pos == "inside") {
 		tar_container = tar_container[tar_idx][1] //转到tar_node本身
@@ -68,23 +68,23 @@ export function on_drop(vm , drag_node , tar_node , drop_pos , full_list){
 	}
 }
 
-function _get_title_label(vm , titlename , fatherlist){
-	let this_title = make_selector_title(titlename , fatherlist)
+function _make_selector_text(vm , predname , fatherlist){
+	let this_key = make_selector_key(predname , fatherlist) // 生成这个谓词对应的key
 	let disabled_set = vm.disabled
 	let ret = h(
 		"span", {}, 
 		[
 			h(NButton , {
 				onClick: ()=> {
-					if(disabled_set.has(this_title))
-						disabled_set.delete(this_title)
+					if(disabled_set.has(this_key))
+						disabled_set.delete(this_key)
 					else
-						disabled_set.add(this_title)
+						disabled_set.add(this_key)
 				} , 
 				text: true , 
 			} , {
 				default: () => { //TODO：更换图标
-					if(disabled_set.has(this_title))
+					if(disabled_set.has(this_key))
 						return "×"
 					else
 						return "√"
@@ -92,13 +92,13 @@ function _get_title_label(vm , titlename , fatherlist){
 			}
 			) , 
 			h(NText , {} , {
-				default: () => " " + titlename
+				default: () => " " + predname
 			}) , 
 		]
 	)
 	return ret
 }
 
-export function get_title_label(vm){
-	return (titlename , fatherlist) => {return _get_title_label(vm , titlename , fatherlist)}
+export function make_selector_text(vm){
+	return (predname , fatherlist) => {return _make_selector_text(vm , predname , fatherlist)}
 }
