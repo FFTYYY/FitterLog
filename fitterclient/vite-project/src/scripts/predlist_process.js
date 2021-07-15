@@ -1,7 +1,7 @@
 import {CLAUSE_ROOT_NAME , CLAUSE_CONCAT , COLUMN_PREFIX , FILTER_PREFIX , SELECTOR_PREFIX} from "./utils.js"
 import {isnull_str , isnull_list , isnull_obj} from "./utils.js"
 
-function get_real_name(predname , fatherlist){
+export function get_real_name(predname , fatherlist){
 	/*对于给定的fatherlist和直接名predname，生成一个真实名。
 	*/
 	if(!isnull_list(fatherlist))
@@ -15,20 +15,6 @@ export function make_column_key(predname , fatherlist){
 
 	return `${COLUMN_PREFIX}:${get_real_name(predname , fatherlist)}`
 }
-
-export function make_filter_key(predname , fatherlist){
-	/*对于给定的fatherlist和直接名predname，生成一个真实名。并转换成predlist的格式为filter的格式。
-	在filter中不添加前缀，直接用真实名，因为是要传给后端去筛选的。
-	*/
-	return get_real_name(predname , fatherlist)
-}
-export function make_selector_key(predname , fatherlist){
-	/*对于给定的fatherlist和直接名predname，生成一个真实名。并转换成predlist的格式为selector的格式。
-	*/
-
-	return `${SELECTOR_PREFIX}:${get_real_name(predname , fatherlist)}`
-}
-
 
 
 export function predlist_process(

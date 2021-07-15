@@ -1,6 +1,6 @@
 import { h, defineComponent, ref } from "vue"
 import { NText , NButton , NSwitch} from "naive-ui"
-import { make_selector_key } from "../scripts/predlist_process.js"
+import { get_real_name } from "../scripts/predlist_process.js"
 import { isnull_list } from "../scripts/utils.js"
 
 
@@ -87,7 +87,7 @@ function _make_selector_text(vm , predname , fatherlist){
 		predname  ：这一项的pred名。
 		fatherlist：这一项的父组件列表。
 	*/
-	let this_key = make_selector_key(predname , fatherlist) // 生成这个谓词对应的key
+	let this_key = get_real_name(predname , fatherlist) // 生成这个谓词对应的key
 	let disabled_set = vm.disabled
 	let ret = h(
 		"span", {}, 

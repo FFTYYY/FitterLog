@@ -17,13 +17,13 @@ main
 
 		/></div>
 		<div class = "the_table" ><fitter-table  
-			:predlist   = predlist_orig
+			:predlist   = predlist_proc
 			ref 		= "the_table"
 		/></div>
 </template>
 
 <script>
-import { dataloader , make_filter } from "../component_scripts/main.js"
+import { dataloader , make_filter , predlist_process} from "../component_scripts/main.js"
 import mytable  from "./table.vue"
 import myheader from "./header.vue"
 
@@ -31,7 +31,7 @@ export default {
 	data: function(){
 		return {
 			predlist_orig     : [], // 读到的pred列表
-			predlist_selected : [], // 读到的pred列表
+			predlist_proc     : [], // 读到的pred列表
 		}
 	},
 	components: {
@@ -61,7 +61,7 @@ export default {
 			let after_drag = e["after-drag"]
 			let disabled   = e["disabled"]
 
-			console.log(after_drag , disabled)
+			this.predlist_proc = predlist_process(after_drag , disabled)
 		},
 	}
 

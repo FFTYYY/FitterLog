@@ -58,7 +58,7 @@
 <script>
 
 import { get_opr_options } from "../component_scripts/header.js"
-import { make_filter_key , predlist_process } from "../scripts/predlist_process.js"
+import { get_real_name , predlist_process } from "../scripts/predlist_process.js"
 
 export default {
 	data: function(){
@@ -79,7 +79,7 @@ export default {
 		pred_options(){ // 选项列表
 			return predlist_process(this.predlist , [] , {
 				label: (predname , fatherlist) => fatherlist.concat(predname).join("-"), // 生成给用户看到的文本
-				value: make_filter_key , // 给vue的key
+				value: get_real_name , // 用realname作为给vue的key
 			} , undefined)
 		}
 	},

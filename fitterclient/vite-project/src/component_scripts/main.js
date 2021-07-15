@@ -1,5 +1,6 @@
 import axios from "axios"
-import {isnull_str} from "../scripts/utils.js"
+import { isnull_str } from "../scripts/utils.js"
+import { get_real_name } from "../scripts/predlist_process.js"
 
 export function make_filter(filter_items){
 	/* 将filter类输出的filter_items转成通知后端用的格式
@@ -58,6 +59,29 @@ export function make_filter(filter_items){
 		}
 	}
 	return filter
+}
+
+export function predlist_process(after_drag , disabled){
+	/*
+	参数：
+		after_drag：拖动之后的predlist
+		disabled：哪些项不要显示
+	*/
+	function _predlist_proc(now_list , fatherlist){
+		let ret = []
+		for(let [ predname , sons] of now_list){
+			let now_realname = get_real_name(predname , fatherlist)
+
+			if(disabled.has(now_realname))
+				continue
+			ret.push( [predname , _predlist_proc(sons , fatherlist.concat([predname]))] )
+		}
+		return ret
+	}
+
+	let ret = _predlist_proc(after_drag , [])
+	console.log(ret)
+	return ret
 }
 
 /* ----- 以下是关于数据传输的模块 ----- */

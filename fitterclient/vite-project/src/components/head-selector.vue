@@ -27,7 +27,7 @@
 </template>
 
 <script>
-import { make_selector_key  , predlist_process } from "../scripts/predlist_process.js"
+import { get_real_name      , predlist_process } from "../scripts/predlist_process.js"
 import { make_selector_text , on_drop , allow_drop } from "../component_scripts/selector.js"
 
 export default {
@@ -43,7 +43,7 @@ export default {
 			let me = this
 			let data = predlist_process(this.draged_predlist , [] , {
 				label: make_selector_text (me),
-				key  : make_selector_key      ,
+				key  : get_real_name          ,
 				isLeaf    : (predname , fatherlist) => false      ,
 				predname  : (predname , fatherlist) => predname   ,
 				fatherlist: (predname , fatherlist) => fatherlist , 
@@ -60,6 +60,7 @@ export default {
 
 		// ----- 以下几个 visib 开头的函数是处理弹出框的。 -----
 
+		// TODO: 解决这个
 		visib_click () { //点击按钮时，弹出主界面
 			if(!this.visib_display){
 				this.visib_display = true
