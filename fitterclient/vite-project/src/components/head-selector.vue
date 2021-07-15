@@ -42,8 +42,8 @@ export default {
 		tree_data(){
 			let me = this
 			let data = predlist_process(this.draged_predlist , [] , {
-				label: make_selector_text (me),
-				key  : get_real_name          ,
+				label     : make_selector_text (me),
+				key       : get_real_name          ,
 				isLeaf    : (predname , fatherlist) => false      ,
 				predname  : (predname , fatherlist) => predname   ,
 				fatherlist: (predname , fatherlist) => fatherlist , 
@@ -60,13 +60,9 @@ export default {
 
 		// ----- 以下几个 visib 开头的函数是处理弹出框的。 -----
 
-		// TODO: 解决这个
 		visib_click () { //点击按钮时，弹出主界面
 			if(!this.visib_display){
 				this.visib_display = true
-				this.draged_predlist = JSON.parse(JSON.stringify(this.predlist))
- 														//弹出按钮时更新predlist
-														//TODO：应该是merge，暂时随便用一个deepcopy
 			}
 		},
 		visib_apply (){ //点击提交按钮
@@ -90,6 +86,12 @@ export default {
 		dragger_on_dragstart(info){ // 维护目前正在拖动的节点
 			this.dragging_node = info.node
 		},
+
+	},
+	watch: {
+		predlist(new_val , old_val){
+			this.draged_predlist = JSON.parse(JSON.stringify(this.predlist)) //弹出按钮时更新predlist
+		}
 	},
 	setup(){
 

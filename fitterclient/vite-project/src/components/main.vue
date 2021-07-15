@@ -10,7 +10,7 @@ main
 
 <template>
 		<div class = "the_header" ><fitter-header 
-			:predlist     = predlist_orig
+			:predlist        = predlist_orig
 
 			@filter-update   = update_filter
 			@selector-update = update_selector
@@ -43,7 +43,7 @@ export default {
 		// 开启读取后台数据的循环。
 		let me = this
 		dataloader.run(
-			(predlist) => {me.predlist_orig = predlist}, 
+			(predlist) => {me.predlist_proc = me.predlist_orig = predlist}, 
 			(data_dict , start , num) => { 
 				this.$refs.the_table.push_data(data_dict , start , num) //调用子组件方法
 			}
